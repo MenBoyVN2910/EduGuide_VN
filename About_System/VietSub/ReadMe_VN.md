@@ -1,3 +1,9 @@
+## Tóm Tắt Sơ Bộ
+
+File README này mô tả tổng quan về một template dự án web full-stack hiện đại, sử dụng FastAPI ở backend và React ở frontend, đã được tích hợp sẵn Docker, CI/CD, bảo mật JWT và nhiều công cụ tiện ích khác — sẵn sàng để clone về và triển khai.
+
+=========================================================================================================
+
 ## Cách sử dụng
 
 Bạn có thể **chỉ cần fork hoặc clone** kho lưu trữ này và sử dụng ngay.
@@ -41,7 +47,7 @@ git remote add upstream git@github.com:fastapi/full-stack-fastapi-template.git
 git push -u origin master
 ```
 
-### Cập nhật từ mẫu gốc
+### Cập nhật từ mẫu gốc (Dùng Để cập nhật các thay đổi mới nhất từ mẫu gốc này)
 
 Sau khi sao chép kho lưu trữ và thực hiện các thay đổi, bạn có thể muốn lấy các thay đổi mới nhất từ mẫu gốc này.
 
@@ -72,7 +78,9 @@ Thao tác này sẽ tải xuống các thay đổi mới nhất từ mẫu này 
 git merge --continue
 ```
 
-### Cấu hình
+=========================================================================================================
+
+### Cấu hình (Đây là bước quan trọng để bảo mật dự án)
 
 Sau đó, bạn có thể cập nhật các cấu hình trong các tệp `.env` để tùy chỉnh cấu hình của mình.
 
@@ -98,7 +106,9 @@ python -c "import secrets; print(secrets.token_urlsafe(32))"
 
 Sao chép nội dung và sử dụng nó làm mật khẩu / khóa bí mật. Chạy lại lệnh này để tạo một khóa bảo mật khác.
 
-## Cách sử dụng - Phương án thay thế với Copier
+=========================================================================================================
+
+## Cách sử dụng - Phương án thay thế với Copier (Đây là phương án thay thế cho việc fork hoặc clone)
 
 Kho lưu trữ này cũng hỗ trợ tạo dự án mới bằng [Copier](https://copier.readthedocs.io).
 
