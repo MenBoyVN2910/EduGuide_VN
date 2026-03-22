@@ -1,31 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router"
 
-import useAuth from "@/hooks/useAuth"
+import ChatInterface from "@/components/Chat/ChatInterface"
 
 export const Route = createFileRoute("/_layout/")({
   component: Dashboard,
   head: () => ({
     meta: [
       {
-        title: "Dashboard - FastAPI Template",
+        title: "ChatBox AI Educational",
       },
     ],
   }),
 })
 
 function Dashboard() {
-  const { user: currentUser } = useAuth()
-
+  // Mở rộng div cha để ChatInterface có góc nhìn ChatGPT
   return (
-    <div>
-      <div>
-        <h1 className="text-2xl truncate max-w-sm">
-          Hi, {currentUser?.full_name || currentUser?.email} 👋
-        </h1>
-        <p className="text-muted-foreground">
-          Welcome back, nice to see you again!!!
-        </p>
-      </div>
+    <div className="flex h-[calc(100vh-140px)] w-full overflow-hidden rounded-xl border bg-background shadow-sm">
+      <ChatInterface />
     </div>
   )
 }

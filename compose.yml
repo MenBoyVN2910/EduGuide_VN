@@ -165,8 +165,24 @@ services:
 
       # Enable redirection for HTTP and HTTPS
       - traefik.http.routers.${STACK_NAME?Variable not set}-frontend-http.middlewares=https-redirect
+
+  neo4j:
+    image: neo4j:5
+    restart: always
+    environment:
+      - NEO4J_AUTH=neo4j/QAZplm6002
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j-data:/data
+    networks:
+      - default
+      - traefik-public
+
 volumes:
   app-db-data:
+  neo4j-data:
 
 networks:
   traefik-public:
