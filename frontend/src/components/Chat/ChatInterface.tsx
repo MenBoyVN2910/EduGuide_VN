@@ -1,46 +1,56 @@
-import React, { useState } from "react"
+import { useRef, useState } from "react"
 import MessageList from "./MessageList"
 import ChatInput from "./ChatInput"
-import { ChatMessageProps } from "./ChatMessage"
+import type { ChatMessageProps } from "./ChatMessage"
+import { useChatHistory } from "./ChatHistoryContext"
 
-const ChatInterface: React.FC = () => {
-  const [messages, setMessages] = useState<ChatMessageProps[]>([])
+const ChatInterface = () => {
+  const { activeId, activeConversation, updateConversation } = useChatHistory()
   const [isLoading, setIsLoading] = useState(false)
+  const prevActiveId = useRef(activeId)
+
+  // Messages đến từ conversation đang active
+  const messages: ChatMessageProps[] = activeConversation?.messages ?? []
+
+  // Reset loading state khi chuyển conversation (dùng ref tránh lint)
+  if (prevActiveId.current !== activeId) {
+    prevActiveId.current = activeId
+    setIsLoading(false)
+  }
 
   const handleSendMessage = async (text: string) => {
+    if (!activeId) return
+
     const newUserMsg: ChatMessageProps = {
       id: Date.now().toString(),
       role: "user",
       content: text,
     }
 
-    setMessages((prev) => [...prev, newUserMsg])
+    const updatedMessages = [...messages, newUserMsg]
+    updateConversation(activeId, updatedMessages)
     setIsLoading(true)
 
     try {
       // Gọi API thực tế tới Backend FastAPI
-      const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/v1/chatbot/chat`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/v1/chatbot/chat`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: updatedMessages }),
         },
-        body: JSON.stringify({
-          messages: [...messages, newUserMsg]
-        }),
-      })
+      )
 
-      if (!response.ok) {
-        throw new Error("API Route error")
-      }
+      if (!response.ok) throw new Error("API Route error")
 
       const data = await response.json()
-      
       const aiResponse: ChatMessageProps = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
         content: data.reply,
       }
-      setMessages((prev) => [...prev, aiResponse])
+      updateConversation(activeId, [...updatedMessages, aiResponse])
     } catch (error) {
       console.error(error)
       const errorResponse: ChatMessageProps = {
@@ -48,7 +58,7 @@ const ChatInterface: React.FC = () => {
         role: "assistant",
         content: "Xin lỗi, đã xảy ra lỗi kết nối đến Backend AI.",
       }
-      setMessages((prev) => [...prev, errorResponse])
+      updateConversation(activeId, [...updatedMessages, errorResponse])
     } finally {
       setIsLoading(false)
     }

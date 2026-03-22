@@ -1,4 +1,4 @@
-import { Briefcase, Home, Users } from "lucide-react"
+import { Home, StickyNote, Users } from "lucide-react"
 
 import { SidebarAppearance } from "@/components/Common/Appearance"
 import { Logo } from "@/components/Common/Logo"
@@ -11,10 +11,11 @@ import {
 import useAuth from "@/hooks/useAuth"
 import { type Item, Main } from "./Main"
 import { User } from "./User"
+import { ChatHistoryList } from "./ChatHistoryList"
 
 const baseItems: Item[] = [
   { icon: Home, title: "Dashboard", path: "/" },
-  { icon: Briefcase, title: "Items", path: "/items" },
+  { icon: StickyNote, title: "Ghi Chú", path: "/items" },
 ]
 
 export function AppSidebar() {
@@ -29,8 +30,9 @@ export function AppSidebar() {
       <SidebarHeader className="px-4 py-6 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:items-center">
         <Logo variant="responsive" />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="flex flex-col overflow-hidden">
         <Main items={items} />
+        <ChatHistoryList />
       </SidebarContent>
       <SidebarFooter>
         <SidebarAppearance />
