@@ -1,60 +1,30 @@
-import { Link } from "@tanstack/react-router"
+import { GraduationCap } from "lucide-react"
 
-import { useTheme } from "@/components/theme-provider"
-import { cn } from "@/lib/utils"
-import icon from "/assets/images/fastapi-icon.svg"
-import iconLight from "/assets/images/fastapi-icon-light.svg"
-import logo from "/assets/images/fastapi-logo.svg"
-import logoLight from "/assets/images/fastapi-logo-light.svg"
-
-interface LogoProps {
-  variant?: "full" | "icon" | "responsive"
-  className?: string
-  asLink?: boolean
-}
-
-export function Logo({
-  variant = "full",
-  className,
-  asLink = true,
-}: LogoProps) {
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === "dark"
-
-  const fullLogo = isDark ? logoLight : logo
-  const iconLogo = isDark ? iconLight : icon
-
-  const content =
-    variant === "responsive" ? (
-      <>
-        <img
-          src={fullLogo}
-          alt="FastAPI"
-          className={cn(
-            "h-6 w-auto group-data-[collapsible=icon]:hidden",
-            className,
-          )}
-        />
-        <img
-          src={iconLogo}
-          alt="FastAPI"
-          className={cn(
-            "size-5 hidden group-data-[collapsible=icon]:block",
-            className,
-          )}
-        />
-      </>
-    ) : (
-      <img
-        src={variant === "full" ? fullLogo : iconLogo}
-        alt="FastAPI"
-        className={cn(variant === "full" ? "h-6 w-auto" : "size-5", className)}
+export const Logo = (props: any) => {
+  return (
+    <div className="flex items-center gap-3 transition-all hover:opacity-90">
+      <img 
+        src="/assets/images/eduguide-logo.png" 
+        alt="EduGuide VN Logo" 
+        className="h-10 w-10 object-contain drop-shadow-md bg-white rounded-lg p-1"
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+          const sibling = e.currentTarget.nextElementSibling as HTMLElement;
+          if (sibling) sibling.style.display = 'flex';
+        }}
       />
-    )
-
-  if (!asLink) {
-    return content
-  }
-
-  return <Link to="/">{content}</Link>
+      <div className="hidden h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-tr from-blue-600 to-teal-500 shadow-md">
+        <GraduationCap className="h-6 w-6 text-white" />
+      </div>
+      
+      <div className="flex flex-col">
+        <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent dark:from-blue-400 dark:to-teal-300">
+          EduGuide
+        </span>
+        <span className="text-[10px] font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase -mt-1">
+          Vietnam
+        </span>
+      </div>
+    </div>
+  )
 }
