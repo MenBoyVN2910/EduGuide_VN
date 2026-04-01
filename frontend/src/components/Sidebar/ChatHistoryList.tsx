@@ -64,12 +64,12 @@ export function ChatHistoryList() {
           {!isCollapsed && conversations.map((conv) => {
             const isActive = conv.id === activeId
             return (
-              <SidebarMenuItem key={conv.id}>
+              <SidebarMenuItem key={conv.id} className="group/item relative">
                 <SidebarMenuButton
                   isActive={isActive}
                   onClick={() => handleSelect(conv.id)}
                   className={cn(
-                    "group/item pr-8 truncate",
+                    "pr-8 truncate",
                     isActive && "font-medium",
                   )}
                   tooltip={conv.title}

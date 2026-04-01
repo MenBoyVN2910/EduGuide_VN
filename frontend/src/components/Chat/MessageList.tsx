@@ -1,23 +1,43 @@
 import React, { useEffect, useRef } from "react"
-import ChatMessage, { ChatMessageProps } from "./ChatMessage"
-import { Sparkles, BookOpen, Clock, Lightbulb } from "lucide-react"
+import type { ChatMessageProps } from "./ChatMessage"
+import ChatMessage from "./ChatMessage"
+import { BookOpen, GraduationCap, Link2, Search } from "lucide-react"
 
 interface MessageListProps {
   messages: ChatMessageProps[]
-  onSuggestClick: (text: string) => void
+  onSendMessage?: (text: string) => void
 }
 
-const SUGGESTIONS = [
-  { icon: BookOpen, text: "Chương trình đào tạo ngành CNTT gồm những môn nào?" },
-  { icon: Clock, text: "Môn tiên quyết của Cấu trúc dữ liệu và Thuật toán là gì?" },
-  { icon: Lightbulb, text: "Gợi ý lộ trình học Trí tuệ Nhân tạo chuẩn nhất?" },
-  { icon: Sparkles, text: "Tôi cần học những môn tự chọn nào để nắm vững Web?" }
+const SAMPLES = [
+  {
+    icon: <BookOpen className="h-4 w-4 text-blue-500" />,
+    title: "Lộ trình học tập",
+    description: "Xem các môn học theo từng học kỳ của ngành CNTT.",
+    text: "Cho tôi biết lộ trình học tập ngành Công nghệ thông tin qua các năm."
+  },
+  {
+    icon: <GraduationCap className="h-4 w-4 text-emerald-500" />,
+    title: "Môn học tiên quyết",
+    description: "Kiểm tra điều kiện để đăng ký các môn chuyên ngành.",
+    text: "Các môn tiên quyết của môn Đồ án chuyên ngành là gì?"
+  },
+  {
+    icon: <Search className="h-4 w-4 text-orange-500" />,
+    title: "Môn tự chọn",
+    description: "Tư vấn chọn các nhóm môn chuyên sâu phù hợp.",
+    text: "Danh sách các môn học tự chọn và hướng dẫn cách chọn môn?"
+  },
+  {
+    icon: <Link2 className="h-4 w-4 text-purple-500" />,
+    title: "Chuẩn đầu ra",
+    description: "Thông tin về chứng chỉ ngoại ngữ và tin học.",
+    text: "Quy định về chuẩn đầu ra ngoại ngữ và tin học của trường?"
+  }
 ]
 
-const MessageList: React.FC<MessageListProps> = ({ messages, onSuggestClick }) => {
+const MessageList: React.FC<MessageListProps> = ({ messages, onSendMessage }) => {
   const bottomRef = useRef<HTMLDivElement>(null)
 
-  // Auto scroll to bottom
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" })
@@ -25,32 +45,37 @@ const MessageList: React.FC<MessageListProps> = ({ messages, onSuggestClick }) =
   }, [messages])
 
   return (
-    <div className="flex-1 w-full overflow-y-auto bg-slate-50/50 dark:bg-background/95">
+    <div className="flex-1 w-full overflow-y-auto bg-background text-foreground custom-scrollbar">
       {messages.length === 0 ? (
-        <div className="flex h-full flex-col items-center justify-center p-8 text-center text-muted-foreground animate-in fade-in duration-700">
-          <div className="mb-6 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600 p-5 shadow-lg shadow-blue-500/30">
-            <Sparkles className="h-10 w-10 text-white" />
+        <div className="flex h-full flex-col items-center justify-center p-6 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <div className="mb-8 text-center max-w-2xl px-4">
+            <h2 className="text-3xl font-extrabold tracking-tight mb-3 text-foreground/90 leading-tight">
+              Chào bạn <span className="inline-block animate-bounce">👋</span>
+            </h2>
+            <p className="text-muted-foreground text-lg font-medium">
+              Tôi là trợ lý ảo EduGuide. Tôi có thể giúp gì cho việc học của bạn hôm nay?
+            </p>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-            Xin chào! 👋
-          </h2>
-          <p className="max-w-xl text-lg mb-10 text-slate-600 dark:text-slate-400">
-            Tôi là trợ lý AI ảo giúp bạn trả lời các câu hỏi về chương trình đào tạo, môn học tiên quyết và gợi ý lộ trình học tập tối ưu.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl w-full px-4">
-            {SUGGESTIONS.map((s, i) => (
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
+            {SAMPLES.map((sample, idx) => (
               <button
-                key={i}
-                onClick={() => onSuggestClick(s.text)}
-                className="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 dark:border-border/50 bg-white dark:bg-card hover:bg-blue-50/50 dark:hover:bg-accent hover:border-blue-300 dark:hover:border-primary/30 transition-all text-left group shadow-sm hover:shadow-md"
+                key={idx}
+                onClick={() => onSendMessage?.(sample.text)}
+                className="flex flex-col items-start text-left p-5 rounded-[22px] border border-border/60 bg-muted/30 hover:bg-muted/50 hover:border-primary/30 hover:shadow-md transition-all group relative overflow-hidden"
               >
-                <div className="bg-blue-100 dark:bg-primary/10 p-2.5 rounded-xl text-blue-600 dark:text-primary group-hover:scale-110 transition-transform">
-                  <s.icon className="w-5 h-5" />
-                </div>
-                <span className="text-sm font-medium text-slate-700 dark:text-foreground/80 group-hover:text-blue-700 dark:group-hover:text-foreground">
-                  {s.text}
-                </span>
+                 <div className="absolute top-0 right-0 w-16 h-16 bg-primary/5 blur-2xl -mr-8 -mt-8 group-hover:bg-primary/10 transition-colors" />
+                 <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 rounded-xl bg-background shadow-sm ring-1 ring-border group-hover:ring-primary/20 transition-all">
+                       {sample.icon}
+                    </div>
+                    <span className="font-bold text-[15px] text-foreground/80 group-hover:text-primary transition-colors">
+                       {sample.title}
+                    </span>
+                 </div>
+                 <p className="text-xs text-muted-foreground leading-relaxed">
+                   {sample.description}
+                 </p>
               </button>
             ))}
           </div>

@@ -1,4 +1,5 @@
-import { Home, StickyNote, Users } from "lucide-react"
+import { Home, StickyNote, Users, LogIn } from "lucide-react"
+import { Link } from "@tanstack/react-router"
 
 import { SidebarAppearance } from "@/components/Common/Appearance"
 import { Logo } from "@/components/Common/Logo"
@@ -7,6 +8,9 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar"
 import useAuth from "@/hooks/useAuth"
 import { type Item, Main } from "./Main"
@@ -26,9 +30,9 @@ export function AppSidebar() {
     : baseItems
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader className="px-4 py-6 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:items-center">
-        <Logo variant="responsive" />
+    <Sidebar collapsible="icon" variant="sidebar">
+      <SidebarHeader className="px-4 py-6 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+        <Logo />
       </SidebarHeader>
       <SidebarContent className="flex flex-col overflow-hidden">
         <Main items={items} />
@@ -36,7 +40,27 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarAppearance />
-        <User user={currentUser} />
+        {currentUser ? (
+          <User user={currentUser} />
+        ) : (
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild size="lg" className="hover:bg-sidebar-accent">
+                <Link to="/login">
+                  <div className="flex items-center gap-2.5 w-full min-w-0">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 shrink-0 text-white shadow-sm ring-1 ring-black/10">
+                      <LogIn className="h-4 w-4" />
+                    </div>
+                    <div className="flex flex-col items-start min-w-0">
+                      <p className="text-sm font-semibold truncate w-full text-sidebar-foreground">Đăng nhập</p>
+                      <p className="text-xs text-sidebar-foreground/50 truncate w-full">Đồng bộ dữ liệu</p>
+                    </div>
+                  </div>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        )}
       </SidebarFooter>
     </Sidebar>
   )

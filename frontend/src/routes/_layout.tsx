@@ -1,6 +1,5 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router"
 
-import { Footer } from "@/components/Common/Footer"
 import { ChatHistoryProvider } from "@/components/Chat/ChatHistoryContext"
 import AppSidebar from "@/components/Sidebar/AppSidebar"
 import {
@@ -13,11 +12,6 @@ export const Route = createFileRoute("/_layout")({
   component: Layout,
   beforeLoad: async () => {
     // Tạm thời tắt check đăng nhập để xem UI Chatbot khi chưa có Backend
-    // if (!isLoggedIn()) {
-    //   throw redirect({
-    //     to: "/login",
-    //   })
-    // }
   },
 })
 
@@ -26,16 +20,15 @@ function Layout() {
     <ChatHistoryProvider>
       <SidebarProvider>
         <AppSidebar />
-        <SidebarInset>
-          <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b px-4">
-            <SidebarTrigger className="-ml-1 text-muted-foreground" />
-          </header>
-          <main className="flex-1 p-6 md:p-8">
-            <div className="mx-auto max-w-7xl">
-              <Outlet />
-            </div>
-          </main>
-          <Footer />
+        <SidebarInset className="flex flex-col h-svh overflow-hidden">
+          {/* Nút toggle sidebar — nổi ở góc trên trái */}
+          <div className="absolute top-3 left-3 z-20">
+            <SidebarTrigger className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg" />
+          </div>
+          {/* Nội dung chiếm toàn bộ màn hình */}
+          <div className="flex-1 overflow-hidden">
+            <Outlet />
+          </div>
         </SidebarInset>
       </SidebarProvider>
     </ChatHistoryProvider>
@@ -43,3 +36,4 @@ function Layout() {
 }
 
 export default Layout
+

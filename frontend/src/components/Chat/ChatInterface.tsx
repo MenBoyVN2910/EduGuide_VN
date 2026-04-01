@@ -65,9 +65,12 @@ const ChatInterface = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden bg-slate-50/30 dark:bg-background">
-      <MessageList messages={messages} onSuggestClick={handleSendMessage} />
-      <div className="w-full bg-gradient-to-t from-slate-50 dark:from-background via-slate-50/80 dark:via-background/80 to-transparent pt-8 pb-4">
+    <div className="flex h-full w-full flex-col overflow-hidden bg-background text-foreground">
+      {/* Message List */}
+      <MessageList messages={messages} onSendMessage={handleSendMessage} />
+      
+      {/* Input Area */}
+      <div className="w-full pb-6 pt-2">
         <ChatInput onSend={handleSendMessage} isLoading={isLoading} />
       </div>
     </div>

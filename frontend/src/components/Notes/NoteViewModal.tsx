@@ -1,125 +1,173 @@
 import { useEffect, useRef, useState } from "react"
-import { X, Save } from "lucide-react"
+import { X, Save, Copy, CheckCircle2, Trash2 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import type { Note } from "./NotesContext"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface NoteViewModalProps {
   note: Note
   open: boolean
   onClose: () => void
   onSave: (title: string, content: string) => void
+  onDelete?: (id: number) => void // Thêm option xóa từ modal
 }
 
-export function NoteViewModal({ note, open, onClose, onSave }: NoteViewModalProps) {
+export function NoteViewModal({ note, open, onClose, onSave, onDelete }: NoteViewModalProps) {
   const [title, setTitle] = useState(note.title)
   const [content, setContent] = useState(note.content)
+  const [copied, setCopied] = useState(false)
   const contentRef = useRef<HTMLTextAreaElement>(null)
 
-  // Sync khi note thay đổi
+  // Sync khi note thay đổi (e.g. cập nhật từ card hoặc context)
   useEffect(() => {
-    setTitle(note.title)
-    setContent(note.content)
+    if (note) {
+      setTitle(note.title)
+      setContent(note.content)
+    }
   }, [note])
 
-  // Auto-focus textarea khi mở
+  // Auto-focus khi mở
   useEffect(() => {
     if (open) {
-      setTimeout(() => contentRef.current?.focus(), 80)
+      const timer = setTimeout(() => contentRef.current?.focus(), 150)
+      return () => clearTimeout(timer)
     }
   }, [open])
 
-  // Đóng bằng Escape
+  // Phím tắt Escape
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
+    const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
     }
-    if (open) window.addEventListener("keydown", handler)
-    return () => window.removeEventListener("keydown", handler)
+    if (open) window.addEventListener("keydown", handleEsc)
+    return () => window.removeEventListener("keydown", handleEsc)
   }, [open, onClose])
 
   const handleSave = () => {
     onSave(title, content)
+    onClose()
+  }
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(content)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   return (
     <AnimatePresence>
       {open && (
         <>
-          {/* Overlay */}
+          {/* Backdrop mượt mà */}
           <motion.div
             key="overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-[3px]"
             onClick={onClose}
           />
 
-          {/* Modal */}
+          {/* Modal Container */}
           <motion.div
             key="modal"
-            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.94, y: 20 }}
-            transition={{ duration: 0.22, type: "spring", stiffness: 300, damping: 28 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            exit={{ opacity: 0, scale: 0.95, y: 30 }}
+            transition={{ type: "spring", stiffness: 350, damping: 30, mass: 0.8 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-full max-w-2xl bg-card border border-border/60 rounded-2xl shadow-2xl flex flex-col overflow-hidden max-h-[90vh]">
+            <div className="w-full max-w-3xl bg-card border border-border shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] rounded-[28px] flex flex-col overflow-hidden max-h-[85vh] animate-in zoom-in-95 duration-200">
               
-              {/* Header */}
-              <div className="flex items-center gap-3 px-5 py-4 border-b border-border/50 bg-muted/30">
-                <span className="text-xs font-mono font-bold text-primary bg-primary/10 rounded-full px-2 py-0.5">
+              {/* Header Editor - Thanh tiêu đề */}
+              <div className="flex items-center gap-4 px-6 md:px-8 py-5 border-b border-border/40 bg-muted/20">
+                <div className="shrink-0 h-8 w-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
                   #{note.id}
-                </span>
+                </div>
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Tiêu đề ghi chú..."
-                  className="flex-1 bg-transparent text-base font-semibold outline-none placeholder:text-muted-foreground/60 min-w-0"
+                  placeholder="Nhập tiêu đề..."
+                  className="flex-1 bg-transparent text-lg font-bold outline-none placeholder:text-muted-foreground/40 min-w-0"
                 />
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="shrink-0 rounded-lg p-1.5 hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
-                >
-                  <X size={16} />
-                </button>
+                
+                <div className="flex items-center gap-1">
+                   <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-9 w-9 rounded-full text-muted-foreground hover:bg-muted"
+                      onClick={handleCopy}
+                      title="Sao chép toàn bộ"
+                   >
+                     {copied ? <CheckCircle2 size={18} className="text-green-500" /> : <Copy size={18} />}
+                   </Button>
+                   <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted"
+                      onClick={onClose}
+                   >
+                     <X size={20} />
+                   </Button>
+                </div>
               </div>
 
-              {/* Textarea — nội dung chỉnh sửa như text bình thường */}
-              <div className="flex-1 overflow-y-auto p-5">
+              {/* Main Content — Distortion free focused typing area */}
+              <div className="flex-1 overflow-y-auto px-6 md:px-8 py-6 custom-scrollbar">
                 <textarea
                   ref={contentRef}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  placeholder="Nhập nội dung ghi chú...&#10;&#10;Bạn có thể xuống dòng tự do như trong một tài liệu văn bản."
-                  className={[
-                    "w-full h-full min-h-[300px] resize-none",
-                    "bg-transparent text-sm leading-7 outline-none",
-                    "placeholder:text-muted-foreground/50",
-                    "font-[inherit] whitespace-pre-wrap",
-                  ].join(" ")}
+                  placeholder="Bắt đầu nhập nội dung ghi chú của bạn tại đây...&#10;&#10;Sử dụng Enter để xuống dòng. Hệ thống tự động căn chỉnh và giữ định dạng cho bạn."
+                  className={cn(
+                    "w-full h-full min-h-[350px] resize-none",
+                    "bg-transparent text-[15px] leading-[1.8] outline-none",
+                    "placeholder:text-muted-foreground/30",
+                    "font-[inherit] whitespace-pre-wrap selection:bg-primary/20",
+                  )}
                 />
               </div>
 
-              {/* Footer */}
-              <div className="flex items-center justify-end gap-2 px-5 py-3 border-t border-border/50 bg-muted/20">
-                <Button type="button" variant="ghost" size="sm" onClick={onClose}>
-                  Hủy
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  className="gap-1.5"
-                  onClick={handleSave}
-                >
-                  <Save size={13} />
-                  Lưu
-                </Button>
+              {/* Action Footer */}
+              <div className="flex items-center justify-between gap-3 px-6 md:px-8 py-4 border-t border-border/40 bg-muted/10">
+                <div className="flex gap-2">
+                   {onDelete && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="h-9 rounded-xl px-4 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                        onClick={() => {
+                           onDelete(note.id);
+                           onClose();
+                        }}
+                      >
+                        <Trash2 size={15} />
+                      </Button>
+                   )}
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <Button 
+                    type="button" 
+                    variant="ghost" 
+                    className="h-10 rounded-xl px-6 text-sm font-medium" 
+                    onClick={onClose}
+                  >
+                    Hủy
+                  </Button>
+                  <Button
+                    type="button"
+                    className="h-10 rounded-xl px-7 gap-2 font-bold shadow-lg shadow-primary/20"
+                    onClick={handleSave}
+                  >
+                    <Save size={16} />
+                    Lưu thay đổi
+                  </Button>
+                </div>
               </div>
             </div>
           </motion.div>

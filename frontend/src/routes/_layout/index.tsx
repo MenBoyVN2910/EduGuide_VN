@@ -14,9 +14,8 @@ export const Route = createFileRoute("/_layout/")({
 })
 
 function Dashboard() {
-  // Mở rộng div cha để ChatInterface có góc nhìn ChatGPT
   return (
-    <div className="flex h-[calc(100vh-140px)] w-full overflow-hidden rounded-xl border bg-background shadow-sm">
+    <div className="flex h-full w-full overflow-hidden bg-background">
       <ChatInterface />
     </div>
   )

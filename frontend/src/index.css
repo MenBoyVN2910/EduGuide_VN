@@ -116,7 +116,11 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300 ease-in-out;
+  }
+  /* Chỉ áp dụng transition cho những thành phần chính để mượt mà nhất */
+  .sidebar, [role="navigation"], [role="main"], .bg-card, .bg-muted {
+    @apply transition-colors duration-300 ease-in-out;
   }
   button,
   [role="button"] {

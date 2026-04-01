@@ -1,24 +1,19 @@
-import { GraduationCap } from "lucide-react"
-
-export const Logo = (props: any) => {
+export const Logo = () => {
   return (
-    <div className="flex items-center gap-3 transition-all hover:opacity-90">
-      <img 
-        src="/assets/images/eduguide-logo.png" 
-        alt="EduGuide VN Logo" 
-        className="h-10 w-10 object-contain drop-shadow-md bg-white rounded-lg p-1"
+    <div className="flex items-center gap-3 transition-all hover:opacity-90 overflow-hidden">
+      {/* Logo icon — giữ cố định, không bị thu nhỏ */}
+      <img
+        src="/assets/images/eduguide-logo.png"
+        alt="EduGuide VN Logo"
+        className="h-10 w-10 shrink-0 object-contain drop-shadow-md bg-white rounded-lg p-1"
         onError={(e) => {
-          e.currentTarget.style.display = 'none';
-          const sibling = e.currentTarget.nextElementSibling as HTMLElement;
-          if (sibling) sibling.style.display = 'flex';
+          e.currentTarget.style.display = 'none'
         }}
       />
-      <div className="hidden h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-tr from-blue-600 to-teal-500 shadow-md">
-        <GraduationCap className="h-6 w-6 text-white" />
-      </div>
-      
-      <div className="flex flex-col">
-        <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent dark:from-blue-400 dark:to-teal-300">
+
+      {/* Text — ẩn khi sidebar ở icon mode */}
+      <div className="flex flex-col group-data-[collapsible=icon]:hidden">
+        <span className="text-xl font-bold tracking-tight bg-linear-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent dark:from-blue-400 dark:to-teal-300">
           EduGuide
         </span>
         <span className="text-[10px] font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase -mt-1">
