@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
+import { AlertCircle, Trash2 } from "lucide-react"
 
 import { UsersService } from "@/client"
 import { Button } from "@/components/ui/button"
@@ -27,7 +28,7 @@ const DeleteConfirmation = () => {
   const mutation = useMutation({
     mutationFn: () => UsersService.deleteUserMe(),
     onSuccess: () => {
-      showSuccessToast("Your account has been successfully deleted")
+      showSuccessToast("Tài khoản của bạn đã được xóa thành công")
       logout()
     },
     onError: handleError.bind(showErrorToast),
@@ -43,34 +44,40 @@ const DeleteConfirmation = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="destructive" className="mt-3">
-          Delete Account
+        <Button variant="destructive" className="mt-3 gap-2">
+          <Trash2 className="h-4 w-4" />
+          Xác nhận xóa tài khoản
         </Button>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle>Confirmation Required</DialogTitle>
-            <DialogDescription>
-              All your account data will be{" "}
-              <strong>permanently deleted.</strong> If you are sure, please
-              click <strong>"Confirm"</strong> to proceed. This action cannot be
-              undone.
+            <DialogTitle className="flex items-center gap-2 text-destructive">
+              <AlertCircle className="h-5 w-5" />
+              Yêu cầu xác nhận
+            </DialogTitle>
+            <DialogDescription className="pt-2">
+              Tất cả dữ liệu tài khoản của bạn sẽ bị{" "}
+              <strong className="text-foreground">xóa vĩnh viễn.</strong> Nếu bạn chắc chắn, hãy nhấn
+              nhấn <strong>"Xác nhận xóa"</strong> để tiếp tục. Hành động này
+              không thể khôi phục.
             </DialogDescription>
           </DialogHeader>
 
-          <DialogFooter className="mt-4">
+          <DialogFooter className="mt-6 gap-3 sm:gap-0">
             <DialogClose asChild>
               <Button variant="outline" disabled={mutation.isPending}>
-                Cancel
+                Hủy bỏ
               </Button>
             </DialogClose>
             <LoadingButton
               variant="destructive"
               type="submit"
               loading={mutation.isPending}
+              className="gap-2"
             >
-              Delete
+              <Trash2 className="h-4 w-4" />
+              Xác nhận xóa
             </LoadingButton>
           </DialogFooter>
         </form>

@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { User, Mail } from "lucide-react"
 
 import { UsersService, type UserUpdateMe } from "@/client"
 import { Button } from "@/components/ui/button"
@@ -16,6 +17,13 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { LoadingButton } from "@/components/ui/loading-button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import useAuth from "@/hooks/useAuth"
 import useCustomToast from "@/hooks/useCustomToast"
 import { cn } from "@/lib/utils"
@@ -23,7 +31,7 @@ import { handleError } from "@/utils"
 
 const formSchema = z.object({
   full_name: z.string().max(30).optional(),
-  email: z.email({ message: "Invalid email address" }),
+  email: z.string().email({ message: "Địa chỉ email không hợp lệ" }),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -52,7 +60,7 @@ const UserInformation = () => {
     mutationFn: (data: UserUpdateMe) =>
       UsersService.updateUserMe({ requestBody: data }),
     onSuccess: () => {
-      showSuccessToast("User updated successfully")
+      showSuccessToast("Cập nhật thông tin thành công")
       toggleEditMode()
     },
     onError: handleError.bind(showErrorToast),
@@ -64,7 +72,7 @@ const UserInformation = () => {
   const onSubmit = (data: FormData) => {
     const updateData: UserUpdateMe = {}
 
-    // only include fields that have changed
+    // chỉ bao gồm các trường đã thay đổi
     if (data.full_name !== currentUser?.full_name) {
       updateData.full_name = data.full_name
     }
@@ -81,90 +89,116 @@ const UserInformation = () => {
   }
 
   return (
-    <div className="max-w-md">
-      <h3 className="text-lg font-semibold py-4">User Information</h3>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-4"
-        >
-          <FormField
-            control={form.control}
-            name="full_name"
-            render={({ field }) =>
-              editMode ? (
+    <Card className="max-w-2xl border-none shadow-none bg-transparent md:bg-card md:border md:shadow-sm">
+      <CardHeader>
+        <CardTitle className="text-xl flex items-center gap-2">
+          <User className="h-5 w-5 text-primary" />
+          Thông tin cá nhân
+        </CardTitle>
+        <CardDescription>
+          Cập nhật thông tin cơ bản của bạn tại đây.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid gap-6"
+          >
+            <FormField
+              control={form.control}
+              name="full_name"
+              render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full name</FormLabel>
-                  <FormControl>
-                    <Input type="text" {...field} />
-                  </FormControl>
+                  <FormLabel className="flex items-center gap-2">
+                    <User className="h-4 w-4 text-muted-foreground" />
+                    Họ và tên
+                  </FormLabel>
+                  {editMode ? (
+                    <FormControl>
+                      <Input 
+                        type="text" 
+                        {...field} 
+                        className="bg-muted/30 focus-visible:bg-background transition-colors"
+                      />
+                    </FormControl>
+                  ) : (
+                    <div className="p-3 rounded-lg bg-muted/20 border border-transparent">
+                      <p
+                        className={cn(
+                          "truncate font-medium",
+                          !field.value && "text-muted-foreground",
+                        )}
+                      >
+                        {field.value || "Chưa cập nhật"}
+                      </p>
+                    </div>
+                  )}
                   <FormMessage />
                 </FormItem>
-              ) : (
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full name</FormLabel>
-                  <p
-                    className={cn(
-                      "py-2 truncate max-w-sm",
-                      !field.value && "text-muted-foreground",
-                    )}
+                  <FormLabel className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-muted-foreground" />
+                    Địa chỉ Email
+                  </FormLabel>
+                  {editMode ? (
+                    <FormControl>
+                      <Input 
+                        type="email" 
+                        {...field} 
+                        className="bg-muted/30 focus-visible:bg-background transition-colors"
+                      />
+                    </FormControl>
+                  ) : (
+                    <div className="p-3 rounded-lg bg-muted/20 border border-transparent">
+                      <p className="truncate font-medium">{field.value}</p>
+                    </div>
+                  )}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="flex items-center gap-3 pt-2">
+              {editMode ? (
+                <>
+                  <LoadingButton
+                    type="submit"
+                    loading={mutation.isPending}
+                    disabled={!form.formState.isDirty}
                   >
-                    {field.value || "N/A"}
-                  </p>
-                </FormItem>
-              )
-            }
-          />
-
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) =>
-              editMode ? (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input type="email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                    Lưu thay đổi
+                  </LoadingButton>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={onCancel}
+                    disabled={mutation.isPending}
+                  >
+                    Hủy bỏ
+                  </Button>
+                </>
               ) : (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <p className="py-2 truncate max-w-sm">{field.value}</p>
-                </FormItem>
-              )
-            }
-          />
-
-          <div className="flex gap-3">
-            {editMode ? (
-              <>
-                <LoadingButton
-                  type="submit"
-                  loading={mutation.isPending}
-                  disabled={!form.formState.isDirty}
+                <Button 
+                  type="button" 
+                  onClick={toggleEditMode}
+                  className="px-8"
                 >
-                  Save
-                </LoadingButton>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={onCancel}
-                  disabled={mutation.isPending}
-                >
-                  Cancel
+                  Chỉnh sửa
                 </Button>
-              </>
-            ) : (
-              <Button type="button" onClick={toggleEditMode}>
-                Edit
-              </Button>
-            )}
-          </div>
-        </form>
-      </Form>
-    </div>
+              )}
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }
 

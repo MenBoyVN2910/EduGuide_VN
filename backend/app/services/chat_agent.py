@@ -22,8 +22,7 @@ model = genai.GenerativeModel(
 def search_neo4j_context(query: str) -> str:
     """
     Search Neo4j for relevant context based on user query.
-    This is a mocked RAG retrieval step because dynamic Cypher generation
-    is complex, but here we can generate standard Cypher based on keywords.
+    Retrieves all courses with their prerequisites and corequisites.
     """
     # Try connecting
     try:
@@ -31,25 +30,39 @@ def search_neo4j_context(query: str) -> str:
     except Exception as e:
         return f"Warning: Neo4j connection failed ({str(e)}). No context retrieved."
         
-    # In a real Graph RAG, we would use an LLM to generate Cypher or use Vector search
-    # For this demo, let's do a basic full-text/keyword search if matched, or return all Courses
-    # We will just fetch a few sample nodes to provide context
     try:
+        # Lấy toàn bộ môn học cùng môn tiên quyết và môn song hành
         query_cypher = """
-        MATCH (c:Course) 
+        MATCH (c:Course)
         OPTIONAL MATCH (p:Course)-[:PREREQUISITE_FOR]->(c)
-        RETURN c.id AS id, c.name AS name, c.credits AS credits, collect(p.name) AS prerequisites
-        LIMIT 20
+        OPTIONAL MATCH (c)-[:COREQUISITE_WITH]->(co:Course)
+        RETURN c.id AS id, c.name AS name, c.credits AS credits, 
+               c.category AS category,
+               collect(DISTINCT p.name) AS prerequisites,
+               collect(DISTINCT co.name) AS corequisites
+        ORDER BY c.category, c.id
         """
         results = neo4j_db.execute_query(query_cypher)
         if not results:
             return "No data found in Neo4j graph."
             
-        context = "Here is some data from the Knowledge Graph:\n"
+        # Lấy thông tin ngành
+        major_query = "MATCH (m:Major) RETURN m.name AS name, m.total_credits AS total_credits LIMIT 1"
+        major_results = neo4j_db.execute_query(major_query)
+        
+        context = ""
+        if major_results:
+            m = major_results[0]
+            context += f"Ngành: {m.get('name', '')} - Tổng: {m.get('total_credits', '')} tín chỉ tích lũy\n\n"
+        
+        context += "Danh sách môn học trong chương trình đào tạo:\n"
         for row in results:
-            prereqs = row.get('prerequisites', [])
-            prereq_str = f" (Môn tiên quyết: {', '.join(prereqs)})" if prereqs else ""
-            context += f"- Khóa học {row.get('id', '')}: {row.get('name', '')} ({row.get('credits', '')} tín chỉ){prereq_str}\n"
+            prereqs = [p for p in row.get('prerequisites', []) if p]
+            coreqs = [c for c in row.get('corequisites', []) if c]
+            prereq_str = f" | Tiên quyết: {', '.join(prereqs)}" if prereqs else ""
+            coreq_str = f" | Song hành: {', '.join(coreqs)}" if coreqs else ""
+            cat_str = f" [{row.get('category', '')}]" if row.get('category') else ""
+            context += f"- {row.get('id', '')}: {row.get('name', '')} ({row.get('credits', '')} TC){cat_str}{prereq_str}{coreq_str}\n"
         return context
     except Exception as e:
         return f"Error executing Cypher query: {str(e)}"
