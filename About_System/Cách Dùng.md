@@ -81,6 +81,8 @@ Mở Terminal **tại thư mục gốc** dự án (nơi có file `compose.yml`):
 docker compose up -d --build db neo4j backend  ####
 ```
 
+docker compose restart backend
+
 > ⏳ Lần đầu ở máy mới có thể mất **5–15 phút** để Docker tải image. Lần sau chỉ ~30 giây.
 
 Kiểm tra trạng thái:
