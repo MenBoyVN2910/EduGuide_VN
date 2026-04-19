@@ -169,7 +169,7 @@ services:
       - traefik.http.routers.${STACK_NAME?Variable not set}-frontend-http.middlewares=https-redirect
 
   neo4j:
-    image: neo4j:5
+    image: neo4j:2026
     restart: always
     environment:
       - NEO4J_AUTH=neo4j/QAZplm6002
