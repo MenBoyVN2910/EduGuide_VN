@@ -7,10 +7,11 @@ from sqlmodel import Field, Relationship, SQLModel
 
 
 def get_datetime_utc() -> datetime:
+    """Lấy thời gian hiện tại theo chuẩn UTC."""
     return datetime.now(timezone.utc)
 
 
-# Shared properties
+# ── Thuộc tính dùng chung cho User ────────────────────────────────────
 class UserBase(SQLModel):
     email: EmailStr = Field(unique=True, index=True, max_length=255)
     is_active: bool = True
@@ -18,18 +19,19 @@ class UserBase(SQLModel):
     full_name: str | None = Field(default=None, max_length=255)
 
 
-# Properties to receive via API on creation
+# ── Dữ liệu nhận từ API khi tạo người dùng ──────────────────────────
 class UserCreate(UserBase):
     password: str = Field(min_length=8, max_length=128)
 
 
+# ── Dữ liệu nhận từ API khi đăng ký tài khoản mới ──────────────────
 class UserRegister(SQLModel):
     email: EmailStr = Field(max_length=255)
     password: str = Field(min_length=8, max_length=128)
     full_name: str | None = Field(default=None, max_length=255)
 
 
-# Properties to receive via API on update, all are optional
+# ── Dữ liệu nhận từ API khi cập nhật thông tin ─────────────────────
 class UserUpdate(UserBase):
     email: EmailStr | None = Field(default=None, max_length=255)  # type: ignore
     password: str | None = Field(default=None, min_length=8, max_length=128)
@@ -45,7 +47,7 @@ class UpdatePassword(SQLModel):
     new_password: str = Field(min_length=8, max_length=128)
 
 
-# Database model, database table inferred from class name
+# ── Mô hình Cơ sở dữ liệu (Database Model) ──────────────────────────
 class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
@@ -53,10 +55,11 @@ class User(UserBase, table=True):
         default_factory=get_datetime_utc,
         sa_type=DateTime(timezone=True),  # type: ignore
     )
+    # Mối quan hệ: Một người dùng có nhiều Items
     items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
 
 
-# Properties to return via API, id is always required
+# ── Dữ liệu trả về qua API (Công khai) ──────────────────────────────
 class UserPublic(UserBase):
     id: uuid.UUID
     created_at: datetime | None = None
@@ -67,36 +70,37 @@ class UsersPublic(SQLModel):
     count: int
 
 
-# Shared properties
+# ── Thuộc tính dùng chung cho Item ────────────────────────────────────
 class ItemBase(SQLModel):
     title: str = Field(min_length=1, max_length=255)
     description: str | None = Field(default=None, max_length=255)
 
 
-# Properties to receive on item creation
+# ── Dữ liệu nhận khi tạo Item mới ────────────────────────────────────
 class ItemCreate(ItemBase):
     pass
 
 
-# Properties to receive on item update
+# ── Dữ liệu nhận khi cập nhật Item ───────────────────────────────────
 class ItemUpdate(ItemBase):
     title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
 
 
-# Database model, database table inferred from class name
+# ── Mô hình Cơ sở dữ liệu Item ───────────────────────────────────────
 class Item(ItemBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     created_at: datetime | None = Field(
         default_factory=get_datetime_utc,
         sa_type=DateTime(timezone=True),  # type: ignore
     )
+    # Khóa ngoại liên kết với bảng User
     owner_id: uuid.UUID = Field(
         foreign_key="user.id", nullable=False, ondelete="CASCADE"
     )
     owner: User | None = Relationship(back_populates="items")
 
 
-# Properties to return via API, id is always required
+# ── Dữ liệu Item trả về qua API ──────────────────────────────
 class ItemPublic(ItemBase):
     id: uuid.UUID
     owner_id: uuid.UUID
@@ -108,22 +112,23 @@ class ItemsPublic(SQLModel):
     count: int
 
 
-# Generic message
+# ── Thông báo chung ───────────────────────────────────────────────
 class Message(SQLModel):
     message: str
 
 
-# JSON payload containing access token
+# ── Thông tin Token (Dùng cho JWT) ──────────────────────────────────
 class Token(SQLModel):
     access_token: str
     token_type: str = "bearer"
 
 
-# Contents of JWT token
+# ── Dữ liệu giải mã từ JWT token ───────────────────────────────────
 class TokenPayload(SQLModel):
     sub: str | None = None
 
 
+# ── Mô hình cho việc đặt lại mật khẩu ────────────────────────────────
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=128)

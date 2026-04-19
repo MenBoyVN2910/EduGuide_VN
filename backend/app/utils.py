@@ -18,11 +18,13 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class EmailData:
+    """Cấu trúc dữ liệu chứa nội dung HTML và Tiêu đề email."""
     html_content: str
     subject: str
 
 
 def render_email_template(*, template_name: str, context: dict[str, Any]) -> str:
+    """Đọc và render template email bằng Jinja2."""
     template_str = (
         Path(__file__).parent / "email-templates" / "build" / template_name
     ).read_text()
@@ -36,7 +38,8 @@ def send_email(
     subject: str = "",
     html_content: str = "",
 ) -> None:
-    assert settings.emails_enabled, "no provided configuration for email variables"
+    """Thực hiện gửi email thông qua SMTP server đã cấu hình."""
+    assert settings.emails_enabled, "Chưa cấu hình các biến môi trường cho Email."
     message = emails.Message(
         subject=subject,
         html=html_content,
@@ -52,12 +55,13 @@ def send_email(
     if settings.SMTP_PASSWORD:
         smtp_options["password"] = settings.SMTP_PASSWORD
     response = message.send(to=email_to, smtp=smtp_options)
-    logger.info(f"send email result: {response}")
+    logger.info(f"Kết quả gửi email: {response}")
 
 
 def generate_test_email(email_to: str) -> EmailData:
+    """Tạo nội dung email thử nghiệm hệ thống."""
     project_name = settings.PROJECT_NAME
-    subject = f"{project_name} - Test email"
+    subject = f"{project_name} - Email thử nghiệm"
     html_content = render_email_template(
         template_name="test_email.html",
         context={"project_name": settings.PROJECT_NAME, "email": email_to},
@@ -66,8 +70,9 @@ def generate_test_email(email_to: str) -> EmailData:
 
 
 def generate_reset_password_email(email_to: str, email: str, token: str) -> EmailData:
+    """Tạo nội dung email phục hồi mật khẩu."""
     project_name = settings.PROJECT_NAME
-    subject = f"{project_name} - Password recovery for user {email}"
+    subject = f"{project_name} - Phục hồi mật khẩu cho người dùng {email}"
     link = f"{settings.FRONTEND_HOST}/reset-password?token={token}"
     html_content = render_email_template(
         template_name="reset_password.html",
@@ -85,8 +90,9 @@ def generate_reset_password_email(email_to: str, email: str, token: str) -> Emai
 def generate_new_account_email(
     email_to: str, username: str, password: str
 ) -> EmailData:
+    """Tạo nội dung email thông báo tài khoản mới được tạo."""
     project_name = settings.PROJECT_NAME
-    subject = f"{project_name} - New account for user {username}"
+    subject = f"{project_name} - Tài khoản mới cho người dùng {username}"
     html_content = render_email_template(
         template_name="new_account.html",
         context={
@@ -101,6 +107,7 @@ def generate_new_account_email(
 
 
 def generate_password_reset_token(email: str) -> str:
+    """Sinh JWT token phục vụ việc đặt lại mật khẩu (có thời hạn)."""
     delta = timedelta(hours=settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS)
     now = datetime.now(timezone.utc)
     expires = now + delta
@@ -114,6 +121,7 @@ def generate_password_reset_token(email: str) -> str:
 
 
 def verify_password_reset_token(token: str) -> str | None:
+    """Kiểm tra và giải mã token đặt lại mật khẩu."""
     try:
         decoded_token = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[security.ALGORITHM]
