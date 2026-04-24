@@ -1,373 +1,223 @@
-# 📚 HƯỚNG DẪN CÀI ĐẶT, KHỞI CHẠY VÀ SỬ DỤNG HỆ THỐNG EDUGUIDE VN
+# 📘 HƯỚNG DẪN VẬN HÀNH HỆ THỐNG EDUGUIDE VN
 
-> Tài liệu này bao gồm đầy đủ:
->
-> - **Phần 1** — Cài đặt & Khởi chạy hệ thống (2 phương thức)
-> - **Phần 2** — Hướng dẫn sử dụng từng tính năng
+> **Hệ thống Trợ lý Ảo Giáo dục hỗ trợ Tư vấn Tuyển sinh & Chương trình Đào tạo**
 
----
-
-## ⚙️ YÊU CẦU HỆ THỐNG CHUNG
-
-| Phần mềm           | Phiên bản | Mục đích                                  |
-| ------------------ | --------- | ----------------------------------------- |
-| **Docker Desktop** | Mới nhất  | Chạy toàn bộ hệ thống (Phương thức A)     |
-| **Python**         | ≥ 3.10    | Chạy backend (Phương thức B)              |
-| **uv**             | Mới nhất  | Quản lý môi trường Python (Phương thức B) |
-| **Bun**            | Mới nhất  | Chạy frontend (cả 2 phương thức)          |
-| **Neo4j Desktop**  | Mới nhất  | Cơ sở dữ liệu đồ thị (Phương thức B)      |
+Chào mừng bạn đến với **EduGuide VN**. Tài liệu này được thiết kế để giúp bất kỳ ai — từ người dùng cuối đến lập trình viên — có thể tự cài đặt, cấu hình và sử dụng hệ thống một cách trơn tru nhất.
 
 ---
 
-## 🔑 THÔNG TIN CẤU HÌNH MẶC ĐỊNH
+## 📑 Mục lục
 
-```
-📧 Tài khoản Admin:    admin@example.com
-🔑 Mật khẩu Admin:    changethis
-🌐 Giao diện Web:      http://localhost:5173
-🚀 Backend API:        http://localhost:8000
-📖 API Docs:           http://localhost:8000/docs
-🗄️  Neo4j Browser:     http://localhost:7474
-🔐 Neo4j Password:     QAZplm6002
-```
-
-> ⚠️ **Bảo mật:** Trước khi giao cho khách hàng, hãy đổi `FIRST_SUPERUSER_PASSWORD` và `SECRET_KEY` trong file `.env`.
+1. [Yêu cầu hệ thống](#-yêu-cầu-hệ-thống)
+2. [Cài đặt & Khởi chạy (2 Phương thức)](#-cài-đặt--khởi-chạy)
+   - [Cách 1: Docker (Nhanh & Ổn định)](#-cách-1-triển-khai-nhanh-với-docker)
+   - [Cách 2: Local Dev (Cho Lập trình viên)](#-cách-2-chạy-thủ-công-cho-lập-trình-viên)
+3. [Khởi tạo Dữ liệu Tri thức (Neo4j)](#-khởi-tạo-dữ-liệu-tri-thức)
+4. [Hướng dẫn Sử dụng Tính năng](#-hướng-dẫn-sử-dụng-tính-năng)
+5. [Xử lý lỗi thường gặp](#-xử-lý-lỗi-thường-gặp)
+6. [Thông tin Kỹ thuật & Cấu trúc](#-thông-tin-kỹ-thuật)
+7. [Cấu hình Typography (Giao diện văn bản)](#-cấu-hình-typography-giao-diện-văn-bản)
 
 ---
 
-# PHẦN 1 — CÀI ĐẶT & KHỞI CHẠY HỆ THỐNG
+## 💻 Yêu cầu hệ thống
 
-## 🔄 CHỌN PHƯƠNG THỨC PHÙ HỢP
-
-```
-Máy khách / Demo / Triển khai  ──►  Phương thức A (Docker)
-Lập trình viên / Phát triển    ──►  Phương thức B (Local Dev)
-```
-
----
-
-## 📦 PHƯƠNG THỨC A — DOCKER (KHUYÊN DÙNG CHO MÁY KHÁCH)
-
-Đây là cách đơn giản và ổn định nhất — chỉ cần 2 phần mềm, không cần cài Python hay Neo4j riêng.
-
-### Bước 1: Cài Docker Desktop
-
-- Tải tại: <https://www.docker.com/products/docker-desktop/>
-- Sau khi cài, **mở Docker Desktop lên** và chờ icon ở taskbar chuyển **xanh lá (Running)**.
-
-### Bước 2: Cài Bun
-
-Mở **PowerShell với quyền Administrator**, chạy:
-
-```powershell
-powershell -c "irm bun.sh/install.ps1 | iex"
-```
-
-### Bước 3: Copy dự án sang máy
-
-Copy toàn bộ thư mục `ChatBoxAI_Educational` vào máy. Đảm bảo file `.env` đã có trong thư mục gốc.
-
-### Bước 4: Tạo Docker Network (Chỉ cần 1 lần)
-
-```powershell
-docker network create traefik-public
-```
-
-### Bước 5: Khởi động hệ thống
-
-Mở Terminal **tại thư mục gốc** dự án (nơi có file `compose.yml`):
-
-```powershell
-docker compose up -d --build db neo4j backend  ####
-```
-
-docker compose restart backend
-
-> ⏳ Lần đầu ở máy mới có thể mất **5–15 phút** để Docker tải image. Lần sau chỉ ~30 giây.
-
-Kiểm tra trạng thái:
-
-```powershell
-docker compose ps
-```
-
-Khi tất cả status là `healthy` hoặc `running` là thành công.
-
-### Bước 6: Nạp dữ liệu vào Neo4j _(Chỉ làm 1 lần)_
-
-1. Mở trình duyệt → **<http://localhost:7474>**
-2. Đăng nhập: Username `neo4j` / Password `QAZplm6002`
-3. Mở file `CypherQuery/CNTT.txt` trong thư mục dự án
-4. **Copy toàn bộ nội dung** → Dán vào ô lệnh trên Neo4j Browser
-5. Nhấn **▶ Run** (hoặc `Ctrl+Enter`)
-6. Thành công khi thấy thông báo xanh lá
-
-### Bước 7: Chạy giao diện Web (Frontend)
-
-Mở một tab Terminal mới:
-
-```powershell
-cd frontend
-bun install
-bun run dev  ####
-```
-
-Truy cập web tại: **<http://localhost:5173>**
+| Thành phần         | Yêu cầu tối thiểu              | Ghi chú                          |
+| :----------------- | :----------------------------- | :------------------------------- |
+| **Hệ điều hành**   | Windows 10/11, macOS, Linux    | Ưu tiên 64-bit                   |
+| **Docker Desktop** | Phiên bản mới nhất             | Cần thiết cho Cách 1             |
+| **Python**         | ≥ 3.10                         | Cần thiết cho Cách 2             |
+| **Node.js/Bun**    | Bun (khuyên dùng) hoặc Node.js | Chạy giao diện người dùng        |
+| **RAM**            | Tối thiểu 8GB                  | Khuyên dùng 16GB để chạy mượt mà |
 
 ---
 
-## 🛠️ PHƯƠNG THỨC B — LOCAL DEVELOPMENT (DÀNH CHO LẬP TRÌNH VIÊN)
+## 🚀 Cài đặt & Khởi chạy
 
-### Cài đặt công cụ
+### 🔑 Thông tin mặc định
 
-1. **Python ≥ 3.10**: <https://www.python.org/downloads/> (✅ chọn _"Add Python to PATH"_)
+Sau khi khởi chạy thành công, các địa chỉ truy cập sẽ là:
 
-2. **uv** (quản lý môi trường Python):
+- **🌐 Giao diện Web:** `http://localhost:5173`
+- **🚀 Backend API:** `http://localhost:8000`
+- **🗄️ Quản trị Neo4j:** `http://localhost:7474` (User: `neo4j` / Pass: `QAZplm6002`)
+- **👤 Tài khoản Admin:** `admin@example.com` / `admin123`
 
-   ```powershell
-   powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+---
+
+### 📦 Cách 1: Triển khai nhanh với Docker (Khuyên dùng)
+
+_Phù hợp cho mục đích Demo, kiểm thử hoặc cài đặt trên máy khách hàng._
+
+1. **Cài đặt công cụ:**
+   - Tải và cài [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+   - Mở Docker Desktop và chờ icon ở taskbar hiện màu xanh (**Running**).
+2. **Khởi tạo Network (Chỉ làm 1 lần duy nhất):**
+   Mở Terminal (PowerShell hoặc CMD) và chạy:
+   ```bash
+   docker network create traefik-public
+   ```
+3. **Bật hệ thống:**
+   Di chuyển vào thư mục gốc của dự án (`ChatBoxAI_Educational`) và chạy:
+   ```bash
+   docker compose up -d --build
+   ```
+   > ⏳ **Lưu ý:** Lần đầu tiên sẽ mất khoảng 5-10 phút để tải các gói cần thiết. Các lần sau chỉ mất vài giây.
+4. **Kiểm tra:**
+   Gõ `docker compose ps` để đảm bảo các service (`db`, `neo4j`, `backend`) đều ở trạng thái `Running` hoặc `Healthy`.
+5. **Dừng hệ thống (Khi không sử dụng):**
+   Mở Terminal tại thư mục gốc và chạy:
+   ```bash
+   docker compose down
+   ```
+6. **Khởi động lại (Các lần tiếp theo):**
+   Bạn không cần phải build lại từ đầu. Chỉ cần mở Docker Desktop và chạy lệnh sau tại thư mục gốc:
+   ```bash
+   docker compose up -d
+   ```
+   > 💡 **Mẹo:** Lệnh này sẽ bật lại hệ thống cực nhanh (chỉ mất vài giây) vì mọi thứ đã được cài đặt sẵn.
+7. **Cập nhật hệ thống (Khi có thay đổi mã nguồn hoặc .env):**
+   Nếu bạn thay đổi code ở Backend hoặc cập nhật các thông số trong file `.env`, hãy chạy lệnh sau để Docker cập nhật lại:
+   ```bash
+   docker compose up -d --build
    ```
 
-3. **Bun**:
+---
 
-   ```powershell
-   powershell -c "irm bun.sh/install.ps1 | iex"
+### 🛠️ Cách 2: Chạy thủ công (Cho Lập trình viên)
+
+_Phù hợp khi bạn cần can thiệp vào mã nguồn và chỉnh sửa tính năng._
+
+1. **Cài đặt môi trường:**
+   - **Python:** Cài bản 3.10+ và tích chọn "Add Python to PATH".
+   - **UV (Quản lý Python):** `powershell -c "irm https://astral.sh/uv/install.ps1 | iex"`
+   - **Bun (Frontend):** `powershell -c "irm bun.sh/install.ps1 | iex"`
+   - **Neo4j Desktop:** Cài đặt và tạo Database với mật khẩu `QAZplm6002`.
+2. **Cấu hình biến môi trường:**
+   Mở file `.env` ở thư mục gốc, đảm bảo dòng sau không bị comment:
+   ```env
+   NEO4J_URI=bolt://localhost:7687
    ```
-
-4. **Neo4j Desktop**: <https://neo4j.com/download/>
-
-### Bước 1: Cấu hình Neo4j Desktop
-
-1. Mở Neo4j Desktop → Tạo database mới
-2. Đặt mật khẩu: `QAZplm6002`
-3. Nhấn **Start** để khởi động
-4. Database chạy tại: `bolt://localhost:7687`
-
-### Bước 2: Kiểm tra file `.env`
-
-Mở file `.env` ở thư mục gốc, đảm bảo `NEO4J_URI` trỏ về localhost:
-
-```env
-# Đúng cho local dev:
-NEO4J_URI=bolt://localhost:7687
-
-# (Chỉ dùng khi chạy Docker — không dùng cho local):
-# NEO4J_URI=bolt://neo4j:7687
-```
-
-### Bước 3: Nạp dữ liệu vào Neo4j _(Chỉ làm 1 lần)_
-
-1. Mở **Neo4j Browser**: <http://localhost:7474>
-2. Đăng nhập: `neo4j` / `QAZplm6002`
-3. Copy nội dung file `CypherQuery/CNTT.txt` → Dán và nhấn Run
-
-### Bước 4: Chạy Backend
-
-Mở **Terminal 1** — tại thư mục `backend`:
-
-```powershell
-cd backend
-uv run fastapi dev app/main.py
-```
-
-> Backend chạy tại <http://localhost:8000> (tự động reload khi sửa code)
-
-### Bước 5: Chạy Frontend
-
-Mở **Terminal 2** — tại thư mục gốc dự án:
-
-```powershell
-bun run dev
-```
-
-> Frontend chạy tại <http://localhost:5173>
+3. **Chạy Backend:**
+   Mở Terminal tại thư mục `backend/`:
+   ```bash
+   uv run fastapi dev app/main.py
+   ```
+4. **Chạy Frontend:**
+   Mở Terminal mới tại thư mục `frontend/`:
+   ```bash
+   bun install
+   bun run dev
+   ```
+   🌐 Giao diện Web:\*\* `http://localhost:5173`
 
 ---
 
-## 🛑 CÁCH TẮT HỆ THỐNG
+## 🧠 Khởi tạo Dữ liệu Tri thức
 
-### Tắt Phương thức A (Docker):
+**Đây là bước cực kỳ quan trọng để Chatbot có thể hiểu về chương trình đào tạo.**
 
-```powershell
-# Tắt tạm (không mất dữ liệu):
-docker compose down
-
-# Lần sau bật lại (không cần build lại):
-docker compose up -d
-```
-
-### Tắt Phương thức B (Local Dev):
-
-Nhấn **`Ctrl + C`** ở từng terminal đang chạy Backend và Frontend.
+1. Truy cập vào **Neo4j Browser**: [http://localhost:7474](http://localhost:7474).
+2. Đăng nhập với mật khẩu: `QAZplm6002`.
+3. Tìm đến thư mục `CypherQuery/` trong dự án, mở file `CNTT.txt`.
+4. **Copy toàn bộ nội dung** trong file đó và dán vào ô nhập liệu của Neo4j.
+5. Nhấn nút **Play (Run)** hoặc `Ctrl + Enter`.
+6. Hệ thống sẽ tạo ra các nút (Nodes) và liên kết (Relationships) đại diện cho các môn học.
 
 ---
 
-## 🩺 XỬ LÝ SỰ CỐ THƯỜNG GẶP
+## 📖 Hướng dẫn Sử dụng Tính năng
 
-| Lỗi                              | Nguyên nhân                     | Cách khắc phục                                   |
-| -------------------------------- | ------------------------------- | ------------------------------------------------ |
-| Chatbox không trả lời            | Backend chưa chạy               | Kiểm tra terminal Backend, đảm bảo đang chạy     |
-| "Cannot connect to Neo4j"        | Neo4j chưa mở hoặc sai URI      | Kiểm tra Neo4j đang chạy và `.env` đúng URI      |
-| Trang web trắng / lỗi API        | Frontend không gọi được Backend | Đảm bảo Backend đang chạy ở port 8000            |
-| Docker build thất bại            | Thiếu network `traefik-public`  | Chạy: `docker network create traefik-public`     |
-| Không đăng nhập được             | Database chưa khởi tạo          | Chạy lại: `docker compose up -d --build backend` |
-| Chatbox báo "không đủ thông tin" | Neo4j chưa có dữ liệu           | Thực hiện lại Bước nạp dữ liệu Neo4j             |
+### 1. Hệ thống Chatbot thông minh
 
----
+- **Hỏi về môn học:** "Môn Cấu trúc dữ liệu có bao nhiêu tín chỉ?"
+- **Hỏi về điều kiện học:** "Muốn học Đồ án ngành thì cần học xong môn nào?"
+- **Hỏi về lộ trình:** "Kỳ 1 năm nhất học những gì?"
+- **Điều khiển giọng nói:** Nhấn biểu tượng 🎤 để nói thay vì gõ.
 
-# PHẦN 2 — HƯỚNG DẪN SỬ DỤNG HỆ THỐNG
+### 2. Quản lý Ghi chú (Notes)
 
-Sau khi hệ thống đã chạy, truy cập: **<http://localhost:5173>**
+- Giúp sinh viên lưu lại các lưu ý quan trọng về môn học hoặc lịch trình.
+- Truy cập mục **"Ghi chú"** ở thanh điều hướng bên trái.
 
----
+### 3. Cài đặt Cá nhân & Bảo mật
 
-## 👤 ĐĂNG KÝ VÀ ĐĂNG NHẬP
+- Thay đổi thông tin cá nhân, đổi mật khẩu hoặc chuyển đổi giao diện **Sáng/Tối (Light/Dark Mode)** để bảo vệ mắt.
 
-### Đăng nhập với tài khoản có sẵn
+### 4. Bảng điều khiển Admin (Dành cho Quản trị viên)
 
-1. Truy cập **<http://localhost:5173/login>**
-2. Nhập Email và Mật khẩu
-3. Nhấn **Đăng nhập**
-
-### Đăng ký tài khoản mới
-
-1. Tại trang đăng nhập, nhấn **"Chưa có tài khoản? Đăng ký"**
-2. Điền đầy đủ: Họ tên, Email, Mật khẩu
-3. Nhấn **Đăng ký** để tạo tài khoản
-4. Đăng nhập lại bằng tài khoản vừa tạo
-
-### Quên mật khẩu
-
-1. Nhấn **"Quên mật khẩu?"** ở trang đăng nhập
-2. Nhập email → Nhấn **Gửi**
-3. Kiểm tra email và làm theo hướng dẫn
+- Quản lý danh sách người dùng, cấp quyền hoặc khóa các tài khoản vi phạm.
 
 ---
 
-## 💬 SỬ DỤNG CHATBOX AI
+## 🩺 Xử lý lỗi thường gặp
 
-Chatbox là tính năng chính — cho phép hỏi đáp về chương trình đào tạo ngành CNTT Hutech.
-
-### Cách bắt đầu cuộc trò chuyện
-
-1. Đăng nhập vào hệ thống
-2. Nhấn **"+ Cuộc trò chuyện mới"** ở thanh sidebar bên trái
-3. Gõ câu hỏi vào ô chat phía dưới trang
-4. Nhấn **Enter** hoặc nhấn biểu tượng **Gửi** ▶
-
-### Chatbox có thể trả lời gì?
-
-Hệ thống AI được thiết kế trả lời các câu hỏi về **chương trình đào tạo ngành CNTT Hutech**:
-
-| Loại câu hỏi         | Ví dụ                                                           |
-| -------------------- | --------------------------------------------------------------- |
-| **Tín chỉ môn học**  | _"Môn Lập trình cơ bản có bao nhiêu tín chỉ?"_                  |
-| **Môn tiên quyết**   | _"Để học Cơ sở dữ liệu cần học môn gì trước?"_                  |
-| **Lộ trình học**     | _"Học kỳ 1 năm nhất gồm những môn gì?"_                         |
-| **Thông tin khoa**   | _"Ngành CNTT có bao nhiêu tín chỉ tổng cộng?"_                  |
-| **Kế hoạch học tập** | _"Tôi muốn học Trí tuệ nhân tạo thì cần học các môn gì trước?"_ |
-
-> ⚠️ **Lưu ý:** Chatbox chỉ trả lời trong phạm vi chương trình đào tạo. Câu hỏi ngoài phạm vi sẽ được từ chối với thông báo _"Câu hỏi của bạn không đúng môn học"_.
-
-### Sử dụng giọng nói (Voice Input)
-
-1. Nhấn biểu tượng **Microphone 🎤** trong ô nhập liệu
-2. Nói câu hỏi của bạn
-3. Văn bản được chuyển đổi tự động vào ô → Kiểm tra rồi nhấn **Gửi**
-
-### Xem lại lịch sử trò chuyện
-
-- Tất cả cuộc trò chuyện được lưu ở **thanh sidebar bên trái**
-- Nhấn vào bất kỳ cuộc trò chuyện nào để xem lại nội dung
+| Hiện tượng                           | Nguyên nhân                       | Giải pháp                                                                   |
+| :----------------------------------- | :-------------------------------- | :-------------------------------------------------------------------------- |
+| **Bot báo "Không tìm thấy dữ liệu"** | Chưa nạp file Cypher vào Neo4j    | Thực hiện lại bước [Khởi tạo Dữ liệu Tri thức](#-khởi-tạo-dữ-liệu-tri-thức) |
+| **Trang web không tải được dữ liệu** | Backend chưa khởi chạy thành công | Kiểm tra Terminal Backend hoặc log Docker                                   |
+| **Lỗi kết nối Cơ sở dữ liệu**        | Sai mật khẩu hoặc Port bị chiếm   | Kiểm tra file `.env` và đảm bảo không có app nào khác dùng port 5432/7687   |
+| **Docker Build lỗi Network**         | Thiếu network `traefik-public`    | Chạy lệnh `docker network create traefik-public`                            |
 
 ---
 
-## 📝 TÍNH NĂNG GHI CHÚ
+## 📂 Thông tin Kỹ thuật (Cho Dev)
 
-Cho phép tạo, chỉnh sửa và quản lý ghi chú cá nhân.
+Dưới đây là sơ đồ cấu trúc giúp bạn nhanh chóng định vị mã nguồn:
 
-### Truy cập
-
-Nhấn **"Ghi Chú"** ở menu sidebar bên trái.
-
-### Tạo ghi chú mới
-
-1. Nhấn nút **"+ Thêm Ghi Chú"**
-2. Nhập tiêu đề và nội dung
-3. Nhấn **Lưu**
-
-### Chỉnh sửa ghi chú
-
-1. Nhấn vào ghi chú muốn sửa
-2. Chỉnh sửa tiêu đề hoặc nội dung
-3. Nhấn **Lưu thay đổi**
-
-### Xóa ghi chú
-
-1. Nhấn biểu tượng **Xóa 🗑️** trên ghi chú
-2. Xác nhận xóa trong hộp thoại hiện ra
-
----
-
-## ⚙️ CÀI ĐẶT TÀI KHOẢN
-
-Nhấn vào **Avatar / tên người dùng** ở góc dưới cùng sidebar → Chọn **Settings**.
-
-### Tab "Hồ sơ của tôi"
-
-- Xem và chỉnh sửa **Họ và tên**, **Địa chỉ Email**
-- Nhấn **Chỉnh sửa** → sửa thông tin → nhấn **Lưu thay đổi**
-
-### Tab "Mật khẩu"
-
-- Đổi mật khẩu bằng cách nhập:
-  - Mật khẩu hiện tại
-  - Mật khẩu mới (ít nhất 8 ký tự)
-  - Xác nhận mật khẩu mới
-- Nhấn **Cập nhật mật khẩu**
-
-### Tab "Vùng nguy hiểm"
-
-- **Xóa tài khoản vĩnh viễn** — Hành động không thể hoàn tác
-- Nhấn **Xác nhận xóa tài khoản** → Xác nhận trong hộp thoại
-
----
-
-## 🌙 CHẾ ĐỘ SÁNG / TỐI
-
-Nhấn biểu tượng **🌙 / ☀️** ở cuối sidebar để chuyển đổi giữa Dark Mode và Light Mode.
-
----
-
-## 👑 DÀNH CHO ADMIN (QUẢN TRỊ VIÊN)
-
-Tài khoản Admin (`admin@example.com`) có thêm menu **"Admin"** trong sidebar.
-
-### Quản lý người dùng
-
-1. Vào menu **Admin**
-2. Xem danh sách toàn bộ tài khoản
-3. Có thể **tạo mới**, **chỉnh sửa**, hoặc **vô hiệu hóa** tài khoản
-
----
-
-## 📁 CẤU TRÚC DỰ ÁN (DÀNH CHO LẬP TRÌNH VIÊN)
-
-```
+```text
 ChatBoxAI_Educational/
-├── .env                     ← Cấu hình môi trường (API keys, DB passwords...)
-├── compose.yml              ← Cấu hình Docker Compose
-├── frontend/                ← Giao diện Web (React + Vite + TailwindCSS)
-│   └── src/
-│       ├── components/      ← Các thành phần UI (Chat, Sidebar, Settings...)
-│       └── routes/          ← Các trang (Home, Settings, Admin...)
-├── backend/                 ← API Server (FastAPI + Python)
-│   └── app/
-│       ├── api/routes/      ← Các endpoint API (chatbot, users, login...)
-│       ├── services/        ← Logic AI (chat_agent.py — kết nối Gemini + Neo4j)
-│       └── core/            ← Kết nối Database (PostgreSQL, Neo4j)
-├── CypherQuery/
-│   └── CNTT.txt             ← Dữ liệu đồ thị tri thức Hutech (import vào Neo4j)
-└── Training_Program/
-    └── *.pdf                ← Chương trình đào tạo gốc (tài liệu tham khảo)
+├── 📁 backend/             # FastAPI Server, Logic AI & Kết nối DB
+│   └── 📁 app/services/    # "Trái tim" AI (Xử lý truy vấn GraphRAG)
+├── 📁 frontend/            # React + Vite + Tailwind (Giao diện người dùng)
+├── 📁 CypherQuery/         # Chứa kịch bản nạp dữ liệu cho Neo4j
+├── 📁 Training_Program/    # Tài liệu gốc về chương trình đào tạo
+└── 📄 compose.yml          # Cấu hình "đóng gói" toàn bộ hệ thống
 ```
+
+> [!TIP]
+> Để hệ thống hoạt động chính xác nhất, hãy đảm bảo bạn đã cung cấp API Key của Google Gemini trong file `.env`.
+
+---
+
+## 🎨 Cấu hình Typography (Giao diện văn bản)
+
+Phần này hướng dẫn cách thiết lập plugin `@tailwindcss/typography` để nội dung từ Chatbot (Markdown) được hiển thị đẹp mắt và chuyên nghiệp.
+
+### 1. Cài đặt Package
+Nếu bạn đang chạy dự án ở chế độ phát triển (Local Dev), hãy mở terminal tại thư mục `frontend` và cài đặt thư viện:
+```bash
+# Di chuyển vào thư mục frontend nếu chưa ở đó
+cd frontend
+
+# Cài đặt plugin typography bằng Bun
+bun add @tailwindcss/typography
+```
+*Chú thích: Lệnh này sẽ thêm plugin vào file `package.json` của bạn để các thành viên khác có thể sử dụng.*
+
+### 2. Khai báo Plugin trong CSS
+Trong Tailwind CSS v4, chúng ta khai báo plugin trực tiếp trong file CSS chính.
+Mở file `frontend/src/index.css` và kiểm tra xem đã có 2 dòng này chưa:
+```css
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+```
+*Lưu ý: Hệ thống hiện tại đã cấu hình sẵn dòng này, bạn thường chỉ cần thực hiện Bước 1 nếu thư viện chưa được cài đặt.*
+
+### 3. Cách sử dụng trong code
+Để nội dung Markdown tự động có định dạng (tiêu đề, danh sách, in đậm...), bạn chỉ cần sử dụng class `prose`:
+- **Light Mode**: Sử dụng class `prose`.
+- **Dark Mode**: Sử dụng thêm `dark:prose-invert` để chữ tự động chuyển sang màu sáng trên nền tối.
+
+Ví dụ minh họa:
+```html
+<div class="prose dark:prose-invert max-w-none">
+  <!-- Toàn bộ nội dung trả về từ AI sẽ được tự động làm đẹp tại đây -->
+  {aiResponseContent}
+</div>
+```
+
+---
+
+
+_Tài liệu được cập nhật lần cuối vào tháng 04/2026 bởi Đội ngũ Phát triển EduGuide VN._
