@@ -18,12 +18,13 @@ class Intent(Enum):
     GREETING = "greeting"           # Chào hỏi
     FAREWELL = "farewell"           # Chào tạm biệt
     THANKS = "thanks"               # Cảm ơn
+    UNIVERSITY_INFO = "university_info"  # Thông tin trường / danh sách ngành đào tạo
     COURSE_INFO = "course_info"     # Thông tin môn học cụ thể
     PREREQUISITE = "prerequisite"   # Học phần tiên quyết
     COREQUISITE = "corequisite"     # Học phần song hành
     STUDY_PATH = "study_path"       # Lộ trình học tập / Học kỳ
     CATEGORY_LIST = "category_list" # Danh sách môn theo nhóm (đại cương, chuyên ngành...)
-    MAJOR_INFO = "major_info"       # Thông tin về ngành học (CNTT)
+    MAJOR_INFO = "major_info"       # Thông tin về ngành học cụ thể
     CREDIT_INFO = "credit_info"     # Thông tin về tín chỉ
     COMPARISON = "comparison"       # So sánh giữa các môn học
     COURSE_LIST_ALL = "course_list_all" # Danh sách toàn bộ các môn học
@@ -83,10 +84,23 @@ _p(
     Intent.ELECTIVE_INFO, 30,
 )
 
-# Thông tin ngành học (Ưu tiên 35)
+# Thông tin trường / danh sách ngành (Ưu tiên 15 — ưu tiên rất cao)
+_p(
+    r"(hutech\s*(có|đào\s*tạo|cung\s*cấp|dạy)|trường\s*(có|đào\s*tạo|dạy|cung\s*cấp)|"
+    r"(danh\s*sách|liệt\s*kê|kể\s*tên|cho\s*biết)\s*(các\s*)?ngành|"
+    r"(những|bao\s*nhiêu|tất\s*cả)\s*(các\s*)?ngành|ngành\s*nào|"
+    r"có\s*ngành\s*gì|các\s*ngành\s*đào\s*tạo|ngành\s*đào\s*tạo|"
+    r"thông\s*tin\s*(về\s*)?(trường|hutech)$)",
+    Intent.UNIVERSITY_INFO, 15,
+)
+
+# Thông tin ngành học cụ thể (Ưu tiên 35)
 _p(
     r"(ngành\s*công\s*nghệ\s*thông\s*tin|ngành\s*cntt|tổng\s*(tín\s*chỉ|tc)|"
-    r"chương\s*trình\s*đào\s*tạo|thông\s*tin\s*ngành|mã\s*ngành|bao\s*nhiêu\s*tín\s*chỉ\s*tốt\s*nghiệp)",
+    r"chương\s*trình\s*đào\s*tạo|thông\s*tin\s*ngành|mã\s*ngành|"
+    r"bao\s*nhiêu\s*tín\s*chỉ\s*tốt\s*nghiệp|"
+    r"ngành\s*(luật|thú\s*y|kiến\s*trúc|marketing|kế\s*toán|tâm\s*lý|logistics|"
+    r"an\s*toàn|thương\s*mại|robot|trí\s*tuệ|thanh\s*nhạc|thiết\s*kế|quản\s*lý|quản\s*trị))",
     Intent.MAJOR_INFO, 35,
 )
 
@@ -174,7 +188,9 @@ def is_education_related(message: str) -> bool:
     edu_keywords = re.compile(
         r"(môn|học|tín\s*chỉ|tiên\s*quyết|song\s*hành|đại\s*cương|chuyên\s*ngành|"
         r"ngành|lớp|kỳ|đăng\s*ký|lập\s*trình|toán|anh\s*ngữ|thực\s*hành|"
-        r"đồ\s*án|tốt\s*nghiệp|giảng\s*viên|hutech|cntt|course|credit|semester)",
+        r"đồ\s*án|tốt\s*nghiệp|giảng\s*viên|hutech|cntt|course|credit|semester|"
+        r"trường|đại\s*học|đào\s*tạo|luật|thú\s*y|kiến\s*trúc|marketing|"
+        r"kế\s*toán|tâm\s*lý|logistics|an\s*toàn|thương\s*mại|robot|trí\s*tuệ)",
         re.IGNORECASE,
     )
     return bool(edu_keywords.search(message))

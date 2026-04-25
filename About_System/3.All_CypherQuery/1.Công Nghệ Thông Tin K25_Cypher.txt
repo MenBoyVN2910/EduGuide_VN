@@ -164,6 +164,20 @@ MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, cate
 // ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
 // ╚══════════════════════════════════════════════════════════════╝
 MATCH (c:Course), (m:Major {id: '7480201'})
+WHERE c.id IN [
+    'POS104', 'POS105', 'POS106', 'POS107', 'POS103', 'ENC120', 'ENC121', 'ENC122',
+    'ENC123', 'ENS192', 'LAW106', 'SKL115', 'SKL116', 'CMP6084', 'MAT101', 'MAT118',
+    'MAT105', 'MAT104', 'COS1001', 'COS1002', 'CMP1074', 'CMP164', 'CMP167', 'COS135',
+    'AIT104', 'COS120', 'COS117', 'COS129', 'CMP174', 'CMP101', 'CMP180', 'CMP170',
+    'CMP177', 'CMP175', 'CMP172', 'CMP184', 'MAN104', 'AIT1001', 'CMP3087', 'CMP382',
+    'CMP3088', 'COS321', 'COS323', 'CMP5089', 'CMP3090', 'CMP3075', 'CMP365', 'CMP368',
+    'CMP381', 'CMP371', 'CMP376', 'CMP3014', 'CMP373', 'CMP385', 'CMP3019', 'COS340',
+    'COS324', 'AIT1002', 'CMP5091', 'CMP436', 'CMP596', 'CMP179', 'CAP126', 'COS141',
+    'COS1003', 'AIT1003', 'CMP1059', 'CMP1092', 'COS128', 'COS1004', 'CMP1020', 'CMP1021',
+    'CMP1022', 'CMP194', 'COS1005', 'CMP193', 'COS4006', 'PHT304', 'PHT305', 'PHT306',
+    'PHT307', 'PHT308', 'PHT309', 'PHT310', 'PHT311', 'PHT312', 'PHT313', 'PHT314',
+    'PHT315', 'PHT316', 'PHT317', 'PHT318', 'NDF108', 'NDF109', 'NDF210', 'NDF211'
+]
 MERGE (c)-[:BELONGS_TO]->(m);
 
 // ╔══════════════════════════════════════════════════════════════╗

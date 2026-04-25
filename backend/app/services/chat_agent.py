@@ -24,6 +24,7 @@ from app.services.schema_metadata import (
     THANKS_RESPONSES,
     UNRELATED_RESPONSE,
     NO_DATA_RESPONSE,
+    get_university_overview,
     get_major_overview,
     get_study_path_text,
     get_elective_groups_text,
@@ -182,6 +183,12 @@ def process_chat_message(messages: list[dict]) -> str:
 
     # ── 3. Phản hồi dựa trên kiến thức tĩnh (Static Data) ────────
     static_context = ""
+
+    if intent == Intent.UNIVERSITY_INFO:
+        static_context = get_university_overview()
+        # Truy vấn DB để lấy danh sách ngành từ graph
+        db_data = _try_db_query(intent, user_message)
+        return generate_answer(user_message, db_data, static_context, messages)
 
     if intent == Intent.MAJOR_INFO:
         static_context = get_major_overview()

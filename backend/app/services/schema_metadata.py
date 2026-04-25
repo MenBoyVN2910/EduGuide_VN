@@ -1,9 +1,46 @@
 """
-Kiến thức tĩnh và Siêu dữ liệu (Static Knowledge & Metadata) về chương trình đào tạo CNTT HUTECH.
+Kiến thức tĩnh và Siêu dữ liệu (Static Knowledge & Metadata) về chương trình đào tạo HUTECH.
 Dữ liệu này KHÔNG cần truy vấn Neo4j — nó được biên soạn trực tiếp từ chương trình khung chính thức.
+Hỗ trợ ĐA NGÀNH (18 ngành đào tạo khóa K2025).
 """
 
-# ── Thông tin tổng quan về Ngành học ──────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════
+#  THÔNG TIN TRƯỜNG ĐẠI HỌC
+# ═══════════════════════════════════════════════════════════════════════
+UNIVERSITY_INFO = {
+    "id": "HUTECH",
+    "name": "Trường Đại học Công nghệ TP.HCM",
+    "abbreviation": "HUTECH",
+    "address": "475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
+    "website": "https://www.hutech.edu.vn",
+    "cohort": "K2025",
+}
+
+# ═══════════════════════════════════════════════════════════════════════
+#  DANH SÁCH CÁC NGÀNH ĐÀO TẠO (18 ngành — Khóa tuyển sinh 2025)
+# ═══════════════════════════════════════════════════════════════════════
+ALL_MAJORS = {
+    "7480201": {"name": "Công nghệ thông tin", "total_credits": 150, "non_accum_credits": 5},
+    "7580302": {"name": "Quản lý xây dựng", "total_credits": 125, "non_accum_credits": 5},
+    "7340412": {"name": "Quản trị sự kiện", "total_credits": 125, "non_accum_credits": 5},
+    "7210404": {"name": "Thiết kế thời trang", "total_credits": 125, "non_accum_credits": 5},
+    "7340115": {"name": "Marketing", "total_credits": 125, "non_accum_credits": 5},
+    "7210205": {"name": "Thanh nhạc", "total_credits": 125, "non_accum_credits": 5},
+    "7310401": {"name": "Tâm lý học", "total_credits": 125, "non_accum_credits": 5},
+    "7510605": {"name": "Logistics và quản lý chuỗi cung ứng", "total_credits": 125, "non_accum_credits": 5},
+    "7340301": {"name": "Kế toán", "total_credits": 125, "non_accum_credits": 5},
+    "7540101": {"name": "Công nghệ thực phẩm", "total_credits": 125, "non_accum_credits": 5},
+    "7380101": {"name": "Luật", "total_credits": 135, "non_accum_credits": 5},
+    "7510209": {"name": "Robot và trí tuệ nhân tạo", "total_credits": 150, "non_accum_credits": 5},
+    "7640101": {"name": "Thú y", "total_credits": 160, "non_accum_credits": 5},
+    "7340405": {"name": "Hệ thống thông tin quản lý", "total_credits": 125, "non_accum_credits": 5},
+    "7480107": {"name": "Trí tuệ nhân tạo", "total_credits": 150, "non_accum_credits": 5},
+    "7580101": {"name": "Kiến trúc", "total_credits": 160, "non_accum_credits": 5},
+    "7480202": {"name": "An toàn thông tin", "total_credits": 150, "non_accum_credits": 5},
+    "7340122": {"name": "Thương mại điện tử", "total_credits": 125, "non_accum_credits": 5},
+}
+
+# ── Thông tin tổng quan về Ngành CNTT (ngành chính / template gốc) ──────
 MAJOR_INFO = {
     "id": "7480201",
     "name": "Công nghệ thông tin",
@@ -154,27 +191,38 @@ STUDY_PATH = [
 ]
 
 
-# ── Mẫu phản hồi Chào hỏi / Tạm biệt / Cám ơn ─────────────────────────
+# ═══════════════════════════════════════════════════════════════════════
+#  MẪU PHẢN HỒI TĨNH (Chào hỏi / Tạm biệt / Cám ơn / Lỗi)
+# ═══════════════════════════════════════════════════════════════════════
 GREETING_RESPONSES = [
-    "Xin chào! 👋 Mình là **ChatBoxAI** — trợ lý tư vấn học tập ngành Công nghệ thông tin tại HUTECH.\n\nBạn có thể hỏi mình về:\n- 📚 Thông tin môn học, tín chỉ, mã môn\n- 🔗 Điều kiện tiên quyết & môn song hành\n- 🗺️ Lộ trình học tập gợi ý 8 học kỳ\n- 📋 Nhóm tự chọn chuyên ngành\n- 💡 Tư vấn đăng ký môn\n\nHãy hỏi mình bất cứ điều gì nhé! 😊",
+    "Xin chào! 👋 Mình là **ChatBoxAI** — trợ lý tư vấn học tập thông minh của **Đại học HUTECH**.\n\n"
+    "Mình có thể hỗ trợ bạn về **18 ngành đào tạo** khóa K2025, bao gồm:\n"
+    "- 📚 Thông tin môn học, tín chỉ, mã môn của từng ngành\n"
+    "- 🔗 Điều kiện tiên quyết & môn song hành\n"
+    "- 🗺️ Lộ trình học tập gợi ý\n"
+    "- 🏫 Danh sách các ngành đào tạo tại HUTECH\n"
+    "- 📋 Nhóm tự chọn chuyên ngành\n"
+    "- 💡 Tư vấn đăng ký môn\n\n"
+    "Hãy hỏi mình bất cứ điều gì nhé! 😊",
 ]
 
 FAREWELL_RESPONSES = [
-    "Tạm biệt bạn! 👋 Chúc bạn học tập thật tốt. Nếu cần hỗ trợ, cứ quay lại hỏi mình nhé! 😊",
+    "Tạm biệt bạn! 👋 Chúc bạn học tập thật tốt tại HUTECH. Nếu cần hỗ trợ, cứ quay lại hỏi mình nhé! 😊",
 ]
 
 THANKS_RESPONSES = [
-    "Không có gì! 😊 Mình rất vui khi giúp được bạn. Nếu có câu hỏi khác, cứ hỏi mình nhé!",
+    "Không có gì! 😊 Mình rất vui khi giúp được bạn. Nếu có câu hỏi khác về bất kỳ ngành nào, cứ hỏi mình nhé!",
 ]
 
 UNRELATED_RESPONSE = (
-    "Xin lỗi, mình là trợ lý tư vấn **chương trình đào tạo ngành CNTT** tại HUTECH. 🎓\n\n"
-    "Mình chỉ có thể hỗ trợ các câu hỏi liên quan đến:\n"
-    "- 📚 Môn học, tín chỉ, mã môn\n"
+    "Xin lỗi, mình là trợ lý tư vấn **chương trình đào tạo** tại HUTECH. 🎓\n\n"
+    "Mình có thể hỗ trợ các câu hỏi liên quan đến:\n"
+    "- 🏫 Danh sách ngành đào tạo tại HUTECH (18 ngành K2025)\n"
+    "- 📚 Môn học, tín chỉ, mã môn của từng ngành\n"
     "- 🔗 Điều kiện tiên quyết & môn song hành\n"
     "- 🗺️ Lộ trình học tập\n"
     "- 📋 Nhóm tự chọn chuyên ngành\n\n"
-    "Bạn hãy thử hỏi về một môn học cụ thể nhé! 😊"
+    "Bạn hãy thử hỏi về một ngành hoặc môn học cụ thể nhé! 😊"
 )
 
 NO_DATA_RESPONSE = (
@@ -182,8 +230,33 @@ NO_DATA_RESPONSE = (
     "**Gợi ý:**\n"
     "- Thử dùng tên đầy đủ của môn học (ví dụ: \"Lập trình web\" thay vì \"web\")\n"
     "- Hoặc dùng mã môn (ví dụ: \"CMP175\")\n"
-    "- Hỏi cụ thể hơn: \"Điều kiện tiên quyết của môn Lập trình web là gì?\""
+    "- Hỏi về ngành đào tạo: \"HUTECH có những ngành nào?\"\n"
+    "- Hỏi cụ thể hơn: \"Ngành Trí tuệ nhân tạo có bao nhiêu tín chỉ?\""
 )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  HÀM TẠO VĂN BẢN TĨNH (Static Text Generators)
+# ═══════════════════════════════════════════════════════════════════════
+
+def get_university_overview() -> str:
+    """Trả về chuỗi văn bản tổng quan về trường HUTECH và danh sách ngành đào tạo."""
+    uni = UNIVERSITY_INFO
+    lines = [
+        f"## 🏫 {uni['name']} ({uni['abbreviation']})",
+        f"- **Địa chỉ:** {uni['address']}",
+        f"- **Website:** {uni['website']}",
+        f"- **Khóa tuyển sinh:** {uni['cohort']}",
+        f"- **Tổng số ngành đào tạo:** {len(ALL_MAJORS)} ngành",
+        "",
+        "### 📋 Danh sách các ngành đào tạo:",
+    ]
+    for i, (major_id, info) in enumerate(ALL_MAJORS.items(), 1):
+        lines.append(
+            f"  {i}. **{info['name']}** (Mã ngành: {major_id}) — "
+            f"{info['total_credits']} TC tích lũy + {info['non_accum_credits']} TC không tích lũy"
+        )
+    return "\n".join(lines)
 
 
 def get_major_overview() -> str:
@@ -214,7 +287,7 @@ def get_study_path_text() -> str:
             lines.append(f"- {course}")
         lines.append("")
     lines.append(
-        "> ⚠️ **Lưu ý:** Đây là lộ trình gợi ý. Sinh viên nên tham khảo thêm với "
+        "> ⚠️ **Lưu ý:** Đây là lộ trình gợi ý cho ngành CNTT. Sinh viên nên tham khảo thêm với "
         "cố vấn học tập để điều chỉnh phù hợp với tiến độ cá nhân."
     )
     return "\n".join(lines)

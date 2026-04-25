@@ -92,6 +92,14 @@ def _extract_course_name(message: str) -> str:
 
 # ── Danh sách các mẫu Template Cypher ─────────────────────────────────
 CYPHER_TEMPLATES = {
+    # Truy vấn danh sách ngành đào tạo của trường
+    Intent.UNIVERSITY_INFO: """
+        MATCH (u:University {id: 'HUTECH'})-[:OFFERS]->(m:Major)
+        RETURN m.id AS id, m.name AS name, m.total_credits AS total_credits,
+               m.non_accum_credits AS non_accum_credits
+        ORDER BY m.name
+    """,
+
     # Truy vấn thông tin cơ bản của môn học
     Intent.COURSE_INFO: """
         MATCH (c:Course)
@@ -150,6 +158,18 @@ CYPHER_TEMPLATES = {
         LIMIT 50
     """,
 
+    # Truy vấn thông tin ngành học cụ thể
+    Intent.MAJOR_INFO: """
+        MATCH (m:Major)
+        WHERE toLower(m.name) CONTAINS toLower($keyword)
+           OR toLower(m.id) = toLower($keyword)
+        OPTIONAL MATCH (c:Course)-[:BELONGS_TO]->(m)
+        WITH m, count(c) AS course_count, sum(c.credits) AS total_course_credits
+        RETURN m.id AS id, m.name AS name, m.total_credits AS total_credits,
+               m.non_accum_credits AS non_accum_credits,
+               course_count, total_course_credits
+    """,
+
     # So sánh các môn học
     Intent.COMPARISON: """
         MATCH (c:Course)
@@ -193,6 +213,52 @@ def _resolve_category_keyword(message: str) -> str:
     return extract_keywords(message)
 
 
+# Ánh xạ từ khóa tiếng Việt sang tên ngành chính xác trong DB
+MAJOR_KEYWORDS = {
+    "cntt": "Công nghệ thông tin",
+    "công nghệ thông tin": "Công nghệ thông tin",
+    "luật": "Luật",
+    "thú y": "Thú y",
+    "kiến trúc": "Kiến trúc",
+    "marketing": "Marketing",
+    "kế toán": "Kế toán",
+    "tâm lý": "Tâm lý học",
+    "tâm lý học": "Tâm lý học",
+    "logistics": "Logistics",
+    "chuỗi cung ứng": "Logistics",
+    "an toàn thông tin": "An toàn thông tin",
+    "thương mại điện tử": "Thương mại điện tử",
+    "robot": "Robot",
+    "trí tuệ nhân tạo": "Trí tuệ nhân tạo",
+    "thanh nhạc": "Thanh nhạc",
+    "thiết kế thời trang": "Thiết kế thời trang",
+    "thời trang": "Thiết kế thời trang",
+    "quản lý xây dựng": "Quản lý xây dựng",
+    "xây dựng": "Quản lý xây dựng",
+    "quản trị sự kiện": "Quản trị sự kiện",
+    "sự kiện": "Quản trị sự kiện",
+    "công nghệ thực phẩm": "Công nghệ thực phẩm",
+    "thực phẩm": "Công nghệ thực phẩm",
+    "hệ thống thông tin quản lý": "Hệ thống thông tin quản lý",
+}
+
+
+def _extract_major_keyword(message: str) -> str:
+    """Trích xuất tên ngành từ tin nhắn người dùng, dựa trên từ điển ánh xạ."""
+    lower = message.lower()
+    # Thử khớp theo độ dài chuỗi giảm dần (ưu tiên cụm từ dài hơn)
+    for kw in sorted(MAJOR_KEYWORDS.keys(), key=len, reverse=True):
+        if kw in lower:
+            return MAJOR_KEYWORDS[kw]
+
+    # Thử khớp mã ngành (ví dụ: 7480201)
+    id_match = re.search(r'\b(\d{7})\b', message)
+    if id_match:
+        return id_match.group(1)
+
+    return extract_keywords(message)
+
+
 def generate_template_cypher(intent: Intent, message: str) -> tuple[str, dict] | None:
     """
     Sinh câu lệnh Cypher từ mẫu có sẵn nếu ý định được hỗ trợ.
@@ -202,10 +268,14 @@ def generate_template_cypher(intent: Intent, message: str) -> tuple[str, dict] |
     if not template:
         return None
 
-    if intent == Intent.CATEGORY_LIST:
+    if intent == Intent.UNIVERSITY_INFO:
+        return template, {}
+    elif intent == Intent.CATEGORY_LIST:
         keyword = _resolve_category_keyword(message)
     elif intent == Intent.COURSE_LIST_ALL:
         return template, {}
+    elif intent == Intent.MAJOR_INFO:
+        keyword = _extract_major_keyword(message)
     else:
         keyword = _extract_course_name(message)
 
@@ -219,15 +289,20 @@ CYPHER_SYSTEM_PROMPT = """You are an expert Neo4j Cypher query generator for a V
 ## Database Schema
 
 Node labels and properties:
-- (:Major {id, name, university, total_credits, non_accum_credits})
-- (:Course {id, name, credits, category})
+- (:University {id, name, abbreviation, address, website})   — Nốt trường đại học
+- (:Major {id, name, university, total_credits, non_accum_credits})  — Nốt ngành học
+- (:Course {id, name, credits, category})  — Nốt môn học
 
 Relationships:
+- (:University)-[:OFFERS]->(:Major)          — Trường đào tạo ngành (dùng để liệt kê ngành)
 - (:Course)-[:BELONGS_TO]->(:Major)          — Môn thuộc ngành
 - (:Course)-[:PREREQUISITE_FOR]->(:Course)   — Môn tiên quyết (phải học trước)
 - (:Course)-[:COREQUISITE_WITH]->(:Course)   — Môn song hành (TH đi với LT)
 
-Category values: 'Đại cương', 'Chuyên nghiệp bắt buộc', 'Tự chọn - Công nghệ phần mềm', 'Tự chọn - Hệ thống thông tin ứng dụng', 'Tự chọn - Mạng máy tính', 'Tự chọn - Máy học và ứng dụng', 'Tự chọn - An ninh mạng', 'Tự chọn - Đồ án tốt nghiệp', 'Thể chất - Bóng chuyền', 'Thể chất - Bóng rổ', 'Thể chất - Thể hình Thẩm mỹ', 'Thể chất - Vovinam', 'Thể chất - Bóng đá', 'Quốc phòng An ninh'.
+University ID: 'HUTECH'
+Major examples: '7480201' (CNTT), '7480107' (Trí tuệ nhân tạo), '7380101' (Luật), '7640101' (Thú y), etc.
+
+Category values: 'Đại cương', 'Chuyên nghiệp bắt buộc', 'Tự chọn - Công nghệ phần mềm', 'Tự chọn - Hệ thống thông tin ứng dụng', 'Tự chọn - Mạng máy tính', 'Tự chọn - Máy học và ứng dụng', 'Tự chọn - An ninh mạng', 'Tự chọn - Đồ án tốt nghiệp', 'Thể chất', 'Quốc phòng An ninh'.
 
 ## Rules
 1. Return ONLY the raw Cypher query. No markdown, no explanation, no code fences.
@@ -236,9 +311,21 @@ Category values: 'Đại cương', 'Chuyên nghiệp bắt buộc', 'Tự chọn
 4. Always RETURN enough properties for a meaningful answer (name, credits, category, id).
 5. Add LIMIT 25 when listing multiple results.
 6. If the question is completely unrelated to courses / majors / university, return exactly: UNRELATED
+7. When listing all majors offered by HUTECH, use: MATCH (u:University {id: 'HUTECH'})-[:OFFERS]->(m:Major) RETURN m.id, m.name, m.total_credits
+8. When querying courses of a SPECIFIC major, use: MATCH (c:Course)-[:BELONGS_TO]->(m:Major) WHERE toLower(m.name) CONTAINS toLower('keyword') RETURN c.id, c.name, c.credits, c.category
 
 ## Examples
-(Các ví dụ minh họa cách chuyển câu hỏi sang Cypher chính xác...)
+Q: HUTECH có những ngành nào?
+A: MATCH (u:University {id: 'HUTECH'})-[:OFFERS]->(m:Major) RETURN m.id AS id, m.name AS name, m.total_credits AS total_credits ORDER BY m.name
+
+Q: Ngành Luật có bao nhiêu tín chỉ?
+A: MATCH (m:Major) WHERE toLower(m.name) CONTAINS toLower('luật') RETURN m.id AS id, m.name AS name, m.total_credits AS total_credits, m.non_accum_credits AS non_accum_credits
+
+Q: Liệt kê các môn của ngành Thú y
+A: MATCH (c:Course)-[:BELONGS_TO]->(m:Major) WHERE toLower(m.name) CONTAINS toLower('thú y') RETURN c.id AS id, c.name AS name, c.credits AS credits, c.category AS category ORDER BY c.category, c.name LIMIT 25
+
+Q: Điều kiện tiên quyết của môn Lập trình web là gì?
+A: MATCH (pre:Course)-[:PREREQUISITE_FOR]->(c:Course) WHERE toLower(c.name) CONTAINS toLower('lập trình web') RETURN c.id AS course_id, c.name AS course_name, pre.id AS pre_id, pre.name AS pre_name, pre.credits AS pre_credits
 """
 
 

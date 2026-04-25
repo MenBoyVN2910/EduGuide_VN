@@ -1,0 +1,171 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH ROBOT VÀ TRÍ TUỆ NHÂN TẠO (7510209) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 150 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7510209', name: 'Robot và trí tuệ nhân tạo', university: 'HUTECH', total_credits: 150, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (50 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW106', name: 'Pháp luật đại cương', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL116', name: 'Đổi mới sáng tạo và tư duy khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT101', name: 'Đại số tuyến tính', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT118', name: 'Giải tích', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'PHY101', name: 'Vật lý cơ', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'CAP221', name: 'Tin học kỹ thuật', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (85 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'MET653', name: 'Nhập môn ngành Robot và trí tuệ nhân tạo', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP2070', name: 'Lập trình Python', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ELE116', name: 'Kỹ thuật điện tử', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ELC5001', name: 'Thực tập kỹ thuật điện tử', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET103', name: 'Cơ sở thiết kế máy', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET2004', name: 'CAD trong kỹ thuật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET154', name: 'Các hệ thống máy tính điều khiển', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CTR5001', name: 'Thực tập các hệ thống máy tính điều khiển', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ELE170', name: 'Cảm biến và cơ cấu chấp hành', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CTR5002', name: 'Thực tập cảm biến và cơ cấu chấp hành', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ELE472', name: 'Đồ án cảm biến và cơ cấu chấp hành', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COE1016', name: 'Lập trình nhúng và ứng dụng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COE5017', name: 'Thực tập lập trình hệ thống nhúng và ứng dụng', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CTR105', name: 'Lý thuyết điều khiển tự động', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'AIT4013', name: 'Đồ án ứng dụng ngành Robot và trí tuệ nhân tạo', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CTR222', name: 'Robot trong công nghiệp', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'AIT1014', name: 'ROS và điều khiển robot', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'AIT3015', name: 'Thực hành ROS và điều khiển robot', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET287', name: 'Công nghệ IoT', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET463', name: 'Đồ án IoT', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET257', name: 'Thị giác máy tính và ứng dụng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET259', name: 'Máy học và ứng dụng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET161', name: 'Xử lý ảnh số', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET189', name: 'Công nghệ tính toán mềm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET456', name: 'Đồ án robot', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CTR104', name: 'Lập trình PLC', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ELE128', name: 'SCADA', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP1010', name: 'Mạng truyền thông trong công nghiệp', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP104', name: 'Lập trình đồ họa', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COE5018', name: 'Thực tập lập trình đồ họa', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET466', name: 'Đồ án thị giác máy tính', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET568', name: 'Thực tập tốt nghiệp ngành Robot và trí tuệ nhân tạo', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'AIT4016', name: 'Đồ án tốt nghiệp Robot và trí tuệ nhân tạo', credits: 9, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 15 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Robot thông minh
+MERGE (:Course {id: 'MET171', name: 'Robot di động', credits: 3, category: 'Tự chọn - Robot thông minh'});
+MERGE (:Course {id: 'MET165', name: 'Học sâu và ứng dụng', credits: 3, category: 'Tự chọn - Robot thông minh'});
+MERGE (:Course {id: 'CMP1072', name: 'Lập trình các thiết bị di động trong robot', credits: 3, category: 'Tự chọn - Robot thông minh'});
+MERGE (:Course {id: 'AIT1017', name: 'Học tăng cường và ứng dụng', credits: 3, category: 'Tự chọn - Robot thông minh'});
+MERGE (:Course {id: 'AIT1018', name: 'Định vị và xây dựng bản đồ trong robot', credits: 3, category: 'Tự chọn - Robot thông minh'});
+
+// Nhóm 2: Dữ liệu và hệ thống
+MERGE (:Course {id: 'MET170', name: 'Khai phá dữ liệu trong AI và robot', credits: 3, category: 'Tự chọn - Dữ liệu và hệ thống'});
+MERGE (:Course {id: 'MET164', name: 'Dữ liệu lớn và ứng dụng', credits: 3, category: 'Tự chọn - Dữ liệu và hệ thống'});
+MERGE (:Course {id: 'CMP1073', name: 'Lập trình web và ứng dụng', credits: 3, category: 'Tự chọn - Dữ liệu và hệ thống'});
+MERGE (:Course {id: 'MET172', name: 'An toàn và bảo mật hệ thống', credits: 3, category: 'Tự chọn - Dữ liệu và hệ thống'});
+MERGE (:Course {id: 'MET160', name: 'Cơ sở dữ liệu trong AI và robot', credits: 3, category: 'Tự chọn - Dữ liệu và hệ thống'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7510209'})
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Kỹ năng & Đổi mới ---
+MATCH (a:Course {id: 'SKL115'}), (b:Course {id: 'SKL116'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Python làm nền tảng ---
+MATCH (p:Course {id: 'CMP2070'})
+WITH p
+MATCH (c:Course) WHERE c.id IN ['MET154', 'MET161', 'MET165']
+MERGE (p)-[:PREREQUISITE_FOR]->(c);
+
+// --- Điện tử & Cảm biến ---
+MATCH (a:Course {id: 'ELE116'})
+WITH a
+MATCH (c:Course) WHERE c.id IN ['ELE170', 'COE1016', 'CTR104', 'CMP104']
+MERGE (a)-[:PREREQUISITE_FOR]->(c);
+
+MATCH (a:Course {id: 'ELE170'}), (b:Course {id: 'ELE472'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Điều khiển & Robot ---
+MATCH (a:Course {id: 'CTR104'}), (b:Course {id: 'ELE128'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CTR222'}), (b:Course {id: 'MET456'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MET257'}), (b:Course {id: 'MET466'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 5: MÔN SONG HÀNH (COREQUISITE_WITH)                  ║
+// ║  Chiều: (Thực hành/Đồ án)-[:COREQUISITE_WITH]->(Lý thuyết)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (a:Course {id: 'ELC5001'}), (b:Course {id: 'ELE116'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CTR5001'}), (b:Course {id: 'MET154'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CTR5002'}), (b:Course {id: 'ELE170'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'COE5017'}), (b:Course {id: 'COE1016'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'COE5018'}), (b:Course {id: 'CMP104'}) MERGE (a)-[:COREQUISITE_WITH]->(b);

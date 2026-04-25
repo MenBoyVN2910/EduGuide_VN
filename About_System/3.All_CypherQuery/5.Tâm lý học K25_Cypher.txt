@@ -1,0 +1,144 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH TÂM LÝ HỌC (7310401) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 125 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7310401', name: 'Tâm lý học', university: 'HUTECH', total_credits: 125, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (44 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW158', name: 'Luật và Khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SOS101', name: 'Cơ sở văn hóa Việt Nam', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SOS102', name: 'Xã hội học', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL102', name: 'Kỹ năng thuyết trình và tìm việc', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (72 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'PSY103', name: 'Giải phẫu và sinh lý hoạt động thần kinh cấp cao', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY106', name: 'Tâm lý học đại cương', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY108', name: 'Tâm lý học phát triển', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY165', name: 'Phương pháp nghiên cứu tâm lý học', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY205', name: 'Thống kê ứng dụng trong nghiên cứu tâm lý học', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY111', name: 'Trắc nghiệm và chẩn đoán tâm lý', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY109', name: 'Tâm lý học xã hội', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY123', name: 'Tâm lý học giới tính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY114', name: 'Tâm lý học gia đình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY107', name: 'Tâm lý học nhân cách', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY113', name: 'Tâm lý học giao tiếp', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'SKL109', name: 'Kỹ năng tham vấn tâm lý', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY141', name: 'Tâm lý học thần kinh', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY125', name: 'Tâm bệnh học', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY1001', name: 'Tâm lý học truyền thông', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY177', name: 'Lý thuyết tham vấn và trị liệu tâm lý', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY146', name: 'Nhập môn tâm lý học lâm sàng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY117', name: 'Tâm lý học quản lý', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY134', name: 'Tâm lý học tổ chức', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY118', name: 'Tâm lý học quảng cáo - marketing', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY170', name: 'Tâm lý giáo dục ứng dụng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY171', name: 'Tâm lý học cảm xúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY126', name: 'Tâm lý học nhân sự', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PSY549', name: 'Thực tập tốt nghiệp ngành Tâm lý học', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 9 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Tham vấn
+MERGE (:Course {id: 'PSY132', name: 'Tham vấn học đường', credits: 3, category: 'Tự chọn - Tham vấn'});
+MERGE (:Course {id: 'PSY133', name: 'Tham vấn cộng đồng', credits: 3, category: 'Tự chọn - Tham vấn'});
+MERGE (:Course {id: 'PSY157', name: 'Tham vấn tình yêu, hôn nhân và gia đình', credits: 3, category: 'Tự chọn - Tham vấn'});
+
+// Nhóm 2: Trị liệu
+MERGE (:Course {id: 'PSY174', name: 'Trị liệu tập trung vào cảm xúc', credits: 3, category: 'Tự chọn - Trị liệu'});
+MERGE (:Course {id: 'PSY159', name: 'Trị liệu hệ thống', credits: 3, category: 'Tự chọn - Trị liệu'});
+MERGE (:Course {id: 'PSY160', name: 'Trị liệu nhận thức hành vi', credits: 3, category: 'Tự chọn - Trị liệu'});
+
+// Nhóm 3: Tổ chức nhân sự
+MERGE (:Course {id: 'MAN1088', name: 'Nghiệp vụ quản trị văn phòng', credits: 3, category: 'Tự chọn - Tổ chức nhân sự'});
+MERGE (:Course {id: 'MAN1089', name: 'Quản trị nguồn nhân lực trong tâm lý', credits: 3, category: 'Tự chọn - Tổ chức nhân sự'});
+MERGE (:Course {id: 'PSY162', name: 'Tâm lý học tư vấn trong doanh nghiệp', credits: 3, category: 'Tự chọn - Tổ chức nhân sự'});
+
+// Nhóm 4: Khóa luận tốt nghiệp
+MERGE (:Course {id: 'PSY435', name: 'Khóa luận tốt nghiệp Tâm lý học', credits: 9, category: 'Tự chọn - Khóa luận tốt nghiệp'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7310401'})
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Tâm lý học đại cương (PSY106) là nền tảng ---
+MATCH (p:Course {id: 'PSY106'})
+WITH p
+MATCH (c:Course) WHERE c.id IN ['PSY111', 'PSY109', 'PSY123', 'PSY114', 'PSY107', 'PSY113', 'SKL109', 'PSY141', 'PSY117', 'PSY134', 'PSY118', 'PSY170', 'PSY171']
+MERGE (p)-[:PREREQUISITE_FOR]->(c);
+
+// --- Tâm lý học nhân cách (PSY107) là nền tảng ---
+MATCH (p:Course {id: 'PSY107'})
+WITH p
+MATCH (c:Course) WHERE c.id IN ['PSY1001', 'PSY177', 'PSY146']
+MERGE (p)-[:PREREQUISITE_FOR]->(c);

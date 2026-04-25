@@ -11,27 +11,27 @@ interface MessageListProps {
 const SAMPLES = [
   {
     icon: <BookOpen className="h-4 w-4 text-blue-500" />,
-    title: "Lộ trình học tập",
-    description: "Xem các môn học theo từng học kỳ của ngành CNTT.",
-    text: "Cho tôi biết lộ trình học tập ngành Công nghệ thông tin qua các năm."
-  },
-  {
-    icon: <GraduationCap className="h-4 w-4 text-emerald-500" />,
-    title: "Môn học tiên quyết",
-    description: "Kiểm tra điều kiện để đăng ký các môn chuyên ngành.",
-    text: "Các môn tiên quyết của môn Đồ án chuyên ngành là gì?"
+    title: "Thông tin tổng quan",
+    description: "Tra cứu thông tin chung về ngành CNTT.",
+    text: "Ngành CNTT học bao nhiêu năm và có bao nhiêu tín chỉ?"
   },
   {
     icon: <Search className="h-4 w-4 text-orange-500" />,
-    title: "Môn tự chọn",
-    description: "Tư vấn chọn các nhóm môn chuyên sâu phù hợp.",
-    text: "Danh sách các môn học tự chọn và hướng dẫn cách chọn môn?"
+    title: "Tra cứu chi tiết",
+    description: "Tìm hiểu thông số cụ thể của từng môn học.",
+    text: "Môn Lập trình hướng đối tượng có bao nhiêu tín chỉ?"
   },
   {
     icon: <Link2 className="h-4 w-4 text-purple-500" />,
-    title: "Chuẩn đầu ra",
-    description: "Thông tin về chứng chỉ ngoại ngữ và tin học.",
-    text: "Quy định về chuẩn đầu ra ngoại ngữ và tin học của trường?"
+    title: "Điều kiện tiên quyết",
+    description: "Kiểm tra các môn học cần hoàn thành trước.",
+    text: "Để học môn Lập trình Web thì cần hoàn thành môn nào trước?"
+  },
+  {
+    icon: <GraduationCap className="h-4 w-4 text-emerald-500" />,
+    title: "Tư vấn & Gợi ý",
+    description: "Nhận lời khuyên chọn môn học theo lộ trình.",
+    text: "Học kỳ này mình muốn học nhẹ, hãy gợi ý cho mình 3 môn ít tín chỉ nhất."
   }
 ]
 

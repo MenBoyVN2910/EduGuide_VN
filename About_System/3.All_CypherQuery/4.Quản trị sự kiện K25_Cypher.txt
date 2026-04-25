@@ -1,0 +1,150 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH QUẢN TRỊ SỰ KIỆN (7340412) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 125 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7340412', name: 'Quản trị sự kiện', university: 'HUTECH', total_credits: 125, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (44 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW158', name: 'Luật và Khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAN116', name: 'Quản trị học', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SOS101', name: 'Cơ sở văn hóa Việt Nam', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL122', name: 'Kỹ năng phát triển bản thân', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (72 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'MAN1051', name: 'Tổng quan về lĩnh vực sự kiện và giải trí', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT103', name: 'Nghiệp vụ tổ chức sự kiện 1', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT1003', name: 'Thiết kế ấn phẩm truyền thông sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAR149', name: 'Marketing và truyền thông trong sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT108', name: 'Nghiệp vụ gây quỹ tài trợ', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT106', name: 'Soạn thảo văn bản sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT1004', name: 'Quay và dựng video trong sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'HMM141', name: 'Điều hành hội nghị và yến tiệc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT1013', name: 'Nghệ thuật nói chuyện trước công chúng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT115', name: 'Biên tập chương trình sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT1005', name: 'Đạo diễn chương trình sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1074', name: 'Quản trị nguồn nhân lực trong sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT109', name: 'Ứng dụng công nghệ trong sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1075', name: 'Quản trị rủi ro sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT111', name: 'Phương pháp viết đề án trong tổ chức sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT110', name: 'Tổ chức sản xuất sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW189', name: 'Quy định pháp luật về tổ chức sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT1006', name: 'Quản trị đám đông trong tổ chức sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT104', name: 'Nghiệp vụ tổ chức sự kiện 2', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT701', name: 'Kiến tập tổ chức sự kiện 1', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT702', name: 'Kiến tập tổ chức sự kiện 2', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1078', name: 'Quản trị chiến lược trong tổ chức dịch vụ giải trí', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'TOU341', name: 'Hoạt náo', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'TOU102', name: 'Dịch vụ chăm sóc khách hàng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT1008', name: 'Thiết kế sân khấu trong sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'EVT513', name: 'Thực tập tốt nghiệp ngành Quản trị sự kiện', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 9 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Sự kiện văn hóa và thể thao
+MERGE (:Course {id: 'EVT1009', name: 'Sự kiện văn hóa và nghệ thuật', credits: 3, category: 'Tự chọn - Sự kiện văn hóa và thể thao'});
+MERGE (:Course {id: 'EVT1010', name: 'Quản lý nghệ sĩ trong tổ chức sự kiện', credits: 3, category: 'Tự chọn - Sự kiện văn hóa và thể thao'});
+MERGE (:Course {id: 'EVT114', name: 'Tổ chức sự kiện thể thao', credits: 3, category: 'Tự chọn - Sự kiện văn hóa và thể thao'});
+
+// Nhóm 2: Sự kiện marketing - MICE
+MERGE (:Course {id: 'TOU1009', name: 'Quản trị MICE', credits: 3, category: 'Tự chọn - Sự kiện marketing - MICE'});
+MERGE (:Course {id: 'MAN1080', name: 'Quản trị sự kiện trong ngành du lịch', credits: 3, category: 'Tự chọn - Sự kiện marketing - MICE'});
+MERGE (:Course {id: 'EVT1011', name: 'Tổ chức sự kiện marketing', credits: 3, category: 'Tự chọn - Sự kiện marketing - MICE'});
+
+// Nhóm 3: Khóa luận tốt nghiệp
+MERGE (:Course {id: 'EVT4012', name: 'Khóa luận tốt nghiệp Quản trị sự kiện', credits: 9, category: 'Tự chọn - Khóa luận tốt nghiệp'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+// Nhóm 1: Bóng chuyền
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+// Nhóm 2: Bóng rổ
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+// Nhóm 3: Thể hình - Thẩm mỹ
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+// Nhóm 4: Vovinam
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+// Nhóm 5: Bóng đá
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7340412'})
+WHERE c.id IN [
+    'POS104', 'POS105', 'POS106', 'POS107', 'POS103', 'ENC120', 'ENC121', 'ENC122',
+    'ENC123', 'AIT129', 'ENS192', 'LAW158', 'SKL115', 'MAN116', 'SOS101', 'SKL122',
+    'MAN1051', 'EVT103', 'EVT1003', 'MAR149', 'EVT108', 'EVT106', 'EVT1004', 'HMM141',
+    'EVT1013', 'EVT115', 'EVT1005', 'MAN1074', 'EVT109', 'MAN1075', 'EVT111', 'EVT110',
+    'LAW189', 'EVT1006', 'EVT104', 'EVT701', 'EVT702', 'MAN1078', 'TOU341', 'TOU102',
+    'EVT1008', 'EVT513', 'EVT1009', 'EVT1010', 'EVT114', 'TOU1009', 'MAN1080', 'EVT1011',
+    'EVT4012', 'PHT304', 'PHT305', 'PHT306', 'PHT307', 'PHT308', 'PHT309', 'PHT310',
+    'PHT311', 'PHT312', 'PHT313', 'PHT314', 'PHT315', 'PHT316', 'PHT317', 'PHT318',
+    'NDF108', 'NDF109', 'NDF210', 'NDF211'
+]
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuyên ngành ---
+MATCH (a:Course {id: 'MAN1051'}), (b:Course {id: 'MAN1075'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'EVT108'}), (b:Course {id: 'EVT104'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'EVT1003'}), (b:Course {id: 'EVT1008'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);

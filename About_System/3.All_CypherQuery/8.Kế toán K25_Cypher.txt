@@ -1,0 +1,158 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH KẾ TOÁN (7340301) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 125 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7340301', name: 'Kế toán', university: 'HUTECH', total_credits: 125, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (44 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW158', name: 'Luật và Khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MDC187', name: 'Giao tiếp chuyên nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAN116', name: 'Quản trị học', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'PSY167', name: 'Tâm lý học ứng dụng', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (72 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'ECO117', name: 'Kinh tế học', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC114', name: 'Nguyên lý kế toán', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN167', name: 'Lý thuyết tài chính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ECO241', name: 'Phương pháp nghiên cứu kinh tế', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC156', name: 'Kế toán tài chính doanh nghiệp 1', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN2017', name: 'Thuế', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC1002', name: 'Kiểm toán căn bản', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC157', name: 'Kế toán tài chính doanh nghiệp 2', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN1018', name: 'Tài chính xanh và phát triển bền vững', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN1016', name: 'Phân tích và đầu tư chứng khoán', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC1003', name: 'Kế toán tài chính quốc tế 1', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC2009', name: 'Lập và trình bày báo cáo tài chính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC105', name: 'Kế toán quản trị', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BUS1009', name: 'ESG và đạo đức kinh doanh', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN2021', name: 'Phân tích dữ liệu trong tài chính kế toán', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN1019', name: 'Công nghệ tài chính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC1004', name: 'Kế toán tài chính quốc tế 2', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW1016', name: 'Cơ sở pháp lý trong kế toán', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'AIT2019', name: 'Ứng dụng AI trong tài chính kế toán', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN106', name: 'Phân tích báo cáo tài chính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// Đồ án và Thực hành
+MERGE (:Course {id: 'ACC365', name: 'Phần mềm kế toán doanh nghiệp', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC362', name: 'Thực hành kế toán doanh nghiệp', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC361', name: 'Thực hành kiểm toán', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ECO440', name: 'Đồ án nghiên cứu trong kinh tế', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC441', name: 'Đồ án kế toán tài chính', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC430', name: 'Đồ án chuyên ngành Kế toán', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC566', name: 'Dự án doanh nghiệp ngành Kế toán', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC539', name: 'Thực tập tốt nghiệp ngành Kế toán', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 9 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Kế toán kiểm toán
+MERGE (:Course {id: 'ACC142', name: 'Kiểm toán nội bộ doanh nghiệp', credits: 3, category: 'Tự chọn - Kế toán kiểm toán'});
+MERGE (:Course {id: 'ACC127', name: 'Kiểm toán báo cáo tài chính', credits: 3, category: 'Tự chọn - Kế toán kiểm toán'});
+MERGE (:Course {id: 'ACC1005', name: 'Kiểm toán công nghệ thông tin', credits: 3, category: 'Tự chọn - Kế toán kiểm toán'});
+
+// Nhóm 2: Kế toán tài chính
+MERGE (:Course {id: 'ACC104', name: 'Kế toán ngân hàng', credits: 3, category: 'Tự chọn - Kế toán tài chính'});
+MERGE (:Course {id: 'ACC1006', name: 'Lập báo cáo tài chính quốc tế', credits: 3, category: 'Tự chọn - Kế toán tài chính'});
+MERGE (:Course {id: 'ACC1007', name: 'Báo cáo phát triển bền vững', credits: 3, category: 'Tự chọn - Kế toán tài chính'});
+
+// Nhóm 3: Khóa luận tốt nghiệp
+MERGE (:Course {id: 'ACC4008', name: 'Khóa luận tốt nghiệp Kế toán', credits: 9, category: 'Tự chọn - Khóa luận tốt nghiệp'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7340301'})
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Nền tảng Kế toán (ACC114, ACC157) ---
+MATCH (a:Course {id: 'ACC114'}), (b:Course {id: 'ACC1003'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ACC114'}), (b:Course {id: 'ACC104'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+MATCH (p:Course {id: 'ACC157'})
+WITH p
+MATCH (c:Course) WHERE c.id IN ['ACC2009', 'ACC365', 'ACC362', 'ACC441', 'ACC1006', 'ACC1007']
+MERGE (p)-[:PREREQUISITE_FOR]->(c);
+
+// --- Kiểm toán ---
+MATCH (a:Course {id: 'ACC1002'})
+WITH a
+MATCH (c:Course) WHERE c.id IN ['ACC361', 'ACC539', 'ACC142', 'ACC127', 'ACC1005']
+MERGE (a)-[:PREREQUISITE_FOR]->(c);
+
+// --- Khác ---
+MATCH (a:Course {id: 'ACC2009'}), (b:Course {id: 'ACC430'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ACC2009'}), (b:Course {id: 'ACC539'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ACC430'}), (b:Course {id: 'ACC566'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ECO241'}), (b:Course {id: 'ECO440'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Khóa luận tốt nghiệp (Cần ACC430 & ACC362) ---
+MATCH (a:Course {id: 'ACC430'}), (k:Course {id: 'ACC4008'}) MERGE (a)-[:PREREQUISITE_FOR]->(k);
+MATCH (a:Course {id: 'ACC362'}), (k:Course {id: 'ACC4008'}) MERGE (a)-[:PREREQUISITE_FOR]->(k);

@@ -1,0 +1,154 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH THIẾT KẾ THỜI TRANG (7210404) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 125 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7210404', name: 'Thiết kế thời trang', university: 'HUTECH', total_credits: 125, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (44 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW106', name: 'Pháp luật đại cương', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL116', name: 'Đổi mới sáng tạo và tư duy khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SOS101', name: 'Cơ sở văn hóa Việt Nam', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'FAD161', name: 'Nhập môn ngành Thiết kế thời trang', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (69 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'ART212', name: 'Hình họa đen trắng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD207', name: 'Kỹ thuật may', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD104', name: 'Lịch sử trang phục Việt Nam và thế giới', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD2001', name: 'Ký họa chuyên ngành thiết kế thời trang', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'GAR716', name: 'Kiến tập công ty dệt, may', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD105', name: 'Nguyên lý thiết kế thời trang', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD215', name: 'Thiết kế trang phục nữ', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'GRD415', name: 'Đồ án poster quảng cáo', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD1002', name: 'Vật liệu bền vững trong thời trang', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD424', name: 'Đồ án tạo mẫu', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ART109', name: 'Vẽ thời trang', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD423', name: 'Đồ án kỹ thuật xử lý chất liệu may', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD2003', name: 'Ứng dụng AI trong thiết kế thời trang', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD214', name: 'Thiết kế trang phục nam', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD140', name: 'Công nghệ dệt, may thời trang', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD447', name: 'Đồ án công nghệ dệt, may', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD4004', name: 'Đồ án thiết kế trang phục thường ngày', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD106', name: ' Tiếp thị và kinh doanh thời trang', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD464', name: 'Đồ án thiết kế trang phục event', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD242', name: 'Thiết kế rập trên Mannequin', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD101', name: 'Chuyên đề kiểm tra chất lượng sản phẩm', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD4005', name: 'Đồ án thiết kế trang phục nghệ thuật', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD5006', name: 'Thực tập thiết kế tạo phong cách', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD217', name: 'Thiết kế trang phục truyền thống', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH1019', name: 'Chuyên đề thiết kế hồ sơ năng lực cá nhân', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD544', name: 'Thực tập tốt nghiệp ngành Thiết kế thời trang', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FAD431', name: 'Đồ án tốt nghiệp Thiết kế thời trang', credits: 9, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 12 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Nghệ thuật thiết kế trang phục
+MERGE (:Course {id: 'FAD475', name: 'Đồ án tổng hợp thiết kế thời trang', credits: 3, category: 'Tự chọn - Nghệ thuật thiết kế trang phục'});
+MERGE (:Course {id: 'FAD4007', name: 'Đồ án thiết kế phụ kiện thời trang', credits: 3, category: 'Tự chọn - Nghệ thuật thiết kế trang phục'});
+MERGE (:Course {id: 'FAD2008', name: 'Thiết kế sản phẩm thủ công', credits: 3, category: 'Tự chọn - Nghệ thuật thiết kế trang phục'});
+MERGE (:Course {id: 'FAD241', name: 'Thiết kế áo veston', credits: 3, category: 'Tự chọn - Nghệ thuật thiết kế trang phục'});
+
+// Nhóm 2: Quản lý thương hiệu và kinh doanh thời trang
+MERGE (:Course {id: 'FAD467', name: 'Đồ án tổng hợp xây dựng thương hiệu', credits: 3, category: 'Tự chọn - Quản lý thương hiệu và kinh doanh thời trang'});
+MERGE (:Course {id: 'FAD468', name: 'Đồ án poster thương hiệu', credits: 3, category: 'Tự chọn - Quản lý thương hiệu và kinh doanh thời trang'});
+MERGE (:Course {id: 'FAD269', name: 'Nghiên cứu thị trường thời trang', credits: 3, category: 'Tự chọn - Quản lý thương hiệu và kinh doanh thời trang'});
+MERGE (:Course {id: 'FAD1009', name: 'Phát triển thương hiệu địa phương', credits: 3, category: 'Tự chọn - Quản lý thương hiệu và kinh doanh thời trang'});
+
+// Nhóm 3: Thiết kế xây dựng phong cách
+MERGE (:Course {id: 'FAD470', name: 'Đồ án tổng hợp xây dựng phong cách', credits: 3, category: 'Tự chọn - Thiết kế xây dựng phong cách'});
+MERGE (:Course {id: 'ART233', name: 'Trang điểm', credits: 3, category: 'Tự chọn - Thiết kế xây dựng phong cách'});
+MERGE (:Course {id: 'ART232', name: 'Nhiếp ảnh', credits: 3, category: 'Tự chọn - Thiết kế xây dựng phong cách'});
+MERGE (:Course {id: 'FAD2010', name: 'Trình diễn', credits: 3, category: 'Tự chọn - Thiết kế xây dựng phong cách'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+// (Tận dụng các node PHT đã có từ các ngành khác)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7210404'})
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Kỹ năng ---
+MATCH (a:Course {id: 'SKL115'}), (b:Course {id: 'SKL116'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuyên ngành ---
+MATCH (a:Course {id: 'FAD207'}), (b:Course {id: 'FAD215'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FAD207'}), (b:Course {id: 'FAD214'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FAD215'}), (b:Course {id: 'FAD424'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FAD215'}), (b:Course {id: 'FAD242'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FAD140'}), (b:Course {id: 'FAD447'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FAD214'}), (b:Course {id: 'FAD241'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FAD475'}), (b:Course {id: 'FAD431'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Các đồ án cần Nguyên lý thiết kế (FAD105) ---
+MATCH (p:Course {id: 'FAD105'})
+WITH p
+MATCH (c:Course) WHERE c.id IN ['FAD4004', 'FAD464', 'FAD4005', 'FAD475', 'FAD467', 'FAD468', 'FAD470']
+MERGE (p)-[:PREREQUISITE_FOR]->(c);

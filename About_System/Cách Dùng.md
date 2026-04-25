@@ -60,7 +60,7 @@ _Phù hợp cho mục đích Demo, kiểm thử hoặc cài đặt trên máy kh
 3. **Bật hệ thống:**
    Di chuyển vào thư mục gốc của dự án (`ChatBoxAI_Educational`) và chạy:
    ```bash
-   docker compose up -d --build
+   docker compose up -d --build   #### (frontend,backend,db,neo4j,adminer,mailcatcher,proxy,playwright)
    ```
    > ⏳ **Lưu ý:** Lần đầu tiên sẽ mất khoảng 5-10 phút để tải các gói cần thiết. Các lần sau chỉ mất vài giây.
 4. **Kiểm tra:**
@@ -73,7 +73,7 @@ _Phù hợp cho mục đích Demo, kiểm thử hoặc cài đặt trên máy kh
 6. **Khởi động lại (Các lần tiếp theo):**
    Bạn không cần phải build lại từ đầu. Chỉ cần mở Docker Desktop và chạy lệnh sau tại thư mục gốc:
    ```bash
-   docker compose up -d
+   docker compose up -d  ####
    ```
    > 💡 **Mẹo:** Lệnh này sẽ bật lại hệ thống cực nhanh (chỉ mất vài giây) vì mọi thứ đã được cài đặt sẵn.
 7. **Cập nhật hệ thống (Khi có thay đổi mã nguồn hoặc .env):**
@@ -82,7 +82,7 @@ _Phù hợp cho mục đích Demo, kiểm thử hoặc cài đặt trên máy kh
    docker compose up -d --build
    ```
 
----
+## 🌐 Giao diện Web: `http://localhost:5173`
 
 ### 🛠️ Cách 2: Chạy thủ công (Cho Lập trình viên)
 
@@ -109,7 +109,6 @@ _Phù hợp khi bạn cần can thiệp vào mã nguồn và chỉnh sửa tính
    bun install
    bun run dev
    ```
-   🌐 Giao diện Web:\*\* `http://localhost:5173`
 
 ---
 
@@ -185,7 +184,9 @@ ChatBoxAI_Educational/
 Phần này hướng dẫn cách thiết lập plugin `@tailwindcss/typography` để nội dung từ Chatbot (Markdown) được hiển thị đẹp mắt và chuyên nghiệp.
 
 ### 1. Cài đặt Package
+
 Nếu bạn đang chạy dự án ở chế độ phát triển (Local Dev), hãy mở terminal tại thư mục `frontend` và cài đặt thư viện:
+
 ```bash
 # Di chuyển vào thư mục frontend nếu chưa ở đó
 cd frontend
@@ -193,23 +194,30 @@ cd frontend
 # Cài đặt plugin typography bằng Bun
 bun add @tailwindcss/typography
 ```
-*Chú thích: Lệnh này sẽ thêm plugin vào file `package.json` của bạn để các thành viên khác có thể sử dụng.*
+
+_Chú thích: Lệnh này sẽ thêm plugin vào file `package.json` của bạn để các thành viên khác có thể sử dụng._
 
 ### 2. Khai báo Plugin trong CSS
+
 Trong Tailwind CSS v4, chúng ta khai báo plugin trực tiếp trong file CSS chính.
 Mở file `frontend/src/index.css` và kiểm tra xem đã có 2 dòng này chưa:
+
 ```css
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 ```
-*Lưu ý: Hệ thống hiện tại đã cấu hình sẵn dòng này, bạn thường chỉ cần thực hiện Bước 1 nếu thư viện chưa được cài đặt.*
+
+_Lưu ý: Hệ thống hiện tại đã cấu hình sẵn dòng này, bạn thường chỉ cần thực hiện Bước 1 nếu thư viện chưa được cài đặt._
 
 ### 3. Cách sử dụng trong code
+
 Để nội dung Markdown tự động có định dạng (tiêu đề, danh sách, in đậm...), bạn chỉ cần sử dụng class `prose`:
+
 - **Light Mode**: Sử dụng class `prose`.
 - **Dark Mode**: Sử dụng thêm `dark:prose-invert` để chữ tự động chuyển sang màu sáng trên nền tối.
 
 Ví dụ minh họa:
+
 ```html
 <div class="prose dark:prose-invert max-w-none">
   <!-- Toàn bộ nội dung trả về từ AI sẽ được tự động làm đẹp tại đây -->
@@ -218,6 +226,5 @@ Ví dụ minh họa:
 ```
 
 ---
-
 
 _Tài liệu được cập nhật lần cuối vào tháng 04/2026 bởi Đội ngũ Phát triển EduGuide VN._
