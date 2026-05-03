@@ -1,0 +1,63 @@
+================================================================================
+🖥️ PHÂN TÍCH CHUYÊN SÂU FRONTEND (EDUGUIDE_VN)
+================================================================================
+
+Giao diện người dùng hiện đại, tốc độ cao được xây dựng bằng React + Vite.
+Sử dụng TypeScript để đảm bảo tính chính xác và Tailwind CSS để tối ưu hóa UI.
+
+--------------------------------------------------------------------------------
+📂 1. CẤU TRÚC THƯ MỤC NGUỒN (src/)
+--------------------------------------------------------------------------------
+
+🔹 LỚP ĐIỀU HƯỚNG & TRANG (Routes)
+   - main.tsx           : Cổng vào của ứng dụng. Khởi tạo React và các Provider (Auth, Query).
+   - routeTree.gen.ts   : File tự động quản lý sơ đồ các trang trong web.
+   - routes/
+      📍 __root.tsx     : Bố cục chung cấp cao nhất (chứa thanh thông báo, modal).
+      📍 _layout.tsx    : Khung sườn giao diện (Sidebar + Header + Content).
+      📍 login.tsx      : Giao diện đăng nhập.
+      📍 signup.tsx     : Giao diện đăng ký người dùng mới.
+      📍 reset-password.tsx: Giao diện khôi phục mật khẩu qua Email.
+
+🔹 THƯ VIỆN LINH KIỆN (Components - Reusable UI)
+   - components/Chat/      : Module quan trọng nhất. Chứa khung chat AI, bóng bóng tin nhắn.
+   - components/ui/        : Thư viện linh kiện gốc (Button, Input, Switch, Card...).
+   - components/Sidebar/   : Thanh menu bên trái để chuyển đổi giữa các tính năng.
+   - components/Admin/     : Các bảng biểu, biểu đồ dành cho quản trị viên.
+   - components/Common/    : Các thành phần nhỏ như: Loading, Error Boundary, Navbar.
+   - components/theme-provider.tsx: Quản lý chế độ sáng/tối (Dark/Light mode).
+
+🔹 XỬ LÝ LOGIC & DỮ LIỆU (Logic Layer)
+   - client/            : Chứa mã nguồn kết nối API tự động (sinh ra từ Swagger/OpenAPI).
+   - hooks/             : Các hàm xử lý trạng thái như: `useAuth` (quản lý đăng nhập), `useChat` (quản lý tin nhắn).
+   - lib/               : Cấu hình các thư viện ngoài (như cấu hình AXIOS để gọi API).
+   - utils.ts           : Các hàm bổ trợ xử lý dữ liệu nhỏ lẻ.
+
+--------------------------------------------------------------------------------
+⚙️ 2. HỆ THỐNG CẤU HÌNH (FRONTEND CONFIG)
+--------------------------------------------------------------------------------
+
+   - vite.config.ts     : Cấu hình trình biên dịch Vite (Proxy, Plugins).
+   - tailwind.config.js : Cấu hình màu sắc, font chữ và phong cách thiết kế UI.
+   - biome.json         : Quy định về tiêu chuẩn viết code (Linter/Formatter).
+   - tsconfig.json      : Quy định về kiểu dữ liệu trong dự án (TypeScript).
+   - playwright.config.ts: Cấu hình kiểm thử tự động trên trình duyệt thực tế.
+
+--------------------------------------------------------------------------------
+🏗️ 3. TRIỂN KHAI & MÔI TRƯỜNG (ENV & DEPLOY)
+--------------------------------------------------------------------------------
+
+   - Dockerfile          : Kịch bản build giao diện thành các file tĩnh và chạy qua Nginx.
+   - nginx.conf          : Cấu hình máy chủ web để phân phối các file giao diện.
+   - .env                : Chứa URL của Backend API để Frontend biết chỗ mà gọi dữ liệu.
+
+--------------------------------------------------------------------------------
+✨ ĐẶC ĐIỂM NỔI BẬT CỦA GIAO DIỆN
+--------------------------------------------------------------------------------
+1. **Responsive Design**: Tự động tương thích với cả máy tính, máy tính bảng và điện thoại.
+2. **Dark Mode Support**: Hỗ trợ giao diện tối giúp bảo vệ mắt người dùng.
+3. **Real-time Interaction**: Phản hồi tin nhắn chat từ AI một cách tức thời.
+4. **Type Safety**: Hạn chế tối đa lỗi lập trình nhờ hệ thống TypeScript chặt chẽ.
+
+---
+📅 Cập nhật lần cuối: 26/04/2026

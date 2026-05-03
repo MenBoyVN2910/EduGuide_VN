@@ -1,0 +1,58 @@
+================================================================================
+📌 TỔNG QUAN CẤU TRÚC TOÀN BỘ DỰ ÁN (EDUGUIDE_VN)
+================================================================================
+
+Dự án này là một hệ thống hỗ trợ giáo dục thông minh (EduGuide) tích hợp AI.
+Kiến trúc chính: Fullstack (FastAPI + React) đóng gói trong Docker.
+
+--------------------------------------------------------------------------------
+📂 1. CÁC THƯ MỤC CỐT LÕI (CORE DIRECTORIES)
+--------------------------------------------------------------------------------
+
+| Thư mục | Chức năng chính | Ghi chú chi tiết |
+|:---|:---|:---|
+| 🧠 backend/ | Xử lý Logic & AI | Chứa mã nguồn Python, xử lý GraphRAG, Neo4j và API. |
+| 🎨 frontend/ | Giao diện người dùng | Chứa mã nguồn React, Vite, Tailwind CSS cho Chatbot. |
+| 🛠️ scripts/ | Công cụ hỗ trợ | Các lệnh cài đặt, khởi tạo database, migration dữ liệu. |
+| 📜 About_System/| Tài liệu hệ thống | Nơi lưu trữ các ghi chú, hướng dẫn sử dụng và sơ đồ. |
+| 📦 node_modules/| Thư viện Frontend | Chứa toàn bộ các package JS cần thiết để chạy giao diện. |
+| 🐍 .venv/ | Môi trường Python | Chứa các thư viện Python cho Backend (FastAPI, LangChain...). |
+
+--------------------------------------------------------------------------------
+⚙️ 2. HỆ THỐNG CẤU HÌNH & TRIỂN KHAI (CONFIG & DEPLOYMENT)
+--------------------------------------------------------------------------------
+
+🔹 QUẢN LÝ DỰ ÁN (PROJECT MANAGEMENT)
+   - package.json    : Quản lý script và thư viện cho phần Frontend.
+   - pyproject.toml  : Cấu hình môi trường và thư viện cho phần Backend.
+   - bun.lock        : File khóa phiên bản thư viện JS (đảm bảo mọi người dùng chung bản).
+   - uv.lock         : File khóa phiên bản thư viện Python (tương tự bun.lock).
+
+🔹 DOCKER & DEPLOYMENT (TRIỂN KHAI)
+   - compose.yml           : File "tổng chỉ huy" khởi động Backend, Frontend, Neo4j.
+   - compose.override.yml  : Cấu hình riêng cho máy cá nhân (Local Dev).
+   - compose.traefik.yml   : Cấu hình bộ điều phối mạng và chứng chỉ SSL.
+
+🔹 BẢO MẬT & GIT (SECURITY & SOURCE CONTROL)
+   - .env            : CHỨA MẬT KHẨU & API KEYS. (Cực kỳ quan trọng, không được lộ).
+   - .gitignore      : Chỉ định các file không được đẩy lên GitHub (như .env, node_modules).
+   - .gitattributes  : Quy định cách xử lý các file văn bản trong hệ thống Git.
+
+--------------------------------------------------------------------------------
+🛠️ 3. CÁC CÔNG CỤ TỰ ĐỘNG HÓA (AUTOMATION TOOLS)
+--------------------------------------------------------------------------------
+
+   - .github/               : Chứa kịch bản tự động test code khi đẩy lên GitHub.
+   - .pre-commit-config.yaml: Tự động dọn dẹp, định dạng lại code trước khi lưu.
+   - copier.yml             : Cấu hình template để đồng bộ cấu trúc giữa các dự án.
+   - .vscode/               : Cài đặt gợi ý code riêng cho trình soạn thảo VS Code.
+
+--------------------------------------------------------------------------------
+📝 4. GHI CHÚ KHÁC
+--------------------------------------------------------------------------------
+- Dự án ưu tiên sử dụng AI để hỗ trợ tìm kiếm trong cơ sở dữ liệu đồ thị (Graph Database).
+- Cấu trúc được chia tách rạch ròi giữa Backend và Frontend để dễ dàng nâng cấp.
+
+---
+📅 Cập nhật lần cuối: 26/04/2026
+👤 Hệ thống tự động phân tích

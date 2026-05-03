@@ -1,0 +1,53 @@
+# CẤU TRÚC VÀ Ý NGHĨA CÁC THÀNH PHẦN TRONG DỰ ÁN EDUGUIDE_VN
+
+## 1. TỔNG QUAN DỰ ÁN
+Dự án ChatBoxAI_Educational (EduGuide_VN) là một hệ thống Chatbot AI hỗ trợ giáo dục sử dụng kiến trúc GraphRAG (Neo4j + LLM). Dự án được thiết kế theo mô hình Fullstack, đóng gói bằng Docker và quản lý môi trường bằng các công cụ hiện đại như Bun (JS) và UV (Python).
+
+---
+
+## 2. CẤU TRÚC THƯ MỤC CHÍNH (DIRECTORIES)
+
+### 核心 Logic & Giao diện:
+*   **backend/**: Mã nguồn phía máy chủ (FastAPI). Chứa logic xử lý AI, kết nối cơ sở dữ liệu đồ thị Neo4j và các API endpoint.
+*   **frontend/**: Mã nguồn phía người dùng (React/Vite). Giao diện chat và tương tác của người dùng.
+*   **node_modules/**: Các thư viện bổ trợ cho phần Frontend (được cài đặt qua Bun/NPM).
+
+### Hệ thống & Cấu hình:
+*   **.github/**: Chứa các kịch bản CI/CD (GitHub Actions) để tự động hóa kiểm tra và triển khai.
+*   **.venv/**: Môi trường ảo Python cục bộ, chứa các thư viện Backend.
+*   **.vscode/**: Thiết lập riêng cho trình soạn thảo VS Code (linting, debugger).
+*   **.copier/**: Dữ liệu của công cụ Copier dùng để quản lý template dự án.
+
+### Tài nguyên & Hỗ trợ:
+*   **About_System/**: Hệ thống tài liệu hướng dẫn, ghi chú về kiến trúc và cách vận hành dự án.
+*   **scripts/**: Các tệp lệnh (bash/python) dùng để cài đặt nhanh, khởi tạo dữ liệu hoặc bảo trì hệ thống.
+*   **hooks/**: Các kịch bản tự động chạy khi thực hiện lệnh Git (như kiểm tra lỗi code trước khi commit).
+*   **img/**: Lưu trữ hình ảnh minh họa cho tài liệu và giao diện.
+
+---
+
+## 3. CÁC TỆP TIN CẤU HÌNH QUAN TRỌNG (CONFIGURATION FILES)
+
+### Quản lý môi trường & Bảo mật:
+*   **.env**: Lưu trữ các tham số cấu hình nhạy cảm (API Keys, DB Credentials, App Ports). **Không bao giờ chia sẻ file này.**
+*   **.gitignore**: Danh sách các file và thư mục mà Git sẽ bỏ qua (không đưa lên server).
+*   **.gitattributes**: Định nghĩa cách Git xử lý các loại file cụ thể (ví dụ: xuống dòng).
+
+### Quản lý gói & Thư viện (Dependencies):
+*   **package.json**: Danh sách thư viện và script điều khiển phần Frontend.
+*   **bun.lock**: File khóa phiên bản thư viện Frontend để đảm bảo tính đồng nhất.
+*   **pyproject.toml**: Cấu hình môi trường Python cho Backend.
+*   **uv.lock**: File khóa phiên bản thư viện Python (quản lý bởi công cụ UV).
+
+### Triển khai với Docker:
+*   **compose.yml**: File cấu hình chính để khởi chạy toàn bộ dịch vụ (Backend, Frontend, Neo4j) cùng lúc.
+*   **compose.override.yml**: Các tùy chỉnh riêng cho môi trường phát triển cục bộ.
+*   **compose.traefik.yml**: Cấu hình bộ điều phối mạng (Reverse Proxy) Traefik cho hệ thống.
+
+### Khác:
+*   **.pre-commit-config.yaml**: Cấu hình các công cụ kiểm tra chất lượng code tự động.
+*   **copier.yml**: Cấu hình các biến và tham số cho template Copier.
+*   **LICENSE**: Quy định về quyền sử dụng và phân phối mã nguồn.
+
+---
+*Cập nhật lần cuối: 26/04/2026*

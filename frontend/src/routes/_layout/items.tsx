@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react"
 
 import { NoteCard } from "@/components/Notes/NoteCard"
 import { NotesProvider, useNotes } from "@/components/Notes/NotesContext"
+import { useCurrentUserId } from "@/hooks/useCurrentUserId"
 import { Button } from "@/components/ui/button"
 
 export const Route = createFileRoute("/_layout/items")({
@@ -214,9 +215,16 @@ function NotesList() {
 // ─── Page Wrapper ─────────────────────────────────────────────────────────────
 
 function NotesPage() {
+  const userId = useCurrentUserId()
+
+  // Chờ userId được load xong trước khi render — đảm bảo dữ liệu đúng tài khoản
+  if (!userId) {
+    return null
+  }
+
   return (
     <div className="h-full w-full overflow-y-auto">
-      <NotesProvider>
+      <NotesProvider userId={userId}>
         <NotesList />
       </NotesProvider>
     </div>

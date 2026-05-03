@@ -1,8 +1,9 @@
 import { Home, StickyNote, Users, LogIn } from "lucide-react"
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 
 import { SidebarAppearance } from "@/components/Common/Appearance"
 import { Logo } from "@/components/Common/Logo"
+import { useChatHistory } from "@/components/Chat/ChatHistoryContext"
 import {
   Sidebar,
   SidebarContent,
@@ -24,15 +25,23 @@ const baseItems: Item[] = [
 
 export function AppSidebar() {
   const { user: currentUser } = useAuth()
+  const { createConversation } = useChatHistory()
+  const navigate = useNavigate()
 
   const items = currentUser?.is_superuser
     ? [...baseItems, { icon: Users, title: "Admin", path: "/admin" }]
     : baseItems
 
+  // Khi click logo → tạo cuộc trò chuyện mới + navigate về trang chat
+  const handleLogoClick = () => {
+    createConversation()
+    navigate({ to: "/" })
+  }
+
   return (
     <Sidebar collapsible="icon" variant="sidebar">
       <SidebarHeader className="px-4 py-6 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-        <Logo />
+        <Logo onClick={handleLogoClick} />
       </SidebarHeader>
       <SidebarContent className="flex flex-col overflow-hidden">
         <Main items={items} />

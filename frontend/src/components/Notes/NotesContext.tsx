@@ -29,40 +29,57 @@ interface NotesContextValue {
 
 const NotesContext = createContext<NotesContextValue | null>(null)
 
-const STORAGE_KEY = "chatbox_notes"
-const COUNTER_KEY = "chatbox_notes_counter"
+/** Tạo storage key riêng cho từng user — cô lập dữ liệu giữa các tài khoản */
+function getNotesKey(userId: string) {
+  return `chatbox_notes_${userId}`
+}
 
-function loadNotes(): Note[] {
+function getCounterKey(userId: string) {
+  return `chatbox_notes_counter_${userId}`
+}
+
+function loadNotes(userId: string): Note[] {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(getNotesKey(userId))
     return raw ? (JSON.parse(raw) as Note[]) : []
   } catch {
     return []
   }
 }
 
-function loadCounter(): number {
-  return Number(localStorage.getItem(COUNTER_KEY) ?? "0")
+function loadCounter(userId: string): number {
+  return Number(localStorage.getItem(getCounterKey(userId)) ?? "0")
 }
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
-export function NotesProvider({ children }: { children: ReactNode }) {
-  const [notes, setNotes] = useState<Note[]>(loadNotes)
+interface NotesProviderProps {
+  children: ReactNode
+  userId: string
+}
+
+export function NotesProvider({ children, userId }: NotesProviderProps) {
+  const [notes, setNotes] = useState<Note[]>(() => loadNotes(userId))
 
   // Dùng useRef để counter không trigger re-render và tránh nested setState
-  const counterRef = useRef<number>(loadCounter())
+  const counterRef = useRef<number>(loadCounter(userId))
+
+  // Khi userId thay đổi (đăng nhập tài khoản khác), load lại dữ liệu từ localStorage key mới
+  useEffect(() => {
+    setNotes(loadNotes(userId))
+    counterRef.current = loadCounter(userId)
+  }, [userId])
 
   // Persist notes
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes))
-  }, [notes])
+    localStorage.setItem(getNotesKey(userId), JSON.stringify(notes))
+  }, [userId, notes])
 
   const addNote = useCallback((title: string, content: string) => {
     // Tăng counter trực tiếp qua ref — không gây re-render, không bị gọi 2 lần
     counterRef.current += 1
     const nextId = counterRef.current
-    localStorage.setItem(COUNTER_KEY, String(nextId))
+    localStorage.setItem(getCounterKey(userId), String(nextId))
 
     const now = Date.now()
     setNotes((prev) => [
@@ -75,7 +92,7 @@ export function NotesProvider({ children }: { children: ReactNode }) {
         updatedAt: now,
       },
     ])
-  }, [])
+  }, [userId])
 
   const updateNote = useCallback((id: number, title: string, content: string) => {
     setNotes((prev) =>
@@ -93,11 +110,11 @@ export function NotesProvider({ children }: { children: ReactNode }) {
       // Reset counter về 0 khi xóa hết tất cả ghi chú
       if (filtered.length === 0) {
         counterRef.current = 0
-        localStorage.setItem(COUNTER_KEY, "0")
+        localStorage.setItem(getCounterKey(userId), "0")
       }
       return filtered
     })
-  }, [])
+  }, [userId])
 
   return (
     <NotesContext.Provider value={{ notes, addNote, updateNote, deleteNote }}>

@@ -4,8 +4,8 @@ import { User, Key, AlertTriangle } from "lucide-react"
 import ChangePassword from "@/components/UserSettings/ChangePassword"
 import DeleteAccount from "@/components/UserSettings/DeleteAccount"
 import UserInformation from "@/components/UserSettings/UserInformation"
+import { AvatarUpload } from "@/components/UserSettings/AvatarUpload"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import useAuth from "@/hooks/useAuth"
 
 const tabsConfig = [
@@ -62,11 +62,11 @@ function UserSettings() {
     <div className="flex flex-col gap-8 max-w-5xl mx-auto py-4">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between px-2">
         <div className="flex items-center gap-5">
-          <Avatar className="h-20 w-20 border-2 border-primary/20">
-            <AvatarFallback className="text-2xl font-bold bg-primary/10 text-primary">
-              {userInitials}
-            </AvatarFallback>
-          </Avatar>
+          <AvatarUpload
+            userId={currentUser.id}
+            initials={userInitials}
+            size="lg"
+          />
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Cài đặt tài khoản</h1>
             <p className="text-muted-foreground mt-1">

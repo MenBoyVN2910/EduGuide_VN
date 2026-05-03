@@ -7,6 +7,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { useCurrentUserId } from "@/hooks/useCurrentUserId"
 
 export const Route = createFileRoute("/_layout")({
   component: Layout,
@@ -16,8 +17,15 @@ export const Route = createFileRoute("/_layout")({
 })
 
 function Layout() {
+  const userId = useCurrentUserId()
+
+  // Chờ userId được load xong trước khi render — đảm bảo dữ liệu đúng tài khoản
+  if (!userId) {
+    return null
+  }
+
   return (
-    <ChatHistoryProvider>
+    <ChatHistoryProvider userId={userId}>
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset className="flex flex-col h-svh overflow-hidden">

@@ -31,7 +31,10 @@ interface ChatHistoryContextValue {
 
 const ChatHistoryContext = createContext<ChatHistoryContextValue | null>(null)
 
-const STORAGE_KEY = "chatbox_history"
+/** Tạo storage key riêng cho từng user — cô lập dữ liệu giữa các tài khoản */
+function getStorageKey(userId: string) {
+  return `chatbox_history_${userId}`
+}
 
 function generateId() {
   return `conv_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
@@ -46,9 +49,9 @@ function makeNew(): Conversation {
   }
 }
 
-function loadFromStorage(): Conversation[] {
+function loadFromStorage(userId: string): Conversation[] {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(getStorageKey(userId))
     if (!raw) return []
     return JSON.parse(raw) as Conversation[]
   } catch {
@@ -56,27 +59,45 @@ function loadFromStorage(): Conversation[] {
   }
 }
 
-function saveToStorage(conversations: Conversation[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(conversations))
+function saveToStorage(userId: string, conversations: Conversation[]) {
+  localStorage.setItem(getStorageKey(userId), JSON.stringify(conversations))
 }
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
-export function ChatHistoryProvider({ children }: { children: ReactNode }) {
+interface ChatHistoryProviderProps {
+  children: ReactNode
+  userId: string
+}
+
+export function ChatHistoryProvider({ children, userId }: ChatHistoryProviderProps) {
   const [conversations, setConversations] = useState<Conversation[]>(() => {
-    const loaded = loadFromStorage()
+    const loaded = loadFromStorage(userId)
     return loaded.length > 0 ? loaded : [makeNew()]
   })
 
   const [activeId, setActiveId] = useState<string | null>(() => {
-    const loaded = loadFromStorage()
+    const loaded = loadFromStorage(userId)
     return loaded.length > 0 ? loaded[0].id : null
   })
 
+  // Khi userId thay đổi (đăng nhập tài khoản khác), load lại dữ liệu từ localStorage key mới
+  useEffect(() => {
+    const loaded = loadFromStorage(userId)
+    if (loaded.length > 0) {
+      setConversations(loaded)
+      setActiveId(loaded[0].id)
+    } else {
+      const fresh = makeNew()
+      setConversations([fresh])
+      setActiveId(fresh.id)
+    }
+  }, [userId])
+
   // Persist whenever conversations change
   useEffect(() => {
-    saveToStorage(conversations)
-  }, [conversations])
+    saveToStorage(userId, conversations)
+  }, [userId, conversations])
 
   // If activeId is not set, default to first
   useEffect(() => {
