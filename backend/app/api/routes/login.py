@@ -51,26 +51,44 @@ def test_token(current_user: CurrentUser) -> Any:
     return current_user
 
 
+import secrets
+from app.utils import generate_new_password_email
+
 @router.post("/password-recovery/{email}")
 def recover_password(email: str, session: SessionDep) -> Message:
     """
     Yêu cầu phục hồi mật khẩu qua Email.
+    Hệ thống sẽ tạo mật khẩu mới và gửi về email.
     """
     user = crud.get_user_by_email(session=session, email=email)
 
-    # Luôn trả về cùng một phản hồi để ngăn chặn tấn công dò tìm email (email enumeration)
-    if user:
-        password_reset_token = generate_password_reset_token(email=email)
-        email_data = generate_reset_password_email(
-            email_to=user.email, email=email, token=password_reset_token
+    if not user:
+        raise HTTPException(
+            status_code=404, 
+            detail="Người dùng với email này không tồn tại trong hệ thống."
+        )
+
+    # Tạo mật khẩu mới ngẫu nhiên (ví dụ 10 ký tự an toàn)
+    new_password = secrets.token_urlsafe(10)
+    
+    # Cập nhật mật khẩu trong cơ sở dữ liệu
+    hashed_password = security.get_password_hash(new_password)
+    user.hashed_password = hashed_password
+    session.add(user)
+    session.commit()
+
+    if settings.emails_enabled:
+        email_data = generate_new_password_email(
+            email_to=user.email, password=new_password
         )
         send_email(
             email_to=user.email,
             subject=email_data.subject,
             html_content=email_data.html_content,
         )
+        
     return Message(
-        message="Nếu email này đã được đăng ký, chúng tôi đã gửi một liên kết phục hồi mật khẩu."
+        message="Mật khẩu mới đã được tạo và gửi đến email của bạn."
     )
 
 

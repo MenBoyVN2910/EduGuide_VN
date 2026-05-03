@@ -106,6 +106,24 @@ def generate_new_account_email(
     return EmailData(html_content=html_content, subject=subject)
 
 
+def generate_new_password_email(
+    email_to: str, password: str
+) -> EmailData:
+    """Tạo nội dung email chứa mật khẩu mới được tạo."""
+    project_name = settings.PROJECT_NAME
+    subject = f"{project_name} - Khôi phục mật khẩu"
+    html_content = render_email_template(
+        template_name="new_password.html",
+        context={
+            "project_name": settings.PROJECT_NAME,
+            "password": password,
+            "email": email_to,
+            "link": settings.FRONTEND_HOST + "/login",
+        },
+    )
+    return EmailData(html_content=html_content, subject=subject)
+
+
 def generate_password_reset_token(email: str) -> str:
     """Sinh JWT token phục vụ việc đặt lại mật khẩu (có thời hạn)."""
     delta = timedelta(hours=settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS)
