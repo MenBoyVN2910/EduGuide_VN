@@ -1,0 +1,64 @@
+================================================================================
+🚀 PHÂN TÍCH CHUYÊN SÂU BACKEND (EDUGUIDE_VN)
+================================================================================
+
+Backend là trung tâm xử lý dữ liệu, sử dụng FastAPI (Python). 
+Kiến trúc chính dựa trên GraphRAG (Neo4j) để trả lời câu hỏi thông minh.
+
+--------------------------------------------------------------------------------
+📂 1. CẤU TRÚC THƯ MỤC NGUỒN (app/)
+--------------------------------------------------------------------------------
+
+🔹 LỚP API & ROUTES (Cổng tiếp nhận dữ liệu)
+   - api/main.py       : Đầu mối kết nối tất cả các Endpoint của hệ thống.
+   - api/deps.py       : Quản lý các hàm phụ thuộc (Dependencies) như: xác thực người dùng, phiên DB.
+   - api/routes/
+      📌 chatbot.py  : Xử lý giao tiếp chính. Nhận tin nhắn -> Gọi AI -> Trả kết quả.
+      📌 login.py    : Xử lý đăng nhập, đăng xuất và mã hóa Token bảo mật.
+      📌 users.py    : Quản lý hồ sơ người dùng (đổi mật khẩu, cập nhật thông tin).
+      📌 items.py    : Quản lý các đối tượng phụ trợ khác trong hệ thống.
+
+🔹 LỚP DỊCH VỤ AI (AI Services - "Bộ não" GraphRAG)
+   - services/chat_agent.py      : Chỉ huy trưởng. Điều phối luồng dữ liệu từ lúc nhận câu hỏi đến lúc trả lời.
+   - services/intent_classifier.py: Phân tích ý định. Biết được người dùng đang hỏi về "Môn học", "Học kỳ" hay "Lộ trình".
+   - services/cypher_generator.py : Chuyển tiếng Việt thành ngôn ngữ truy vấn Neo4j (Cypher).
+   - services/answer_generator.py : Tổng hợp dữ liệu từ Graph và viết thành câu trả lời văn chương, dễ hiểu.
+   - services/schema_metadata.py  : Cung cấp bản đồ dữ liệu cho AI để nó không truy vấn sai cấu trúc.
+
+🔹 LỚP CORE & KẾT NỐI (Infrastructure)
+   - core/config.py      : Quản lý toàn bộ cấu hình hệ thống (đọc từ file .env).
+   - core/neo4j_db.py    : Quản lý kết nối tới Graph Database (Cơ sở dữ liệu đồ thị).
+   - core/db.py          : Quản lý kết nối tới SQL Database (Lưu thông tin người dùng).
+   - core/security.py    : Xử lý mã hóa mật khẩu (bcrypt) và tạo chữ ký số (JWT).
+
+--------------------------------------------------------------------------------
+📦 2. QUẢN LÝ DỮ LIỆU & TIỆN ÍCH (MODELS & UTILS)
+--------------------------------------------------------------------------------
+
+   - models.py           : Định nghĩa cấu trúc các bảng trong SQL (Người dùng, Item...).
+   - crud.py             : (Create-Read-Update-Delete) Các hàm cơ bản để tương tác với SQL.
+   - utils.py            : Chứa các hàm dùng chung: Gửi email, xử lý chuỗi, định dạng thời gian.
+   - initial_data.py     : Tự động tạo tài khoản Admin và dữ liệu mẫu khi mới cài đặt.
+   - backend_pre_start.py: Kiểm tra kết nối Database trước khi khởi động ứng dụng.
+
+--------------------------------------------------------------------------------
+🏗️ 3. TRIỂN KHAI (DEPLOYMENT)
+--------------------------------------------------------------------------------
+
+   - Dockerfile          : Kịch bản xây dựng môi trường chạy Backend (Python 3.10+, UV).
+   - alembic.ini         : Cấu hình công cụ quản lý phiên bản cơ sở dữ liệu SQL.
+   - pyproject.toml      : Danh sách thư viện: fastapi, langchain, openai, neo4j, sqlalchemy.
+
+--------------------------------------------------------------------------------
+💡 LUỒNG XỬ LÝ MỘT CÂU HỎI (WORKFLOW)
+--------------------------------------------------------------------------------
+1. Client gửi câu hỏi -> `api/routes/chatbot.py`
+2. Chatbot gọi -> `services/chat_agent.py`
+3. Phân tích ý định qua -> `services/intent_classifier.py`
+4. Truy vấn Graph qua -> `services/cypher_generator.py`
+5. Lấy dữ liệu từ -> `core/neo4j_db.py`
+6. Tổng hợp câu trả lời tại -> `services/answer_generator.py`
+7. Trả kết quả về cho người dùng.
+
+---
+📅 Cập nhật lần cuối: 26/04/2026

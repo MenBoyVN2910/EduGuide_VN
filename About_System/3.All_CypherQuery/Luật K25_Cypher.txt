@@ -1,0 +1,165 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH LUẬT (7380101) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 125 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7380101', name: 'Luật', university: 'HUTECH', total_credits: 125, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (44 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL101', name: 'Khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'PSY167', name: 'Tâm lý học ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LOG101', name: 'Logic học', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SOS102', name: 'Xã hội học', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (72 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'LAW108', name: 'Lý luận về nhà nước và pháp luật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW110', name: 'Luật hiến pháp', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW1018', name: 'Nghề luật và đạo đức nghề luật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW194', name: 'Kỹ thuật soạn thảo văn bản pháp luật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW111', name: 'Những vấn đề chung về luật dân sự', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW115', name: 'Pháp luật về hợp đồng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW112', name: 'Luật hành chính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW1019', name: 'Pháp luật về giao dịch điện tử', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW118', name: 'Luật thương mại', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW120', name: 'Luật lao động', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW121', name: 'Luật đất đai', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW123', name: 'Luật hình sự', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW127', name: 'Luật sở hữu trí tuệ', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW160', name: 'Pháp luật về chủ thể kinh doanh', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW129', name: 'Luật quốc tế', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW264', name: 'Luật tố tụng hành chính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW267', name: 'Luật tố tụng dân sự', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW268', name: 'Luật tố tụng hình sự', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW180', name: 'Pháp luật về thuế', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW181', name: 'Luật hôn nhân và gia đình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW117', name: 'Bồi thường thiệt hại ngoài hợp đồng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW188', name: 'Pháp luật về công chứng, chứng thực', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW134', name: 'Luật đầu tư', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW583', name: 'Thực tập tốt nghiệp ngành Luật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 9 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1
+MERGE (:Course {id: 'LAW4020', name: 'Khóa luận tốt nghiệp Luật', credits: 9, category: 'Tự chọn - Nhóm 1'});
+
+// Nhóm 2
+MERGE (:Course {id: 'LAW196', name: 'Pháp luật về hòa giải và đối thoại', credits: 3, category: 'Tự chọn - Nhóm 2'});
+MERGE (:Course {id: 'LAW186', name: 'Pháp luật về thanh tra, khiếu nại và tố cáo', credits: 3, category: 'Tự chọn - Nhóm 2'});
+MERGE (:Course {id: 'LAW187', name: 'Pháp luật về giao dịch bảo đảm', credits: 3, category: 'Tự chọn - Nhóm 2'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7380101'})
+WHERE c.id IN [
+    'POS104', 'POS105', 'POS106', 'POS107', 'POS103', 'ENC120', 'ENC121', 'ENC122',
+    'ENC123', 'AIT129', 'ENS192', 'SKL101', 'SKL115', 'PSY167', 'LOG101', 'SOS102',
+    'LAW108', 'LAW110', 'LAW1018', 'LAW194', 'LAW111', 'LAW115', 'LAW112', 'LAW1019',
+    'LAW118', 'LAW120', 'LAW121', 'LAW123', 'LAW127', 'LAW160', 'LAW129', 'LAW264',
+    'LAW267', 'LAW268', 'LAW180', 'LAW181', 'LAW117', 'LAW188', 'LAW134', 'LAW583',
+    'LAW4020', 'LAW196', 'LAW186', 'LAW187', 'PHT304', 'PHT305', 'PHT306', 'PHT307',
+    'PHT308', 'PHT309', 'PHT310', 'PHT311', 'PHT312', 'PHT313', 'PHT314', 'PHT315',
+    'PHT316', 'PHT317', 'PHT318', 'NDF108', 'NDF109', 'NDF210', 'NDF211'
+]
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Nền tảng Lý luận & Hiến pháp ---
+MATCH (a:Course {id: 'LAW108'}), (b:Course {id: 'LAW111'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW108'}), (b:Course {id: 'LAW112'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW110'}), (b:Course {id: 'LAW111'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW110'}), (b:Course {id: 'LAW112'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuỗi Dân sự ---
+MATCH (a:Course {id: 'LAW111'}), (b:Course {id: 'LAW115'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW111'}), (b:Course {id: 'LAW267'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW111'}), (b:Course {id: 'LAW181'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW115'}), (b:Course {id: 'LAW117'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuỗi Hành chính & Soạn thảo ---
+MATCH (a:Course {id: 'LAW112'}), (b:Course {id: 'LAW194'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW112'}), (b:Course {id: 'LAW264'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuỗi Hình sự ---
+MATCH (a:Course {id: 'LAW123'}), (b:Course {id: 'LAW268'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuỗi Thương mại & Kinh doanh ---
+MATCH (a:Course {id: 'LAW160'}), (b:Course {id: 'LAW118'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW160'}), (b:Course {id: 'LAW180'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'LAW160'}), (b:Course {id: 'LAW134'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 5: MÔN SONG HÀNH (COREQUISITE_WITH)                  ║
+// ║  Chiều: (Tự chọn)-[:COREQUISITE_WITH]->(Thực tập)           ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (a:Course {id: 'LAW4020'}), (b:Course {id: 'LAW583'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'LAW196'}), (b:Course {id: 'LAW583'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'LAW186'}), (b:Course {id: 'LAW583'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'LAW187'}), (b:Course {id: 'LAW583'}) MERGE (a)-[:COREQUISITE_WITH]->(b);

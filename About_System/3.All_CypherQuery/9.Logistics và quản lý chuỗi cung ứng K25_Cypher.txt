@@ -1,0 +1,145 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH LOGISTICS VÀ QUẢN LÝ CHUỖI CUNG ỨNG (7510605) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 125 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7510605', name: 'Logistics và quản lý chuỗi cung ứng', university: 'HUTECH', total_credits: 125, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (44 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW106', name: 'Pháp luật đại cương', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL101', name: 'Khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAN116', name: 'Quản trị học', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT124', name: 'Toán ứng dụng trong kinh tế', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (72 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'MAR146', name: 'Nguyên lý marketing', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1104', name: 'Tổng quan logistics và quản trị chuỗi cung ứng bền vững', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ECO1014', name: 'Nguyên lý kinh tế học', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAT1003', name: 'Thống kê và kinh tế lượng ứng dụng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1053', name: 'Phương pháp nghiên cứu và phân tích dữ liệu trong kinh doanh', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN2053', name: 'Quản trị hành chính văn phòng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN119', name: 'Quản trị kinh doanh quốc tế', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN135', name: 'Quản trị nguồn nhân lực', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN114', name: 'Quản trị chiến lược', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1105', name: 'Quản trị xuất nhập khẩu', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BUS103', name: 'Thanh toán quốc tế', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BUS222', name: 'Mô phỏng đơn hàng thương mại', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN111', name: 'Quản trị bán hàng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'INS1001', name: 'Bảo hiểm hàng hóa trong vận tải quốc tế', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN170', name: 'Quản trị kho hàng và tồn kho', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN187', name: 'Vận tải đa phương thức', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BUS126', name: 'Nghiệp vụ giao nhận và khai báo hải quan', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1025', name: 'Quản trị hệ thống kênh phân phối trong logistics', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1026', name: 'Quản trị hoạt động đóng gói và xử lý vật liệu', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1027', name: 'Quản trị logistics thu hồi', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1034', name: 'Quản trị thu mua', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN1014', name: 'Tài chính ứng dụng trong kinh tế doanh nghiệp', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN5106', name: 'Ứng dụng ERP ngành Logistics và quản lý chuỗi cung ứng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN5001', name: 'Thực tập tốt nghiệp ngành Logistics và quản lý chuỗi cung ứng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 9 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Logistics vận tải
+MERGE (:Course {id: 'MAN4029', name: 'Đồ án logistics vận tải', credits: 3, category: 'Tự chọn - Logistics vận tải'});
+MERGE (:Course {id: 'MAN1028', name: 'Vận tải và khai thác cảng', credits: 3, category: 'Tự chọn - Logistics vận tải'});
+MERGE (:Course {id: 'MAN1107', name: 'Logistics vận tải biển và hàng không', credits: 3, category: 'Tự chọn - Logistics vận tải'});
+
+// Nhóm 2: Quản trị chuỗi cung ứng
+MERGE (:Course {id: 'MAN4032', name: 'Đồ án quản trị chuỗi cung ứng', credits: 3, category: 'Tự chọn - Quản trị chuỗi cung ứng'});
+MERGE (:Course {id: 'MAN128', name: 'Quản trị sản xuất', credits: 3, category: 'Tự chọn - Quản trị chuỗi cung ứng'});
+MERGE (:Course {id: 'MAN1086', name: 'Quản trị rủi ro và an toàn trong chuỗi cung ứng', credits: 3, category: 'Tự chọn - Quản trị chuỗi cung ứng'});
+
+// Nhóm 3: Khóa luận tốt nghiệp
+MERGE (:Course {id: 'MAN4108', name: 'Khóa luận tốt nghiệp Logistics và quản lý chuỗi cung ứng', credits: 9, category: 'Tự chọn - Khóa luận tốt nghiệp'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7510605'})
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Nền tảng Quản trị (MAN116) ---
+MATCH (p:Course {id: 'MAN116'})
+WITH p
+MATCH (c:Course) WHERE c.id IN ['MAN2053', 'MAN119', 'MAN135', 'MAN114', 'FIN1014', 'MAN128']
+MERGE (p)-[:PREREQUISITE_FOR]->(c);
+
+// --- Logistics & SCM ---
+MATCH (a:Course {id: 'MAT1003'}), (b:Course {id: 'MAN1053'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MAN1105'}), (b:Course {id: 'BUS222'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MAN1105'}), (b:Course {id: 'BUS126'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MAR146'}), (b:Course {id: 'MAN111'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MAN1104'}), (b:Course {id: 'MAN5106'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MAN187'}), (b:Course {id: 'MAN1107'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Đồ án ---
+MATCH (a:Course {id: 'SKL115'}), (b:Course {id: 'MAN4029'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'SKL115'}), (b:Course {id: 'MAN4032'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);

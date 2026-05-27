@@ -1,0 +1,160 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH KIẾN TRÚC (7580101) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 160 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7580101', name: 'Kiến trúc', university: 'HUTECH', total_credits: 160, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (50 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW106', name: 'Pháp luật đại cương', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL116', name: 'Đổi mới sáng tạo và tư duy khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SOS101', name: 'Cơ sở văn hóa Việt Nam', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'PSY167', name: 'Tâm lý học ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL122', name: 'Kỹ năng phát triển bản thân', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ARH160', name: 'Nhập môn ngành Kiến trúc', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (98 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'ART231', name: 'Hình họa', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ART105', name: 'Hình học họa hình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH1002', name: 'Cấu tạo kiến trúc công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH1003', name: 'Công nghệ và vật liệu xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH2004', name: 'Bố cục tạo hình trong kiến trúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH449', name: 'Đồ án chuyên đề kiến trúc', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH4005', name: 'Đồ án công trình công cộng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH4006', name: 'Đồ án công trình giáo dục, y tế', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH4007', name: 'Đồ án công trình văn hóa, thể dục thể thao', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH4008', name: 'Đồ án công trình nhà biệt thự, nhà liên kế', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH4009', name: 'Đồ án công trình chung cư', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH434', name: 'Đồ án quy hoạch khu dân cư', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH4010', name: 'Đồ án thiết kế cảnh quan đô thị', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH4011', name: 'Đồ án thiết kế nội, ngoại thất công trình biệt thự', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH7012', name: 'Kiến tập di sản kiến trúc và đô thị', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH243', name: 'Kỹ thuật mô hình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH246', name: 'Kỹ thuật thể hiện đồ án kiến trúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH1013', name: 'Lịch sử kiến trúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH2014', name: 'Nguyên lý thiết kế kiến trúc công trình công nghiệp', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH2027', name: 'Nguyên lý thiết kế kiến trúc công trình nhà công cộng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH2015', name: 'Nguyên lý thiết kế kiến trúc công trình nhà ở', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'PHY110', name: 'Vật lý kiến trúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN179', name: 'Quản lý dự án', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH2016', name: 'Nguyên lý quy hoạch và thiết kế đô thị', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH2017', name: 'Nguyên lý thiết kế kiến trúc cảnh quan', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH1018', name: 'Thiết kế nội, ngoại thất thông minh trong công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH344', name: 'Thiết kế nhanh', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH1019', name: 'Chuyên đề thiết kế hồ sơ năng lực cá nhân', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CAP222', name: 'Tin học chuyên ngành kiến trúc, mỹ thuật 1', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CAP223', name: 'Tin học chuyên ngành kiến trúc, mỹ thuật 2', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CAP243', name: 'Tin học chuyên ngành kiến trúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH2020', name: 'Ứng dụng AI trong thiết kế trình bày kiến trúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH1021', name: 'Chuyên đề bảo tồn di sản kiến trúc', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ART120', name: 'Vẽ phối cảnh', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH5022', name: 'Thực tập vẽ ghi kiến trúc', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH5023', name: 'Thực tập chuyên ngành kiến trúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH552', name: 'Thực tập tốt nghiệp ngành Kiến trúc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH437', name: 'Đồ án tốt nghiệp Kiến trúc', credits: 9, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 12 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Kiến trúc công nghệ hiện đại
+MERGE (:Course {id: 'ARH162', name: 'Kiến trúc công trình không gian lớn', credits: 3, category: 'Tự chọn - Kiến trúc công nghệ hiện đại'});
+MERGE (:Course {id: 'ARH1024', name: 'Ứng dụng AI trong thiết kế ý tưởng kiến trúc công trình', credits: 3, category: 'Tự chọn - Kiến trúc công nghệ hiện đại'});
+MERGE (:Course {id: 'CET1009', name: 'Hệ thống kỹ thuật công trình hiện đại', credits: 3, category: 'Tự chọn - Kiến trúc công nghệ hiện đại'});
+MERGE (:Course {id: 'ARH4025', name: 'Đồ án tổng hợp công trình phức hợp', credits: 3, category: 'Tự chọn - Kiến trúc công nghệ hiện đại'});
+
+// Nhóm 2: Kiến trúc bền vững
+MERGE (:Course {id: 'ARH164', name: 'Kiến trúc xanh trong thiết kế công trình', credits: 3, category: 'Tự chọn - Kiến trúc bền vững'});
+MERGE (:Course {id: 'ARH1026', name: 'Ứng dụng AI trong thiết kế ý tưởng kiến trúc bền vững', credits: 3, category: 'Tự chọn - Kiến trúc bền vững'});
+MERGE (:Course {id: 'CET1010', name: 'Hệ thống kỹ thuật công trình hiệu quả năng lượng', credits: 3, category: 'Tự chọn - Kiến trúc bền vững'});
+MERGE (:Course {id: 'ARH436', name: 'Đồ án tổng hợp kiến trúc sinh thái', credits: 3, category: 'Tự chọn - Kiến trúc bền vững'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7580101'})
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Kỹ năng ---
+MATCH (a:Course {id: 'SKL115'}), (b:Course {id: 'SKL116'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuỗi Đồ án chuyên ngành ---
+MATCH (a:Course {id: 'ARH2027'})
+WITH a
+MATCH (c:Course) WHERE c.id IN ['ARH4005', 'ARH4006', 'ARH4007']
+MERGE (a)-[:PREREQUISITE_FOR]->(c);
+
+MATCH (a:Course {id: 'ARH2015'})
+WITH a
+MATCH (c:Course) WHERE c.id IN ['ARH4008', 'ARH4009']
+MERGE (a)-[:PREREQUISITE_FOR]->(c);
+
+MATCH (a:Course {id: 'ARH2016'}), (b:Course {id: 'ARH434'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ARH2017'}), (b:Course {id: 'ARH4010'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ARH1018'}), (b:Course {id: 'ARH4011'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);

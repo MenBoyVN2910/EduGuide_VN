@@ -1,0 +1,54 @@
+# PHÂN TÍCH CHI TIẾT CẤU TRÚC FRONTEND (EDUGUIDE_VN)
+
+Phần Frontend được xây dựng bằng **React** + **Vite** + **TypeScript**, sử dụng các thư viện hiện đại như **TanStack Query** (quản lý dữ liệu), **TanStack Router** (điều hướng) và **Tailwind CSS** (giao diện).
+
+---
+
+## 1. THƯ MỤC GỐC FRONTEND (ROOT)
+*   **index.html**: Tệp tin HTML chính, nơi ứng dụng React được nhúng vào.
+*   **package.json**: Quản lý các thư viện (React, Lucide, Tailwind...) và các lệnh chạy dự án (`dev`, `build`).
+*   **vite.config.ts**: Cấu hình trình đóng gói Vite (tối ưu hóa tốc độ load và hot reload).
+*   **tsconfig.json**: Cấu hình TypeScript cho toàn bộ dự án.
+*   **Dockerfile**: Cấu hình đóng gói giao diện thành một image để triển khai trên máy chủ.
+*   **nginx.conf**: Cấu hình máy chủ Web Nginx để chạy giao diện trong môi trường sản xuất.
+*   **biome.json**: Thiết lập công cụ tự động căn chỉnh code và kiểm tra lỗi (Linter & Formatter).
+*   **playwright.config.ts**: Cấu hình cho việc kiểm thử tự động toàn bộ quy trình người dùng (E2E Testing).
+
+---
+
+## 2. THƯ MỤC MÃ NGUỒN CHÍNH (`src/`)
+
+### A. Thành phần cốt lõi
+*   **src/main.tsx**: Điểm khởi đầu của ứng dụng, nơi khởi tạo React và các trình quản lý hệ thống.
+*   **src/index.css**: Chứa các style CSS toàn cục và cấu hình Tailwind CSS.
+*   **src/routeTree.gen.ts**: Tệp tự động tạo bởi TanStack Router để quản lý danh sách các trang.
+
+### B. Thư mục Linh kiện UI (`src/components/`)
+*   **components/Chat/**: Chứa các thành phần của giao diện Chatbot (khung chat, tin nhắn, input).
+*   **components/ui/**: Chứa các thành phần giao diện cơ bản (Button, Input, Card, Dialog...) thường được tạo từ thư viện shadcn/ui.
+*   **components/Admin/**: Giao diện dành cho người quản trị hệ thống.
+*   **components/Sidebar/**: Thanh điều hướng bên cạnh của ứng dụng.
+*   **components/Common/**: Các linh kiện dùng chung như Header, Footer, thông báo lỗi.
+*   **components/theme-provider.tsx**: Xử lý việc chuyển đổi chế độ Sáng/Tối (Dark Mode).
+
+### C. Quản lý Trang & Điều hướng (`src/routes/`)
+*   **routes/__root.tsx**: Bố cục gốc của toàn bộ trang web.
+*   **routes/_layout.tsx**: Định nghĩa khung giao diện chung (có sidebar, header) cho các trang bên trong.
+*   **routes/login.tsx**: Trang đăng nhập.
+*   **routes/signup.tsx**: Trang đăng ký tài khoản.
+*   **routes/reset-password.tsx**: Trang đặt lại mật khẩu.
+
+### D. Các thư mục hỗ trợ khác
+*   **src/client/**: Chứa mã nguồn tự động tạo ra để kết nối với các API từ Backend (giúp gọi API mà không cần viết thủ công).
+*   **src/hooks/**: Các hàm logic React tùy chỉnh (Custom Hooks) để xử lý dữ liệu hoặc trạng thái người dùng.
+*   **src/lib/**: Cấu hình các thư viện bên thứ ba (ví dụ: cấu hình Query Client cho TanStack Query).
+*   **src/utils.ts**: Các hàm tiện ích xử lý chuỗi, định dạng ngày tháng hoặc kiểm tra dữ liệu.
+
+---
+
+## 3. THƯ MỤC CÔNG CỤ & TÀI NGUYÊN KHÁC
+*   **public/**: Chứa các tài nguyên tĩnh như Logo, Icon, Font chữ mà không cần qua trình biên dịch.
+*   **tests/**: Chứa các kịch bản kiểm thử giao diện người dùng.
+
+---
+*Cập nhật lần cuối: 26/04/2026*

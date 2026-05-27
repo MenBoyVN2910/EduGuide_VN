@@ -1,0 +1,170 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH CÔNG NGHỆ THỰC PHẨM (7540101) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 125 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7540101', name: 'Công nghệ thực phẩm', university: 'HUTECH', total_credits: 125, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (44 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW158', name: 'Luật và Khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'FOT160', name: 'Dinh dưỡng, thực phẩm và sức khỏe', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'CHE2004', name: 'Hóa đại cương', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAN116', name: 'Quản trị học', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (72 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'FOT165', name: 'Nhập môn ngành Công nghệ thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT2001', name: 'Công nghệ bảo quản, chế biến lương thực', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT2002', name: 'Công nghệ bảo quản, chế biến rau quả', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT2003', name: 'Công nghệ bảo quản, chế biến thịt và thủy sản', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT108', name: 'Công nghệ đồ hộp thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT166', name: 'Truyền thông thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT219', name: 'Đánh giá cảm quan thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT2004', name: 'Hóa thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CHE267', name: 'Hóa lý và kỹ thuật phòng thí nghiệm hóa', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT2005', name: 'Hóa phân tích thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT2006', name: 'Hóa sinh học thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BIO115', name: 'Vi sinh thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT112', name: 'Phát triển sản phẩm thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT220', name: 'Phân tích kiểm nghiệm thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT2007', name: 'Bao bì và phụ gia thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT168', name: 'Các quá trình cơ bản trong công nghệ thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAR168', name: 'Marketing thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN101', name: 'Quản lý chất lượng thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CAP203', name: 'Quy hoạch và xử lý số liệu thực nghiệm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT269', name: 'Dinh dưỡng và an toàn thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// Đồ án và Thực hành
+MERGE (:Course {id: 'FOT326', name: 'Thực hành công nghệ đồ hộp thực phẩm', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'NFS5005', name: 'Dự án dinh dưỡng và khoa học thực phẩm', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT5008', name: 'Dự án phát triển sản phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT5009', name: 'Dự án quản lý sản xuất thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BIO331', name: 'Thực hành vi sinh thực phẩm', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FOT547', name: 'Thực tập tốt nghiệp ngành Công nghệ thực phẩm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 9 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Quản lý sản xuất thực phẩm và công nghệ đồ uống
+MERGE (:Course {id: 'FOT245', name: 'Công nghệ chế biến trà, cà phê cacao', credits: 3, category: 'Tự chọn - Quản lý sản xuất thực phẩm'});
+MERGE (:Course {id: 'FOT2010', name: 'Công nghệ sản xuất đường, bánh kẹo, đồ uống', credits: 3, category: 'Tự chọn - Quản lý sản xuất thực phẩm'});
+MERGE (:Course {id: 'FOT429', name: 'Đồ án quản lý sản xuất thực phẩm', credits: 3, category: 'Tự chọn - Quản lý sản xuất thực phẩm'});
+
+// Nhóm 2: Quản lý chuỗi cung ứng thực phẩm và công nghệ đường bánh kẹo
+MERGE (:Course {id: 'FOT216', name: 'Công nghệ chế biến sữa', credits: 3, category: 'Tự chọn - Quản lý chuỗi cung ứng thực phẩm'});
+MERGE (:Course {id: 'FOT270', name: 'Quản lý chuỗi cung ứng và truy xuất nguồn gốc thực phẩm', credits: 3, category: 'Tự chọn - Quản lý chuỗi cung ứng thực phẩm'});
+MERGE (:Course {id: 'FOT427', name: 'Đồ án công nghệ thực phẩm', credits: 3, category: 'Tự chọn - Quản lý chuỗi cung ứng thực phẩm'});
+
+// Nhóm 3: Đồ án tốt nghiệp
+MERGE (:Course {id: 'FOT430', name: 'Đồ án tốt nghiệp Công nghệ thực phẩm', credits: 9, category: 'Tự chọn - Đồ án tốt nghiệp'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7540101'})
+WHERE c.id IN [
+    'POS104', 'POS105', 'POS106', 'POS107', 'POS103', 'ENC120', 'ENC121', 'ENC122',
+    'ENC123', 'AIT129', 'ENS192', 'LAW158', 'SKL115', 'FOT160', 'CHE2004', 'MAN116',
+    'FOT165', 'FOT2001', 'FOT2002', 'FOT2003', 'FOT108', 'FOT166', 'FOT219', 'FOT2004',
+    'CHE267', 'FOT2005', 'FOT2006', 'BIO115', 'FOT112', 'FOT220', 'FOT2007', 'FOT168',
+    'MAR168', 'MAN101', 'CAP203', 'FOT269', 'FOT326', 'NFS5005', 'FOT5008', 'FOT5009',
+    'BIO331', 'FOT547', 'FOT245', 'FOT2010', 'FOT429', 'FOT216', 'FOT270', 'FOT427',
+    'FOT430', 'PHT304', 'PHT305', 'PHT306', 'PHT307', 'PHT308', 'PHT309', 'PHT310',
+    'PHT311', 'PHT312', 'PHT313', 'PHT314', 'PHT315', 'PHT316', 'PHT317', 'PHT318',
+    'NDF108', 'NDF109', 'NDF210', 'NDF211'
+]
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Công nghệ bảo quản & Chế biến ---
+MATCH (a:Course {id: 'FOT2004'}), (b:Course {id: 'FOT2001'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FOT2004'}), (b:Course {id: 'FOT245'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FOT2004'}), (b:Course {id: 'FOT2010'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FOT2004'}), (b:Course {id: 'FOT216'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FOT2004'}), (b:Course {id: 'FOT427'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Cơ sở ngành ---
+MATCH (a:Course {id: 'BIO115'}), (b:Course {id: 'FOT108'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CAP203'}), (b:Course {id: 'FOT219'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FOT160'}), (b:Course {id: 'FOT269'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Quản lý chất lượng & Sản xuất ---
+MATCH (a:Course {id: 'FOT2003'}), (b:Course {id: 'MAN101'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MAN101'}), (b:Course {id: 'FOT5009'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MAN101'}), (b:Course {id: 'FOT429'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'MAN101'}), (b:Course {id: 'FOT270'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Phát triển sản phẩm & Dinh dưỡng ---
+MATCH (a:Course {id: 'FOT112'}), (b:Course {id: 'FOT5008'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'FOT269'}), (b:Course {id: 'NFS5005'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 5: MÔN SONG HÀNH (COREQUISITE_WITH)                  ║
+// ║  Chiều: (Thực hành/Đồ án)-[:COREQUISITE_WITH]->(Lý thuyết)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (a:Course {id: 'FOT326'}), (b:Course {id: 'FOT108'}) MERGE (a)-[:COREQUISITE_WITH]->(b);

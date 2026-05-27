@@ -1,0 +1,202 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH AN TOÀN THÔNG TIN (7480202) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 150 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7480202', name: 'An toàn thông tin', university: 'HUTECH', total_credits: 150, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (50 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW106', name: 'Pháp luật đại cương', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL116', name: 'Đổi mới sáng tạo và tư duy khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'CMP6085', name: 'Nhập môn ngành An toàn thông tin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT101', name: 'Đại số tuyến tính', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT118', name: 'Giải tích', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT105', name: 'Xác suất thống kê', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT104', name: 'Toán rời rạc', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (91 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'COS142', name: 'An toàn web và cơ sở dữ liệu', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP174', name: 'Bảo mật thông tin', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS120', name: 'Cấu trúc dữ liệu và giải thuật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CIS1001', name: 'Cơ sở an toàn hạ tầng công nghệ thông tin', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS135', name: 'Nhập môn cơ sở dữ liệu', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS1002', name: 'Các hệ quản trị cơ sở dữ liệu', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CIS1002', name: 'An toàn hệ điều hành máy chủ', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP1001', name: 'Kiểm thử và giám sát an toàn mạng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS117', name: 'Kiến trúc và hệ điều hành máy tính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS129', name: 'Điện toán đám mây', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP1074', name: 'Cơ sở lập trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP164', name: 'Kỹ thuật lập trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP167', name: 'Lập trình hướng đối tượng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP1093', name: 'Lập trình an toàn hệ thống', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP170', name: 'Lập trình trên môi trường Windows', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP175', name: 'Lập trình web', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP172', name: 'Mạng máy tính', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS148', name: 'Tấn công và phòng thủ', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP198', name: 'Phân tích mã độc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'AIT1001', name: 'Cơ sở trí tuệ nhân tạo', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// Đồ án và Thực hành
+MERGE (:Course {id: 'COS344', name: 'Thực hành an toàn web và cơ sở dữ liệu', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP3087', name: 'Thực hành an toàn hệ điều hành máy chủ', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP382', name: 'Thực hành bảo mật thông tin', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS321', name: 'Thực hành cấu trúc dữ liệu và giải thuật', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS323', name: 'Thực hành cơ sở dữ liệu', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP3003', name: 'Thực hành giám sát an toàn mạng', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP3090', name: 'Thực hành kiến trúc và hệ điều hành máy tính', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP3002', name: 'Thực hành kiểm thử xâm nhập mạng', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP5089', name: 'Thực tập điện toán đám mây', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP365', name: 'Thực hành kỹ thuật lập trình', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP3075', name: 'Thực hành Cơ sở lập trình', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP368', name: 'Thực hành lập trình hướng đối tượng', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP3094', name: 'Thực hành lập trình an toàn hệ thống', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP371', name: 'Thực hành lập trình trên môi trường Windows', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP376', name: 'Thực hành lập trình web', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP3014', name: 'Thực hành lý thuyết đồ thị', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP373', name: 'Thực hành mạng máy tính', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP399', name: 'Thực hành phân tích mã độc', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'COS324', name: 'Thực hành quản trị cơ sở dữ liệu', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+
+MERGE (:Course {id: 'CIS1003', name: 'Kiểm thử an toàn phần mềm và phân tích mã nguồn', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CIS5004', name: 'Thực tập cơ sở ngành An toàn thông tin', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP456', name: 'Đồ án chuyên ngành An toàn thông tin', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CMP5006', name: 'Thực tập tốt nghiệp ngành An toàn thông tin', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 9 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Công nghệ an ninh mạng
+MERGE (:Course {id: 'CMP1076', name: 'Điều tra số', credits: 3, category: 'Tự chọn - Công nghệ an ninh mạng'});
+MERGE (:Course {id: 'CMP1077', name: 'Kiến trúc an toàn mạng', credits: 3, category: 'Tự chọn - Công nghệ an ninh mạng'});
+MERGE (:Course {id: 'CIS1005', name: 'An toàn hệ thống mạng máy tính và đám mây', credits: 3, category: 'Tự chọn - Công nghệ an ninh mạng'});
+
+// Nhóm 2: Công nghệ an ninh phần mềm
+MERGE (:Course {id: 'COS147', name: 'Lập trình phân tích an toàn mạng', credits: 3, category: 'Tự chọn - Công nghệ an ninh phần mềm'});
+MERGE (:Course {id: 'CMP1095', name: 'Lập trình an toàn trên thiết bị di động', credits: 3, category: 'Tự chọn - Công nghệ an ninh phần mềm'});
+MERGE (:Course {id: 'COS149', name: 'Công nghệ phát triển phần mềm an toàn', credits: 3, category: 'Tự chọn - Công nghệ an ninh phần mềm'});
+
+// Nhóm 3: Đồ án tốt nghiệp
+MERGE (:Course {id: 'CIS4006', name: 'Đồ án tốt nghiệp An toàn thông tin', credits: 9, category: 'Tự chọn - Đồ án tốt nghiệp'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7480202'})
+WHERE c.id IN [
+    'POS104', 'POS105', 'POS106', 'POS107', 'POS103', 'ENC120', 'ENC121', 'ENC122',
+    'ENC123', 'ENS192', 'LAW106', 'SKL115', 'SKL116', 'CMP6085', 'MAT101', 'MAT118',
+    'MAT105', 'MAT104', 'COS142', 'CMP174', 'COS120', 'CIS1001', 'COS135', 'COS1002',
+    'CIS1002', 'CMP1001', 'COS117', 'COS129', 'CMP1074', 'CMP164', 'CMP167', 'CMP1093',
+    'CMP170', 'CMP175', 'CMP172', 'COS148', 'CMP198', 'AIT1001', 'COS344', 'CMP3087',
+    'CMP382', 'COS321', 'COS323', 'CMP3003', 'CMP3090', 'CMP3002', 'CMP5089', 'CMP365',
+    'CMP3075', 'CMP368', 'CMP3094', 'CMP371', 'CMP376', 'CMP3014', 'CMP373', 'CMP399',
+    'COS324', 'CIS1003', 'CIS5004', 'CMP456', 'CMP5006', 'CMP1076', 'CMP1077', 'CIS1005',
+    'COS147', 'CMP1095', 'COS149', 'CIS4006', 'PHT304', 'PHT305', 'PHT306', 'PHT307',
+    'PHT308', 'PHT309', 'PHT310', 'PHT311', 'PHT312', 'PHT313', 'PHT314', 'PHT315',
+    'PHT316', 'PHT317', 'PHT318', 'NDF108', 'NDF109', 'NDF210', 'NDF211'
+]
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Kỹ năng ---
+MATCH (a:Course {id: 'SKL115'}), (b:Course {id: 'SKL116'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuỗi Lập trình ---
+MATCH (a:Course {id: 'CMP1074'}), (b:Course {id: 'CMP164'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CMP164'}), (b:Course {id: 'COS120'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CMP167'}), (b:Course {id: 'CMP174'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CMP167'}), (b:Course {id: 'CMP170'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CMP167'}), (b:Course {id: 'CMP175'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CMP167'}), (b:Course {id: 'COS148'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuỗi An toàn ---
+MATCH (a:Course {id: 'CMP175'}), (b:Course {id: 'COS142'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CMP174'}), (b:Course {id: 'CMP1093'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CMP172'}), (b:Course {id: 'CMP1001'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 5: MÔN SONG HÀNH (COREQUISITE_WITH)                  ║
+// ║  Chiều: (Thực hành)-[:COREQUISITE_WITH]->(Lý thuyết)        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (a:Course {id: 'COS344'}), (b:Course {id: 'COS142'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP382'}), (b:Course {id: 'CMP174'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'COS321'}), (b:Course {id: 'COS120'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'COS323'}), (b:Course {id: 'COS135'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP3003'}), (b:Course {id: 'CMP1001'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP3090'}), (b:Course {id: 'COS117'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP3002'}), (b:Course {id: 'CMP1001'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP5089'}), (b:Course {id: 'COS129'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP365'}), (b:Course {id: 'CMP164'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP3075'}), (b:Course {id: 'CMP1074'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP368'}), (b:Course {id: 'CMP167'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP3094'}), (b:Course {id: 'CMP1093'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP371'}), (b:Course {id: 'CMP170'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP376'}), (b:Course {id: 'CMP175'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP373'}), (b:Course {id: 'CMP172'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CMP399'}), (b:Course {id: 'CMP198'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'COS324'}), (b:Course {id: 'COS1002'}) MERGE (a)-[:COREQUISITE_WITH]->(b);

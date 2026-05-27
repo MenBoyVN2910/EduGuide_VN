@@ -1,0 +1,170 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH THÚ Y (7640101) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 160 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7640101', name: 'Thú y', university: 'HUTECH', total_credits: 160, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (48 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW158', name: 'Luật và Khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'BIO191', name: 'Vi sinh cơ bản', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'VET261', name: 'Động vật học', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'VET5001', name: 'Nhập môn thú y - chăn nuôi', credits: 1, category: 'Đại cương'});
+MERGE (:Course {id: 'VET108', name: 'Tổ chức học động vật', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'BIO196', name: 'Sinh học phân tử', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (103 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'VET102', name: 'Cơ thể học gia súc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET104', name: 'Sinh lý gia súc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET106', name: 'Dinh dưỡng động vật và thức ăn chăn nuôi', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET155', name: 'Luật chăn nuôi và luật thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET142', name: 'Vi sinh bệnh động vật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET111', name: 'Dược lý thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET262', name: 'Chăm sóc và thẩm mỹ thú cưng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET215', name: 'Giải phẫu bệnh thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET148', name: 'Sinh lý bệnh động vật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET145', name: 'Miễn dịch học thú y và vắc xin', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET4002', name: 'Một sức khoẻ', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAT122', name: 'Thống kê ứng dụng trong chăn nuôi - thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET1003', name: 'Dịch tễ học thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET150', name: 'Chăn nuôi gia cầm và heo', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET1004', name: 'Chăn nuôi gia súc ăn cỏ', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET244', name: 'Chẩn đoán lâm sàng thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET1005', name: 'Chẩn đoán cận lâm sàng thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET149', name: 'Bệnh nội khoa gia súc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET220', name: 'Ngoại khoa gia súc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET264', name: 'Sản khoa', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET124', name: 'Bệnh dinh dưỡng và độc chất học thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET354', name: 'Thực hành ký sinh trùng động vật', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET153', name: 'Ký sinh trùng động vật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET121', name: 'Bệnh truyền nhiễm chung và bệnh truyền nhiễm gia cầm', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET122', name: 'Bệnh truyền nhiễm gia súc', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET165', name: 'Bệnh chó mèo', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BIO197', name: 'Ứng dụng công nghệ sinh học trong chăn nuôi - thú y', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET1006', name: 'Môi trường và an toàn sinh học', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BIO167', name: 'Sinh hóa động vật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET128', name: 'Kiểm nghiệm sản phẩm động vật', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET6013', name: 'Kỹ thuật chăm sóc và thẩm mỹ thú cưng nâng cao', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// Đồ án và Thực hành
+MERGE (:Course {id: 'VET303', name: 'Thực hành cơ thể học gia súc', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'BIO368', name: 'Thực hành sinh hóa động vật', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET305', name: 'Thực hành sinh lý gia súc', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET343', name: 'Thực hành vi sinh bệnh động vật', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET312', name: 'Thực hành dược lý thú y', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAT323', name: 'Thực hành thống kê ứng dụng trong chăn nuôi - thú y', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET3007', name: 'Thực hành chẩn đoán xét nghiệm', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET3008', name: 'Thực hành chẩn đoán hình ảnh', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET5009', name: 'Thực tập thú y chăn nuôi 1', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'VET5010', name: 'Thực tập thú y chăn nuôi 2', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 9 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Tiểu luận thú y
+MERGE (:Course {id: 'VET4011', name: 'Tiểu luận thú y', credits: 3, category: 'Tự chọn - Tiểu luận thú y'});
+MERGE (:Course {id: 'VET177', name: 'Dịch vụ thú y', credits: 3, category: 'Tự chọn - Tiểu luận thú y'});
+MERGE (:Course {id: 'VET174', name: 'Bệnh thú hoang dã', credits: 3, category: 'Tự chọn - Tiểu luận thú y'});
+
+// Nhóm 2: Đồ án tốt nghiệp
+MERGE (:Course {id: 'VET4012', name: 'Khóa luận tốt nghiệp Thú y', credits: 9, category: 'Tự chọn - Đồ án tốt nghiệp'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7640101'})
+WHERE c.id IN [
+    'POS104', 'POS105', 'POS106', 'POS107', 'POS103', 'ENC120', 'ENC121', 'ENC122',
+    'ENC123', 'AIT129', 'ENS192', 'LAW158', 'BIO191', 'SKL115', 'VET261', 'VET5001',
+    'VET108', 'BIO196', 'VET102', 'VET104', 'VET106', 'VET155', 'VET142', 'VET111',
+    'VET262', 'VET215', 'VET148', 'VET145', 'VET4002', 'MAT122', 'VET1003', 'VET150',
+    'VET1004', 'VET244', 'VET1005', 'VET149', 'VET220', 'VET264', 'VET124', 'VET354',
+    'VET153', 'VET121', 'VET122', 'VET165', 'BIO197', 'VET1006', 'BIO167', 'VET128',
+    'VET6013', 'VET303', 'BIO368', 'VET305', 'VET343', 'VET312', 'MAT323', 'VET3007',
+    'VET3008', 'VET5009', 'VET5010', 'VET4011', 'VET177', 'VET174', 'VET4012', 'PHT304',
+    'PHT305', 'PHT306', 'PHT307', 'PHT308', 'PHT309', 'PHT310', 'PHT311', 'PHT312',
+    'PHT313', 'PHT314', 'PHT315', 'PHT316', 'PHT317', 'PHT318', 'NDF108', 'NDF109',
+    'NDF210', 'NDF211'
+]
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 5: MÔN SONG HÀNH (COREQUISITE_WITH)                  ║
+// ║  Chiều: (Thực hành/Đồ án)-[:COREQUISITE_WITH]->(Lý thuyết)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (a:Course {id: 'VET303'}), (b:Course {id: 'VET102'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'BIO368'}), (b:Course {id: 'BIO167'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'VET305'}), (b:Course {id: 'VET104'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'VET343'}), (b:Course {id: 'VET142'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'VET312'}), (b:Course {id: 'VET111'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'MAT323'}), (b:Course {id: 'MAT122'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'VET3007'}), (b:Course {id: 'VET1005'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'VET3008'}), (b:Course {id: 'VET1005'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'VET1005'}), (b:Course {id: 'VET244'}) MERGE (a)-[:COREQUISITE_WITH]->(b);

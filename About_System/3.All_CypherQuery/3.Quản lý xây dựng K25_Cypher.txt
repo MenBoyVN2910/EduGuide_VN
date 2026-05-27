@@ -1,0 +1,171 @@
+// =============================================================================
+// CHƯƠNG TRÌNH ĐÀO TẠO NGÀNH QUẢN LÝ XÂY DỰNG (7580302) - ĐẠI HỌC HUTECH
+// Đối tượng áp dụng: Đại học hệ chính quy từ khóa tuyển sinh năm 2025
+// Tổng khối lượng: 150 tín chỉ tích lũy + 5 tín chỉ không tích lũy
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 0: XÓA DỮ LIỆU CŨ (chạy 1 lần trước khi import)    ║
+// ╚══════════════════════════════════════════════════════════════╝
+// MATCH (n) DETACH DELETE n; // Bỏ comment nếu muốn xóa sạch DB trước khi chạy
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE NGÀNH                                     ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (:Major {id: '7580302', name: 'Quản lý xây dựng', university: 'HUTECH', total_credits: 150, non_accum_credits: 5});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: TẠO TẤT CẢ NODE MÔN HỌC                           ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// ────────────────────────────────────────────────────────────────
+// I. KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG (50 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'POS104', name: 'Triết học Mác - Lênin', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'POS105', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS106', name: 'Chủ nghĩa xã hội khoa học', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS107', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'POS103', name: 'Tư tưởng Hồ Chí Minh', credits: 2, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC120', name: 'Anh ngữ 1', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC121', name: 'Anh ngữ 2', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC122', name: 'Anh ngữ 3', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENC123', name: 'Anh ngữ 4', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'AIT129', name: 'Trí tuệ nhân tạo ứng dụng', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'ENS192', name: 'Phát triển bền vững', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'LAW106', name: 'Pháp luật đại cương', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL115', name: 'Tư duy thiết kế dự án', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL116', name: 'Đổi mới sáng tạo và tư duy khởi nghiệp', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT101', name: 'Đại số tuyến tính', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'MAT118', name: 'Giải tích', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'SKL122', name: 'Kỹ năng phát triển bản thân', credits: 3, category: 'Đại cương'});
+MERGE (:Course {id: 'CET183', name: 'Công tác kỹ sư ngành Quản lý xây dựng', credits: 3, category: 'Đại cương'});
+
+// ────────────────────────────────────────────────────────────────
+// II.1. KIẾN THỨC CHUYÊN NGHIỆP BẮT BUỘC (88 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+MERGE (:Course {id: 'CET2037', name: 'Vẽ kỹ thuật xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET284', name: 'Mô hình thông tin công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MET1003', name: 'Cơ học xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET133', name: 'Vật liệu xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ARH1001', name: 'Kiến trúc công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET109', name: 'Kết cấu công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET104', name: 'Hệ thống kỹ thuật công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET1031', name: 'Hạ tầng đô thị', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET1014', name: 'Công trình xanh', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET114', name: 'Kỹ thuật thi công', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET130', name: 'Tổ chức thi công', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ENS1001', name: 'Sức khỏe, an toàn, môi trường', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET2039', name: 'Thống kê ứng dụng trong xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET278', name: 'Dự toán công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ACC114', name: 'Nguyên lý kế toán', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN1128', name: 'Quản trị và phát triển bất động sản', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ECO102', name: 'Đấu thầu trong hoạt động xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'LAW1010', name: 'Luật và hợp đồng trong xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'FIN103', name: 'Lập và thẩm định dự án đầu tư xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN105', name: 'Quản lý dự án xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN109', name: 'Quản lý và tổ chức khai thác công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+
+// Đồ án và Thực tập
+MERGE (:Course {id: 'CET4032', name: 'Đồ án mô hình thông tin công trình', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET4017', name: 'Đồ án thi công', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET4033', name: 'Đồ án dự toán công trình', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET4034', name: 'Đồ án lập dự án đầu tư xây dựng', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'ENS5002', name: 'Thực tập sức khỏe, an toàn, môi trường', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'CET5035', name: 'Thực tập đấu thầu trong xây dựng', credits: 1, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN5129', name: 'Thực tế doanh nghiệp ngành Quản lý xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN574', name: 'Thực tập tốt nghiệp ngành Quản lý xây dựng', credits: 3, category: 'Chuyên nghiệp bắt buộc'});
+MERGE (:Course {id: 'MAN444', name: 'Đồ án tốt nghiệp Quản lý xây dựng', credits: 9, category: 'Chuyên nghiệp bắt buộc'});
+
+// ────────────────────────────────────────────────────────────────
+// II.2. KIẾN THỨC TỰ CHỌN (chọn 12 tín chỉ)
+// ────────────────────────────────────────────────────────────────
+
+// Nhóm 1: Quản lý dự án xây dựng
+MERGE (:Course {id: 'MAN1130', name: 'Quản trị nguồn nhân lực trong xây dựng', credits: 3, category: 'Tự chọn - Quản lý dự án xây dựng'});
+MERGE (:Course {id: 'MAN145', name: 'Quản lý chất lượng công trình xây dựng', credits: 3, category: 'Tự chọn - Quản lý dự án xây dựng'});
+MERGE (:Course {id: 'MAN248', name: 'Quản lý tiến độ dự án xây dựng', credits: 3, category: 'Tự chọn - Quản lý dự án xây dựng'});
+MERGE (:Course {id: 'FIN1015', name: 'Quản lý chi phí dự án xây dựng', credits: 3, category: 'Tự chọn - Quản lý dự án xây dựng'});
+
+// Nhóm 2: Quản trị doanh nghiệp xây dựng
+MERGE (:Course {id: 'ACC1001', name: 'Kế toán trong doanh nghiệp xây dựng', credits: 3, category: 'Tự chọn - Quản trị doanh nghiệp xây dựng'});
+MERGE (:Course {id: 'MAR1018', name: 'Marketing trong hoạt động xây dựng', credits: 3, category: 'Tự chọn - Quản trị doanh nghiệp xây dựng'});
+MERGE (:Course {id: 'LAW1011', name: 'Pháp lý và đạo đức trong kinh doanh xây dựng', credits: 3, category: 'Tự chọn - Quản trị doanh nghiệp xây dựng'});
+MERGE (:Course {id: 'MAN1131', name: 'Quản lý rủi ro trong doanh nghiệp xây dựng', credits: 3, category: 'Tự chọn - Quản trị doanh nghiệp xây dựng'});
+
+// ────────────────────────────────────────────────────────────────
+// III. KIẾN THỨC KHÔNG TÍCH LŨY
+// ────────────────────────────────────────────────────────────────
+
+// III.1. Giáo dục thể chất (5 tín chỉ)
+// Nhóm 1: Bóng chuyền
+MERGE (:Course {id: 'PHT304', name: 'Bóng chuyền 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT305', name: 'Bóng chuyền 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT306', name: 'Bóng chuyền 3', credits: 1, category: 'Thể chất'});
+// Nhóm 2: Bóng rổ
+MERGE (:Course {id: 'PHT307', name: 'Bóng rổ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT308', name: 'Bóng rổ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT309', name: 'Bóng rổ 3', credits: 1, category: 'Thể chất'});
+// Nhóm 3: Thể hình - Thẩm mỹ
+MERGE (:Course {id: 'PHT310', name: 'Thể hình - Thẩm mỹ 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT311', name: 'Thể hình - Thẩm mỹ 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT312', name: 'Thể hình - Thẩm mỹ 3', credits: 1, category: 'Thể chất'});
+// Nhóm 4: Vovinam
+MERGE (:Course {id: 'PHT313', name: 'Vovinam 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT314', name: 'Vovinam 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT315', name: 'Vovinam 3', credits: 1, category: 'Thể chất'});
+// Nhóm 5: Bóng đá
+MERGE (:Course {id: 'PHT316', name: 'Bóng đá 1', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT317', name: 'Bóng đá 2', credits: 2, category: 'Thể chất'});
+MERGE (:Course {id: 'PHT318', name: 'Bóng đá 3', credits: 1, category: 'Thể chất'});
+
+// III.2. Giáo dục Quốc phòng và An ninh
+MERGE (:Course {id: 'NDF108', name: 'Quốc phòng, an ninh 1', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF109', name: 'Quốc phòng, an ninh 2', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF210', name: 'Quốc phòng, an ninh 3', credits: 0, category: 'Quốc phòng An ninh'});
+MERGE (:Course {id: 'NDF211', name: 'Quốc phòng, an ninh 4', credits: 0, category: 'Quốc phòng An ninh'});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 3: LIÊN KẾT MÔN HỌC VỚI NGÀNH                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+MATCH (c:Course), (m:Major {id: '7580302'})
+WHERE c.id IN [
+    'POS104', 'POS105', 'POS106', 'POS107', 'POS103', 'ENC120', 'ENC121', 'ENC122',
+    'ENC123', 'AIT129', 'ENS192', 'LAW106', 'SKL115', 'SKL116', 'MAT101', 'MAT118',
+    'SKL122', 'CET183', 'CET2037', 'CET284', 'MET1003', 'CET133', 'ARH1001', 'CET109',
+    'CET104', 'CET1031', 'CET1014', 'CET114', 'CET130', 'ENS1001', 'CET2039', 'CET278',
+    'ACC114', 'MAN1128', 'ECO102', 'LAW1010', 'FIN103', 'MAN105', 'MAN109', 'CET4032',
+    'CET4017', 'CET4033', 'CET4034', 'ENS5002', 'CET5035', 'MAN5129', 'MAN574', 'MAN444',
+    'MAN1130', 'MAN145', 'MAN248', 'FIN1015', 'ACC1001', 'MAR1018', 'LAW1011', 'MAN1131',
+    'PHT304', 'PHT305', 'PHT306', 'PHT307', 'PHT308', 'PHT309', 'PHT310', 'PHT311',
+    'PHT312', 'PHT313', 'PHT314', 'PHT315', 'PHT316', 'PHT317', 'PHT318', 'NDF108',
+    'NDF109', 'NDF210', 'NDF211'
+]
+MERGE (c)-[:BELONGS_TO]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 4: MÔN TIÊN QUYẾT (PREREQUISITE_FOR)                  ║
+// ║  Chiều: (Môn phải học trước)-[:PREREQUISITE_FOR]->(Môn sau)  ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+// --- Anh ngữ: chuỗi tiên quyết ---
+MATCH (a:Course {id: 'ENC120'}), (b:Course {id: 'ENC121'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC121'}), (b:Course {id: 'ENC122'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENC122'}), (b:Course {id: 'ENC123'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Kỹ năng ---
+MATCH (a:Course {id: 'SKL115'}), (b:Course {id: 'SKL116'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// --- Chuyên ngành ---
+MATCH (a:Course {id: 'CET114'}), (b:Course {id: 'CET278'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'CET114'}), (b:Course {id: 'CET4017'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+MATCH (a:Course {id: 'ENS1001'}), (b:Course {id: 'ENS5002'}) MERGE (a)-[:PREREQUISITE_FOR]->(b);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 5: MÔN SONG HÀNH (COREQUISITE_WITH)                   ║
+// ║  Thực hành/Đồ án đi đôi với lý thuyết                        ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+MATCH (a:Course {id: 'CET4032'}), (b:Course {id: 'CET284'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CET4033'}), (b:Course {id: 'CET278'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CET4034'}), (b:Course {id: 'FIN103'}) MERGE (a)-[:COREQUISITE_WITH]->(b);
+MATCH (a:Course {id: 'CET5035'}), (b:Course {id: 'ECO102'}) MERGE (a)-[:COREQUISITE_WITH]->(b);

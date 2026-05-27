@@ -1,0 +1,141 @@
+import { createFileRoute } from "@tanstack/react-router"
+import { User, Key, AlertTriangle } from "lucide-react"
+
+import ChangePassword from "@/components/UserSettings/ChangePassword"
+import DeleteAccount from "@/components/UserSettings/DeleteAccount"
+import UserInformation from "@/components/UserSettings/UserInformation"
+import { AvatarUpload } from "@/components/UserSettings/AvatarUpload"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import useAuth from "@/hooks/useAuth"
+<<<<<<< HEAD
+import { useTranslation } from "react-i18next"
+
+
+=======
+
+const tabsConfig = [
+  { 
+    value: "my-profile", 
+    title: "Hồ sơ của tôi", 
+    icon: User,
+    component: UserInformation 
+  },
+  { 
+    value: "password", 
+    title: "Mật khẩu", 
+    icon: Key,
+    component: ChangePassword 
+  },
+  { 
+    value: "danger-zone", 
+    title: "Vùng nguy hiểm", 
+    icon: AlertTriangle,
+    component: DeleteAccount 
+  },
+]
+>>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
+
+export const Route = createFileRoute("/_layout/settings")({
+  component: UserSettings,
+  head: () => ({
+    meta: [
+      {
+        title: "Cài đặt - EduGuide VN",
+      },
+    ],
+  }),
+})
+
+function UserSettings() {
+<<<<<<< HEAD
+  const { t } = useTranslation()
+  const { user: currentUser } = useAuth()
+  
+  const tabsConfig = [
+    { 
+      value: "my-profile", 
+      title: t("settings.tabProfile"), 
+      icon: User,
+      component: UserInformation 
+    },
+    { 
+      value: "password", 
+      title: t("settings.tabPassword"), 
+      icon: Key,
+      component: ChangePassword 
+    },
+    { 
+      value: "danger-zone", 
+      title: t("settings.tabDanger"), 
+      icon: AlertTriangle,
+      component: DeleteAccount 
+    },
+  ]
+
+=======
+  const { user: currentUser } = useAuth()
+>>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
+  const finalTabs = currentUser?.is_superuser
+    ? tabsConfig.slice(0, 3)
+    : tabsConfig
+
+  if (!currentUser) {
+    return null
+  }
+
+  const userInitials = currentUser.full_name
+    ? currentUser.full_name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+    : currentUser.email[0].toUpperCase()
+
+  return (
+    <div className="flex flex-col gap-8 max-w-5xl mx-auto py-4">
+      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between px-2">
+        <div className="flex items-center gap-5">
+          <AvatarUpload
+            userId={currentUser.id}
+            initials={userInitials}
+            size="lg"
+          />
+          <div>
+<<<<<<< HEAD
+            <h1 className="text-3xl font-bold tracking-tight">{t("settings.title")}</h1>
+            <p className="text-muted-foreground mt-1">
+              {t("settings.subtitle")}
+=======
+            <h1 className="text-3xl font-bold tracking-tight">Cài đặt tài khoản</h1>
+            <p className="text-muted-foreground mt-1">
+              Quản lý thông tin cá nhân và thiết lập bảo mật của bạn
+>>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <Tabs defaultValue="my-profile" className="w-full">
+        <TabsList className="mb-6 bg-muted/50 p-1">
+          {finalTabs.map((tab) => (
+            <TabsTrigger 
+              key={tab.value} 
+              value={tab.value}
+              className="px-6 py-2 gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all"
+            >
+              <tab.icon className="h-4 w-4" />
+              {tab.title}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        <div className="mt-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          {finalTabs.map((tab) => (
+            <TabsContent key={tab.value} value={tab.value}>
+              <tab.component />
+            </TabsContent>
+          ))}
+        </div>
+      </Tabs>
+    </div>
+  )
+}

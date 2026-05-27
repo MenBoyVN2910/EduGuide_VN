@@ -1,0 +1,49 @@
+// =============================================================================
+// THÔNG TIN TRƯỜNG ĐẠI HỌC VÀ LIÊN KẾT CÁC NGÀNH ĐÀO TẠO
+// Hệ thống: EduGuide_VN
+// Node gốc giúp AI trả lời về danh sách các ngành đào tạo của trường
+// =============================================================================
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 1: TẠO NODE TRƯỜNG ĐẠI HỌC                             ║
+// ╚══════════════════════════════════════════════════════════════╝
+MERGE (u:University {
+    id: 'HUTECH', 
+    name: 'Trường Đại học Công nghệ TP.HCM', 
+    abbreviation: 'HUTECH', 
+    address: '475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM',
+    website: 'https://www.hutech.edu.vn'
+});
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  PHẦN 2: LIÊN KẾT TẤT CẢ CÁC NGÀNH VỚI TRƯỜNG                ║
+// ╚══════════════════════════════════════════════════════════════╝
+// Câu lệnh này sẽ tự động tìm tất cả các Major có thuộc tính university là 'HUTECH'
+// và tạo quan hệ OFFERS (Cung cấp/Đào tạo) từ node Trường đến node Ngành.
+
+MATCH (u:University {id: 'HUTECH'})
+MATCH (m:Major)
+WHERE m.university = 'HUTECH'
+MERGE (u)-[:OFFERS]->(m);
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  DANH SÁCH CÁC MÃ NGÀNH ĐÃ ĐƯỢC LIÊN KẾT (18 Ngành)          ║
+// ╚══════════════════════════════════════════════════════════════╝
+// 1.  7480201 - Công nghệ thông tin
+// 2.  7580302 - Quản lý xây dựng
+// 3.  7340412 - Quản trị sự kiện
+// 4.  7210404 - Thiết kế thời trang
+// 5.  7340115 - Marketing
+// 6.  7210205 - Thanh nhạc
+// 7.  7310401 - Tâm lý học
+// 8.  7510605 - Logistics và quản lý chuỗi cung ứng
+// 9.  7340301 - Kế toán
+// 10. 7540101 - Công nghệ thực phẩm
+// 11. 7380101 - Luật
+// 12. 7510209 - Robot và trí tuệ nhân tạo
+// 13. 7640101 - Thú y
+// 14. 7340405 - Hệ thống thông tin quản lý
+// 15. 7480107 - Trí tuệ nhân tạo
+// 16. 7580101 - Kiến trúc
+// 17. 7480202 - An toàn thông tin
+// 18. 7340122 - Thương mại điện tử

@@ -1,0 +1,48 @@
+# PHÂN TÍCH CHI TIẾT CẤU TRÚC BACKEND (EDUGUIDE_VN)
+
+Dự án Backend được xây dựng dựa trên framework **FastAPI**, kết hợp với **SQLAlchemy** (cho dữ liệu người dùng) và **Neo4j** (cho kiến thức GraphRAG). Dưới đây là chức năng của từng thành phần:
+
+---
+
+## 1. THƯ MỤC GỐC BACKEND (ROOT)
+*   **Dockerfile**: Định nghĩa cách đóng gói Backend thành một container chạy độc lập.
+*   **alembic.ini**: Cấu hình cho việc nâng cấp/thay đổi cấu trúc cơ sở dữ liệu SQL (Migrations).
+*   **pyproject.toml**: Quản lý các thư viện Python (FastAPI, LangChain, OpenAI...) và cấu hình dự án.
+*   **.dockerignore / .gitignore**: Loại bỏ các file rác khi đóng gói hoặc lưu trữ trên Git.
+
+---
+
+## 2. THƯ MỤC MÃ NGUỒN CHÍNH (`app/`)
+Đây là nơi chứa toàn bộ logic xử lý của hệ thống.
+
+### A. Lớp API & Định tuyến (`app/api/`)
+*   **api/main.py**: Điểm tập trung, kết nối tất cả các nhánh đường dẫn (routes) lại với nhau.
+*   **api/deps.py**: Chứa các "Dependencies" (phụ thuộc) dùng chung như kiểm tra quyền đăng nhập, khởi tạo phiên làm việc với Database.
+*   **api/routes/chatbot.py**: **Quan trọng nhất.** Xử lý các yêu cầu chat từ người dùng, gửi đến hệ thống AI và trả về câu trả lời.
+*   **api/routes/login.py**: Xử lý đăng nhập và cấp quyền (token).
+*   **api/routes/users.py**: Quản lý thông tin người dùng (tạo mới, sửa, xóa).
+*   **api/routes/items.py & utils.py**: Các chức năng bổ trợ và quản lý dữ liệu mẫu.
+
+### B. Lớp Xử lý AI & Kiến thức (`app/services/`) - Trái tim của hệ thống
+*   **services/chat_agent.py**: Điều phối luồng xử lý: Nhận câu hỏi -> Phân tích ý định -> Truy vấn Graph -> Tổng hợp câu trả lời.
+*   **services/intent_classifier.py**: Sử dụng AI để hiểu người dùng đang muốn hỏi gì (hỏi về môn học, hỏi về học kỳ, hay tán gẫu).
+*   **services/cypher_generator.py**: Chuyển đổi câu hỏi tiếng Việt của người dùng thành truy vấn **Cypher** để tìm kiếm trên Neo4j.
+*   **services/answer_generator.py**: Nhận dữ liệu thô từ Neo4j và dùng LLM để viết thành một câu trả lời hoàn chỉnh, dễ hiểu cho người dùng.
+*   **services/schema_metadata.py**: Lưu trữ cấu trúc của Graph (các nút, quan hệ) để AI biết cách truy vấn đúng.
+
+### C. Lớp Cấu hình & Kết nối (`app/core/`)
+*   **core/config.py**: Đọc các thiết lập từ file `.env` (như URL của Database, Secret Key).
+*   **core/neo4j_db.py**: Quản lý kết nối và thực hiện các câu lệnh truy vấn tới cơ sở dữ liệu đồ thị **Neo4j**.
+*   **core/db.py**: Quản lý kết nối tới cơ sở dữ liệu SQL (PostgreSQL/SQLite) để lưu thông tin người dùng.
+*   **core/security.py**: Chứa các hàm mã hóa mật khẩu và tạo Token bảo mật.
+
+### D. Các file hỗ trợ khác
+*   **main.py**: File khởi chạy chính của toàn bộ ứng dụng FastAPI.
+*   **models.py**: Định nghĩa cấu trúc bảng trong SQL (Bảng User, Bảng Item).
+*   **crud.py**: Chứa các hàm cơ bản để Thêm/Sửa/Xóa dữ liệu trong SQL.
+*   **utils.py**: Các hàm tiện ích dùng chung (như gửi email, định dạng văn bản).
+*   **initial_data.py**: Script tạo dữ liệu ban đầu khi hệ thống mới cài đặt.
+*   **backend_pre_start.py**: Kiểm tra xem các Database đã sẵn sàng chưa trước khi khởi động App.
+
+---
+*Cập nhật lần cuối: 26/04/2026*
