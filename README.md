@@ -1,5 +1,5 @@
-# 📘 HƯỚNG DẪN VẬN HÀNH HỆ THỐNG EDUGUIDE VN
-
+# 📘 HƯỚNG DẪN VẬN HÀNH HỆ THỐNG EDUGUIDE VN | Cre By: BMN2910
+# Toàn Bộ Hệ Thống Được Thực Hiện Bởi: Bùi Minh Nhật(MenBoyVN)
 =====================================QUANG TRỌNG============================================================
 
 TẤT CẢ NHỮNG GÌ BẠN CẦN BIẾT VỀ HỆ THỐNG NẰM TRONG FILE ABOUT_SYSTEM
@@ -233,4 +233,4 @@ Ví dụ minh họa:
 
 ---
 
-_Tài liệu được cập nhật lần cuối vào tháng 04/2026 bởi Đội ngũ Phát triển EduGuide VN._
+_Tài liệu được cập nhật lần cuối vào tháng 05/2026 bởi Đội ngũ Phát triển EduGuide VN._
