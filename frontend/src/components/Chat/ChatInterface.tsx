@@ -3,15 +3,10 @@ import MessageList from "./MessageList"
 import ChatInput from "./ChatInput"
 import type { ChatMessageProps } from "./ChatMessage"
 import { useChatHistory } from "./ChatHistoryContext"
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
 
 const ChatInterface = () => {
   const { t } = useTranslation()
-=======
-
-const ChatInterface = () => {
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
   const { activeId, activeConversation, updateConversation } = useChatHistory()
   const [isLoading, setIsLoading] = useState(false)
   const prevActiveId = useRef(activeId)
@@ -63,11 +58,7 @@ const ChatInterface = () => {
       const errorResponse: ChatMessageProps = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-<<<<<<< HEAD
         content: t("chat.errorConn"),
-=======
-        content: "Xin lỗi, đã xảy ra lỗi kết nối đến Backend AI.",
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
       }
       updateConversation(activeId, [...updatedMessages, errorResponse])
     } finally {

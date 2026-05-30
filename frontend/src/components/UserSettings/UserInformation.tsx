@@ -4,10 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { User, Mail } from "lucide-react"
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 import { UsersService, type UserUpdateMe } from "@/client"
 import { Button } from "@/components/ui/button"
@@ -41,10 +38,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>
 
 const UserInformation = () => {
-<<<<<<< HEAD
   const { t } = useTranslation()
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
   const queryClient = useQueryClient()
   const { showSuccessToast, showErrorToast } = useCustomToast()
   const [editMode, setEditMode] = useState(false)
@@ -68,11 +62,7 @@ const UserInformation = () => {
     mutationFn: (data: UserUpdateMe) =>
       UsersService.updateUserMe({ requestBody: data }),
     onSuccess: () => {
-<<<<<<< HEAD
       showSuccessToast(t("settings.updateSuccess"))
-=======
-      showSuccessToast("Cập nhật thông tin thành công")
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
       toggleEditMode()
     },
     onError: handleError.bind(showErrorToast),
@@ -105,17 +95,10 @@ const UserInformation = () => {
       <CardHeader>
         <CardTitle className="text-xl flex items-center gap-2">
           <User className="h-5 w-5 text-primary" />
-<<<<<<< HEAD
           {t("settings.infoTitle")}
         </CardTitle>
         <CardDescription>
           {t("settings.infoSubtitle")}
-=======
-          Thông tin cá nhân
-        </CardTitle>
-        <CardDescription>
-          Cập nhật thông tin cơ bản của bạn tại đây.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -131,11 +114,7 @@ const UserInformation = () => {
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">
                     <User className="h-4 w-4 text-muted-foreground" />
-<<<<<<< HEAD
                     {t("settings.fullName")}
-=======
-                    Họ và tên
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                   </FormLabel>
                   {editMode ? (
                     <FormControl>
@@ -153,11 +132,7 @@ const UserInformation = () => {
                           !field.value && "text-muted-foreground",
                         )}
                       >
-<<<<<<< HEAD
                         {field.value || t("settings.notUpdated")}
-=======
-                        {field.value || "Chưa cập nhật"}
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                       </p>
                     </div>
                   )}
@@ -173,11 +148,7 @@ const UserInformation = () => {
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">
                     <Mail className="h-4 w-4 text-muted-foreground" />
-<<<<<<< HEAD
                     {t("settings.email")}
-=======
-                    Địa chỉ Email
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                   </FormLabel>
                   {editMode ? (
                     <FormControl>
@@ -205,11 +176,7 @@ const UserInformation = () => {
                     loading={mutation.isPending}
                     disabled={!form.formState.isDirty}
                   >
-<<<<<<< HEAD
                     {t("settings.saveChanges")}
-=======
-                    Lưu thay đổi
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                   </LoadingButton>
                   <Button
                     type="button"
@@ -217,11 +184,7 @@ const UserInformation = () => {
                     onClick={onCancel}
                     disabled={mutation.isPending}
                   >
-<<<<<<< HEAD
                     {t("settings.cancel")}
-=======
-                    Hủy bỏ
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                   </Button>
                 </>
               ) : (
@@ -230,11 +193,7 @@ const UserInformation = () => {
                   onClick={toggleEditMode}
                   className="px-8"
                 >
-<<<<<<< HEAD
                   {t("settings.edit")}
-=======
-                  Chỉnh sửa
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                 </Button>
               )}
             </div>

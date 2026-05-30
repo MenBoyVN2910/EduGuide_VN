@@ -1,9 +1,6 @@
 import { Link as RouterLink } from "@tanstack/react-router"
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react"
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -32,10 +29,7 @@ interface UserInfoProps {
 }
 
 function UserInfo({ fullName, email, avatarUrl }: UserInfoProps) {
-<<<<<<< HEAD
   const { t } = useTranslation()
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
   return (
     <div className="flex items-center gap-2.5 w-full min-w-0">
       <Avatar className="size-8">
@@ -43,11 +37,7 @@ function UserInfo({ fullName, email, avatarUrl }: UserInfoProps) {
           <AvatarImage src={avatarUrl} alt="Avatar" className="object-cover" />
         )}
         <AvatarFallback className="bg-zinc-600 text-white">
-<<<<<<< HEAD
           {getInitials(fullName || t("user.defaultName"))}
-=======
-          {getInitials(fullName || "User")}
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
         </AvatarFallback>
       </Avatar>
       <div className="flex flex-col items-start min-w-0">
@@ -59,10 +49,7 @@ function UserInfo({ fullName, email, avatarUrl }: UserInfoProps) {
 }
 
 export function User({ user }: { user: any }) {
-<<<<<<< HEAD
   const { t } = useTranslation()
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
   const { logout } = useAuth()
   const { isMobile, setOpenMobile } = useSidebar()
   const userId = useCurrentUserId()
@@ -108,20 +95,12 @@ export function User({ user }: { user: any }) {
             <RouterLink to="/settings" onClick={handleMenuClick}>
               <DropdownMenuItem>
                 <Settings />
-<<<<<<< HEAD
                 {t("user.settings")}
-=======
-                User Settings
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
               </DropdownMenuItem>
             </RouterLink>
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
-<<<<<<< HEAD
               {t("user.logout")}
-=======
-              Log Out
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

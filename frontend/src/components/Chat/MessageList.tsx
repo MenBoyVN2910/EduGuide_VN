@@ -2,17 +2,13 @@ import React, { useEffect, useRef } from "react"
 import type { ChatMessageProps } from "./ChatMessage"
 import ChatMessage from "./ChatMessage"
 import { BookOpen, GraduationCap, Link2, Search } from "lucide-react"
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 interface MessageListProps {
   messages: ChatMessageProps[]
   onSendMessage?: (text: string) => void
 }
 
-<<<<<<< HEAD
 const MessageList: React.FC<MessageListProps> = ({ messages, onSendMessage }) => {
   const { t } = useTranslation()
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -43,37 +39,6 @@ const MessageList: React.FC<MessageListProps> = ({ messages, onSendMessage }) =>
       text: t("chat.sample4Text")
     }
   ]
-=======
-const SAMPLES = [
-  {
-    icon: <BookOpen className="h-4 w-4 text-blue-500" />,
-    title: "Thông tin tổng quan",
-    description: "Tra cứu thông tin chung về ngành CNTT.",
-    text: "Ngành CNTT học bao nhiêu năm và có bao nhiêu tín chỉ?"
-  },
-  {
-    icon: <Search className="h-4 w-4 text-orange-500" />,
-    title: "Tra cứu chi tiết",
-    description: "Tìm hiểu thông số cụ thể của từng môn học.",
-    text: "Môn Lập trình hướng đối tượng có bao nhiêu tín chỉ?"
-  },
-  {
-    icon: <Link2 className="h-4 w-4 text-purple-500" />,
-    title: "Điều kiện tiên quyết",
-    description: "Kiểm tra các môn học cần hoàn thành trước.",
-    text: "Để học môn Lập trình Web thì cần hoàn thành môn nào trước?"
-  },
-  {
-    icon: <GraduationCap className="h-4 w-4 text-emerald-500" />,
-    title: "Tư vấn & Gợi ý",
-    description: "Nhận lời khuyên chọn môn học theo lộ trình.",
-    text: "Học kỳ này mình muốn học nhẹ, hãy gợi ý cho mình 3 môn ít tín chỉ nhất."
-  }
-]
-
-const MessageList: React.FC<MessageListProps> = ({ messages, onSendMessage }) => {
-  const bottomRef = useRef<HTMLDivElement>(null)
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
   useEffect(() => {
     if (bottomRef.current) {
@@ -87,17 +52,10 @@ const MessageList: React.FC<MessageListProps> = ({ messages, onSendMessage }) =>
         <div className="flex h-full flex-col items-center justify-center p-6 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
           <div className="mb-8 text-center max-w-2xl px-4">
             <h2 className="text-3xl font-extrabold tracking-tight mb-3 text-foreground/90 leading-tight">
-<<<<<<< HEAD
               {t("chat.welcomeTitle")} <span className="inline-block animate-bounce">👋</span>
             </h2>
             <p className="text-muted-foreground text-lg font-medium">
               {t("chat.welcomeSubtitle")}
-=======
-              Chào bạn <span className="inline-block animate-bounce">👋</span>
-            </h2>
-            <p className="text-muted-foreground text-lg font-medium">
-              Tôi là trợ lý ảo EduGuide. Tôi có thể giúp gì cho việc học của bạn hôm nay?
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
             </p>
           </div>
 

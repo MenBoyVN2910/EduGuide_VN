@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router"
 
 import { ChatHistoryProvider } from "@/components/Chat/ChatHistoryContext"
 import AppSidebar from "@/components/Sidebar/AppSidebar"
@@ -8,24 +8,23 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { useCurrentUserId } from "@/hooks/useCurrentUserId"
-<<<<<<< HEAD
 import { useTracking } from "@/hooks/useTracking"
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
+import { isLoggedIn } from "@/hooks/useAuth"
 
 export const Route = createFileRoute("/_layout")({
   component: Layout,
   beforeLoad: async () => {
-    // Tạm thời tắt check đăng nhập để xem UI Chatbot khi chưa có Backend
+    if (!isLoggedIn()) {
+      throw redirect({
+        to: "/login",
+      })
+    }
   },
 })
 
 function Layout() {
   const userId = useCurrentUserId()
-<<<<<<< HEAD
   useTracking()
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
   // Chờ userId được load xong trước khi render — đảm bảo dữ liệu đúng tài khoản
   if (!userId) {

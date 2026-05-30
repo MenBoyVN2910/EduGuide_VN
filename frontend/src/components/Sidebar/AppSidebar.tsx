@@ -2,10 +2,7 @@ import { Home, StickyNote, Users, LogIn } from "lucide-react"
 import { Link, useNavigate } from "@tanstack/react-router"
 
 import { SidebarAppearance } from "@/components/Common/Appearance"
-<<<<<<< HEAD
 import { SidebarLanguageSwitcher } from "@/components/Common/LanguageSwitcher"
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 import { Logo } from "@/components/Common/Logo"
 import { useChatHistory } from "@/components/Chat/ChatHistoryContext"
 import {
@@ -21,21 +18,12 @@ import useAuth from "@/hooks/useAuth"
 import { type Item, Main } from "./Main"
 import { User } from "./User"
 import { ChatHistoryList } from "./ChatHistoryList"
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
-=======
-
-const baseItems: Item[] = [
-  { icon: Home, title: "Dashboard", path: "/" },
-  { icon: StickyNote, title: "Ghi Chú", path: "/items" },
-]
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 export function AppSidebar() {
   const { user: currentUser } = useAuth()
   const { createConversation } = useChatHistory()
   const navigate = useNavigate()
-<<<<<<< HEAD
   const { t } = useTranslation()
 
   const baseItems: Item[] = [
@@ -45,11 +33,6 @@ export function AppSidebar() {
 
   const items = currentUser?.is_superuser
     ? [...baseItems, { icon: Users, title: t("sidebar.admin"), path: "/admin" }]
-=======
-
-  const items = currentUser?.is_superuser
-    ? [...baseItems, { icon: Users, title: "Admin", path: "/admin" }]
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
     : baseItems
 
   // Khi click logo → tạo cuộc trò chuyện mới + navigate về trang chat
@@ -68,10 +51,7 @@ export function AppSidebar() {
         <ChatHistoryList />
       </SidebarContent>
       <SidebarFooter>
-<<<<<<< HEAD
         <SidebarLanguageSwitcher />
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
         <SidebarAppearance />
         {currentUser ? (
           <User user={currentUser} />
@@ -85,13 +65,8 @@ export function AppSidebar() {
                       <LogIn className="h-4 w-4" />
                     </div>
                     <div className="flex flex-col items-start min-w-0">
-<<<<<<< HEAD
                       <p className="text-sm font-semibold truncate w-full text-sidebar-foreground">{t("sidebar.login")}</p>
                       <p className="text-xs text-sidebar-foreground/50 truncate w-full">{t("sidebar.syncData")}</p>
-=======
-                      <p className="text-sm font-semibold truncate w-full text-sidebar-foreground">Đăng nhập</p>
-                      <p className="text-xs text-sidebar-foreground/50 truncate w-full">Đồng bộ dữ liệu</p>
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                     </div>
                   </div>
                 </Link>

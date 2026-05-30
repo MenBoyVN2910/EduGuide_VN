@@ -1,10 +1,7 @@
 import { MessageSquare, Plus, Search, Trash2, X } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "@tanstack/react-router"
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 import { useChatHistory } from "@/components/Chat/ChatHistoryContext"
 import {
   SidebarGroup,
@@ -19,10 +16,7 @@ import {
 import { cn } from "@/lib/utils"
 
 export function ChatHistoryList() {
-<<<<<<< HEAD
   const { t } = useTranslation()
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
   const {
     conversations,
     activeId,
@@ -75,11 +69,7 @@ export function ChatHistoryList() {
       {/* Header: Label + nút search */}
       <div className="flex items-center justify-between pr-1">
         <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">
-<<<<<<< HEAD
           {t("chat.historyTitle")}
-=======
-          Lịch sử trò chuyện
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
         </SidebarGroupLabel>
         {!isCollapsed && (
           <button
@@ -91,11 +81,7 @@ export function ChatHistoryList() {
                 ? "text-primary bg-primary/10"
                 : "text-muted-foreground hover:text-foreground hover:bg-accent",
             )}
-<<<<<<< HEAD
             title={t("chat.searchTooltip")}
-=======
-            title="Tìm kiếm cuộc trò chuyện"
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
           >
             {showSearch ? <X size={14} /> : <Search size={14} />}
           </button>
@@ -111,11 +97,7 @@ export function ChatHistoryList() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-<<<<<<< HEAD
               placeholder={t("chat.searchPlaceholder")}
-=======
-              placeholder="Tìm cuộc trò chuyện..."
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
               autoFocus
               className="w-full bg-muted/40 border border-border rounded-lg py-1.5 pl-8 pr-3 text-xs focus:bg-muted/10 transition-all outline-none focus:ring-1 focus:ring-primary/30 focus:border-primary/30 placeholder:text-muted-foreground/60"
             />
@@ -128,20 +110,12 @@ export function ChatHistoryList() {
           {/* Nút tạo cuộc trò chuyện mới — dùng SidebarMenuButton để tự co lại */}
           <SidebarMenuItem>
             <SidebarMenuButton
-<<<<<<< HEAD
               tooltip={t("chat.newConversation")}
-=======
-              tooltip="Cuộc trò chuyện mới"
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
               onClick={handleNew}
               className="bg-primary/10 hover:bg-primary/20 text-primary font-medium"
             >
               <Plus size={15} className="shrink-0" />
-<<<<<<< HEAD
               <span>{t("chat.newConversation")}</span>
-=======
-              <span>Cuộc trò chuyện mới</span>
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
             </SidebarMenuButton>
           </SidebarMenuItem>
 
@@ -173,11 +147,7 @@ export function ChatHistoryList() {
                 <SidebarMenuAction
                   onClick={(e) => handleDelete(e, conv.id)}
                   className="opacity-0 group-hover/item:opacity-100 transition-opacity hover:text-destructive hover:bg-destructive/10"
-<<<<<<< HEAD
                   title={t("chat.deleteConversation")}
-=======
-                  title="Xóa cuộc trò chuyện"
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                 >
                   <Trash2 size={14} />
                 </SidebarMenuAction>
@@ -188,21 +158,13 @@ export function ChatHistoryList() {
           {/* Không tìm thấy kết quả */}
           {!isCollapsed && search.trim() && filteredConversations.length === 0 && (
             <p className="px-3 py-4 text-xs text-muted-foreground text-center">
-<<<<<<< HEAD
               {t("chat.noHistoryFound")}
-=======
-              Không tìm thấy cuộc trò chuyện nào
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
             </p>
           )}
 
           {!isCollapsed && !search.trim() && conversations.length === 0 && (
             <p className="px-3 py-4 text-xs text-muted-foreground text-center">
-<<<<<<< HEAD
               {t("chat.noHistory")}
-=======
-              Chưa có cuộc trò chuyện nào
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
             </p>
           )}
         </SidebarMenu>

@@ -3,7 +3,6 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-<<<<<<< HEAD
 import type { AnalyticsTrackVisitorData, AnalyticsTrackVisitorResponse, AnalyticsGetAnalyticsStatsResponse, AnalyticsGetVisitEventsData, AnalyticsGetVisitEventsResponse, ChatbotChatData, ChatbotChatResponse, ChatbotChatStreamData, ChatbotChatStreamResponse, ChatbotHealthResponse, ItemsReadItemsData, ItemsReadItemsResponse, ItemsCreateItemData, ItemsCreateItemResponse, ItemsReadItemData, ItemsReadItemResponse, ItemsUpdateItemData, ItemsUpdateItemResponse, ItemsDeleteItemData, ItemsDeleteItemResponse, KnowledgeGetKnowledgeStatsResponse, KnowledgeUploadKnowledgeDocumentData, KnowledgeUploadKnowledgeDocumentResponse, KnowledgeExecuteCypherData, KnowledgeExecuteCypherResponse, KnowledgeGetGraphDataData, KnowledgeGetGraphDataResponse, LoginLoginAccessTokenData, LoginLoginAccessTokenResponse, LoginTestTokenResponse, LoginRecoverPasswordData, LoginRecoverPasswordResponse, LoginResetPasswordData, LoginResetPasswordResponse, LoginRecoverPasswordHtmlContentData, LoginRecoverPasswordHtmlContentResponse, PrivateCreateUserData, PrivateCreateUserResponse, UsersReadUsersData, UsersReadUsersResponse, UsersCreateUserData, UsersCreateUserResponse, UsersReadUserMeResponse, UsersDeleteUserMeResponse, UsersUpdateUserMeData, UsersUpdateUserMeResponse, UsersUpdatePasswordMeData, UsersUpdatePasswordMeResponse, UsersRegisterUserData, UsersRegisterUserResponse, UsersReadUserByIdData, UsersReadUserByIdResponse, UsersUpdateUserData, UsersUpdateUserResponse, UsersDeleteUserData, UsersDeleteUserResponse, UtilsTestEmailData, UtilsTestEmailResponse, UtilsHealthCheckResponse } from './types.gen';
 
 export class AnalyticsService {
@@ -122,9 +121,6 @@ export class ChatbotService {
         });
     }
 }
-=======
-import type { ItemsReadItemsData, ItemsReadItemsResponse, ItemsCreateItemData, ItemsCreateItemResponse, ItemsReadItemData, ItemsReadItemResponse, ItemsUpdateItemData, ItemsUpdateItemResponse, ItemsDeleteItemData, ItemsDeleteItemResponse, LoginLoginAccessTokenData, LoginLoginAccessTokenResponse, LoginTestTokenResponse, LoginRecoverPasswordData, LoginRecoverPasswordResponse, LoginResetPasswordData, LoginResetPasswordResponse, LoginRecoverPasswordHtmlContentData, LoginRecoverPasswordHtmlContentResponse, PrivateCreateUserData, PrivateCreateUserResponse, UsersReadUsersData, UsersReadUsersResponse, UsersCreateUserData, UsersCreateUserResponse, UsersReadUserMeResponse, UsersDeleteUserMeResponse, UsersUpdateUserMeData, UsersUpdateUserMeResponse, UsersUpdatePasswordMeData, UsersUpdatePasswordMeResponse, UsersRegisterUserData, UsersRegisterUserResponse, UsersReadUserByIdData, UsersReadUserByIdResponse, UsersUpdateUserData, UsersUpdateUserResponse, UsersDeleteUserData, UsersDeleteUserResponse, UtilsTestEmailData, UtilsTestEmailResponse, UtilsHealthCheckResponse } from './types.gen';
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 export class ItemsService {
     /**
@@ -237,7 +233,6 @@ export class ItemsService {
     }
 }
 
-<<<<<<< HEAD
 export class KnowledgeService {
     /**
      * Get Knowledge Stats
@@ -319,12 +314,6 @@ export class LoginService {
     /**
      * Login Access Token
      * Đăng nhập bằng OAuth2 tương thích, lấy Access Token cho các yêu cầu sau này.
-=======
-export class LoginService {
-    /**
-     * Login Access Token
-     * OAuth2 compatible token login, get an access token for future requests
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.formData
      * @returns Token Successful Response
@@ -344,11 +333,7 @@ export class LoginService {
     
     /**
      * Test Token
-<<<<<<< HEAD
      * Kiểm tra tính hợp lệ của Access Token hiện tại.
-=======
-     * Test access token
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @returns UserPublic Successful Response
      * @throws ApiError
      */
@@ -361,12 +346,8 @@ export class LoginService {
     
     /**
      * Recover Password
-<<<<<<< HEAD
      * Yêu cầu phục hồi mật khẩu qua Email.
      * Hệ thống sẽ tạo mật khẩu mới và gửi về email.
-=======
-     * Password Recovery
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.email
      * @returns Message Successful Response
@@ -387,11 +368,7 @@ export class LoginService {
     
     /**
      * Reset Password
-<<<<<<< HEAD
      * Đặt lại mật khẩu mới bằng Token đã nhận được từ email.
-=======
-     * Reset password
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.requestBody
      * @returns Message Successful Response
@@ -411,11 +388,7 @@ export class LoginService {
     
     /**
      * Recover Password Html Content
-<<<<<<< HEAD
      * Lấy nội dung HTML của email phục hồi mật khẩu (Chỉ dành cho Admin).
-=======
-     * HTML Content for Password Recovery
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.email
      * @returns string Successful Response
@@ -460,11 +433,7 @@ export class PrivateService {
 export class UsersService {
     /**
      * Read Users
-<<<<<<< HEAD
      * Lấy danh sách người dùng (Chỉ dành cho Admin).
-=======
-     * Retrieve users.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.skip
      * @param data.limit
@@ -487,11 +456,7 @@ export class UsersService {
     
     /**
      * Create User
-<<<<<<< HEAD
      * Tạo người dùng mới (Chỉ dành cho Admin).
-=======
-     * Create new user.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.requestBody
      * @returns UserPublic Successful Response
@@ -511,11 +476,7 @@ export class UsersService {
     
     /**
      * Read User Me
-<<<<<<< HEAD
      * Lấy thông tin của người dùng hiện tại đang đăng nhập.
-=======
-     * Get current user.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @returns UserPublic Successful Response
      * @throws ApiError
      */
@@ -528,11 +489,7 @@ export class UsersService {
     
     /**
      * Delete User Me
-<<<<<<< HEAD
      * Tự xóa tài khoản của chính mình.
-=======
-     * Delete own user.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @returns Message Successful Response
      * @throws ApiError
      */
@@ -545,11 +502,7 @@ export class UsersService {
     
     /**
      * Update User Me
-<<<<<<< HEAD
      * Cập nhật thông tin cá nhân của người dùng đang đăng nhập.
-=======
-     * Update own user.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.requestBody
      * @returns UserPublic Successful Response
@@ -569,11 +522,7 @@ export class UsersService {
     
     /**
      * Update Password Me
-<<<<<<< HEAD
      * Cập nhật mật khẩu cá nhân.
-=======
-     * Update own password.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.requestBody
      * @returns Message Successful Response
@@ -593,11 +542,7 @@ export class UsersService {
     
     /**
      * Register User
-<<<<<<< HEAD
      * Đăng ký tài khoản mới (Công khai).
-=======
-     * Create new user without the need to be logged in.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.requestBody
      * @returns UserPublic Successful Response
@@ -617,11 +562,7 @@ export class UsersService {
     
     /**
      * Read User By Id
-<<<<<<< HEAD
      * Lấy thông tin người dùng cụ thể theo ID.
-=======
-     * Get a specific user by id.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.userId
      * @returns UserPublic Successful Response
@@ -642,11 +583,7 @@ export class UsersService {
     
     /**
      * Update User
-<<<<<<< HEAD
      * Cập nhật thông tin người dùng bất kỳ (Chỉ dành cho Admin).
-=======
-     * Update a user.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.userId
      * @param data.requestBody
@@ -670,11 +607,7 @@ export class UsersService {
     
     /**
      * Delete User
-<<<<<<< HEAD
      * Xóa một người dùng (Chỉ dành cho Admin).
-=======
-     * Delete a user.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
      * @param data The data for the request.
      * @param data.userId
      * @returns Message Successful Response

@@ -11,10 +11,7 @@ import { ApiError, OpenAPI } from "./client"
 import { ThemeProvider } from "./components/theme-provider"
 import { Toaster } from "./components/ui/sonner"
 import "./index.css"
-<<<<<<< HEAD
 import "./i18n"
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 import { routeTree } from "./routeTree.gen"
 
 OpenAPI.BASE = import.meta.env.VITE_API_URL
@@ -23,9 +20,13 @@ OpenAPI.TOKEN = async () => {
 }
 
 const handleApiError = (error: Error) => {
-  if (error instanceof ApiError && [401, 403].includes(error.status)) {
-    localStorage.removeItem("access_token")
-    window.location.href = "/login"
+  if (error instanceof ApiError) {
+    const isUnauthorized = [401, 403].includes(error.status)
+    const isUserNotFound = error.status === 404 && error.url.includes("/api/v1/users/me")
+    if (isUnauthorized || isUserNotFound) {
+      localStorage.removeItem("access_token")
+      window.location.href = "/login"
+    }
   }
 }
 const queryClient = new QueryClient({

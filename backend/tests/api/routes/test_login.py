@@ -60,7 +60,7 @@ def test_recovery_password(
         )
         assert r.status_code == 200
         assert r.json() == {
-            "message": "If that email is registered, we sent a password recovery link"
+            "message": "Mật khẩu mới đã được tạo và gửi đến email của bạn."
         }
 
 
@@ -72,10 +72,10 @@ def test_recovery_password_user_not_exits(
         f"{settings.API_V1_STR}/password-recovery/{email}",
         headers=normal_user_token_headers,
     )
-    # Should return 200 with generic message to prevent email enumeration attacks
-    assert r.status_code == 200
+    # Email không tồn tại → API trả về 404
+    assert r.status_code == 404
     assert r.json() == {
-        "message": "If that email is registered, we sent a password recovery link"
+        "detail": "Người dùng với email này không tồn tại trong hệ thống."
     }
 
 
@@ -103,7 +103,7 @@ def test_reset_password(client: TestClient, db: Session) -> None:
     )
 
     assert r.status_code == 200
-    assert r.json() == {"message": "Password updated successfully"}
+    assert r.json() == {"message": "Cập nhật mật khẩu thành công."}
 
     db.refresh(user)
     verified, _ = verify_password(new_password, user.hashed_password)
@@ -123,7 +123,7 @@ def test_reset_password_invalid_token(
 
     assert "detail" in response
     assert r.status_code == 400
-    assert response["detail"] == "Invalid token"
+    assert response["detail"] == "Token không hợp lệ hoặc đã hết hạn."
 
 
 def test_login_with_bcrypt_password_upgrades_to_argon2(

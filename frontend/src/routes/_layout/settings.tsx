@@ -7,33 +7,9 @@ import UserInformation from "@/components/UserSettings/UserInformation"
 import { AvatarUpload } from "@/components/UserSettings/AvatarUpload"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import useAuth from "@/hooks/useAuth"
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
 
 
-=======
-
-const tabsConfig = [
-  { 
-    value: "my-profile", 
-    title: "Hồ sơ của tôi", 
-    icon: User,
-    component: UserInformation 
-  },
-  { 
-    value: "password", 
-    title: "Mật khẩu", 
-    icon: Key,
-    component: ChangePassword 
-  },
-  { 
-    value: "danger-zone", 
-    title: "Vùng nguy hiểm", 
-    icon: AlertTriangle,
-    component: DeleteAccount 
-  },
-]
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 export const Route = createFileRoute("/_layout/settings")({
   component: UserSettings,
@@ -47,7 +23,6 @@ export const Route = createFileRoute("/_layout/settings")({
 })
 
 function UserSettings() {
-<<<<<<< HEAD
   const { t } = useTranslation()
   const { user: currentUser } = useAuth()
   
@@ -72,9 +47,6 @@ function UserSettings() {
     },
   ]
 
-=======
-  const { user: currentUser } = useAuth()
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
   const finalTabs = currentUser?.is_superuser
     ? tabsConfig.slice(0, 3)
     : tabsConfig
@@ -101,15 +73,9 @@ function UserSettings() {
             size="lg"
           />
           <div>
-<<<<<<< HEAD
             <h1 className="text-3xl font-bold tracking-tight">{t("settings.title")}</h1>
             <p className="text-muted-foreground mt-1">
               {t("settings.subtitle")}
-=======
-            <h1 className="text-3xl font-bold tracking-tight">Cài đặt tài khoản</h1>
-            <p className="text-muted-foreground mt-1">
-              Quản lý thông tin cá nhân và thiết lập bảo mật của bạn
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
             </p>
           </div>
         </div>

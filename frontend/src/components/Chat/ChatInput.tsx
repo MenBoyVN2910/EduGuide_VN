@@ -1,10 +1,7 @@
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import { Sparkles, Mic, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next";
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 // Web Speech API type declarations
 interface ISpeechRecognition extends EventTarget {
@@ -33,10 +30,7 @@ interface ChatInputProps {
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({ onSend, isLoading }) => {
-<<<<<<< HEAD
   const { t } = useTranslation();
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
   const [input, setInput] = React.useState("");
   const [isListening, setIsListening] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -93,13 +87,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, isLoading }) => {
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognitionAPI) {
-<<<<<<< HEAD
       alert(t("chat.speechNotSupported"));
-=======
-      alert(
-        "Trình duyệt của bạn không hỗ trợ nhận diện giọng nói. Vui lòng sử dụng Chrome hoặc Edge.",
-      );
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
       return;
     }
 
@@ -151,13 +139,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, isLoading }) => {
     recognition.onerror = (event: any) => {
       console.error("Speech recognition error:", event.error);
       if (event.error === "not-allowed") {
-<<<<<<< HEAD
         alert(t("chat.speechNoMic"));
-=======
-        alert(
-          "Bạn cần cấp quyền truy cập Micro cho trình duyệt để sử dụng tính năng này.",
-        );
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
       }
       setIsListening(false);
     };
@@ -183,11 +165,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, isLoading }) => {
                 : "text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
             type="button"
-<<<<<<< HEAD
             aria-label={isListening ? t("chat.stopRecord") : t("chat.startRecord")}
-=======
-            aria-label={isListening ? "Dừng ghi âm" : "Nhập bằng giọng nói"}
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
             onClick={toggleVoice}
           >
             {isListening ? (
@@ -202,11 +180,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, isLoading }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-<<<<<<< HEAD
           placeholder={t("chat.inputPlaceholder")}
-=======
-          placeholder="Hỏi bất kỳ điều gì"
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
           className="max-h-[200px] min-h-[52px] flex-1 resize-none border-0 bg-transparent py-3.5 pl-1 pr-14 text-[15px] leading-6 text-foreground placeholder:text-muted-foreground focus:ring-0 focus-visible:ring-0 outline-none"
           rows={1}
           disabled={isLoading}
@@ -247,11 +221,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, isLoading }) => {
         </div>
       </div>
       <div className="text-center text-[11px] text-muted-foreground pb-1">
-<<<<<<< HEAD
         {t("chat.warning")}
-=======
-        EduGuide có thể mắc lỗi. Hãy kiểm tra các thông tin quan trọng.
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
       </div>
     </div>
   );

@@ -1,9 +1,6 @@
 import uuid
 from datetime import datetime, timezone
-<<<<<<< HEAD
 from typing import Any
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 from pydantic import EmailStr
 from sqlalchemy import DateTime
@@ -136,7 +133,6 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=128)
-<<<<<<< HEAD
 
 
 # ── Visitor & Analytics Models ──────────────────────────────────────
@@ -222,5 +218,3 @@ class GraphRelationship(SQLModel):
 class GraphData(SQLModel):
     nodes: list[GraphNode]
     links: list[GraphRelationship]
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113

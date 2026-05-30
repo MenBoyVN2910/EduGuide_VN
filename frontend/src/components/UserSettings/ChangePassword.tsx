@@ -4,10 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Key, Lock, ShieldCheck, CheckCircle2 } from "lucide-react"
-<<<<<<< HEAD
 import { useTranslation } from "react-i18next"
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
 
 import { type UpdatePassword, UsersService, LoginService } from "@/client"
 import {
@@ -65,10 +62,7 @@ type ChangeFormData = z.infer<typeof changeSchema>
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const ChangePassword = () => {
-<<<<<<< HEAD
   const { t } = useTranslation()
-=======
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
   const { showSuccessToast, showErrorToast } = useCustomToast()
   const { user: currentUser } = useAuth()
 
@@ -99,15 +93,9 @@ const ChangePassword = () => {
       setIsVerified(true)
     },
     onError: () => {
-<<<<<<< HEAD
       showErrorToast(t("settings.currPwdIncorrect"))
       verifyForm.setError("current_password", {
         message: t("settings.pwdIncorrect"),
-=======
-      showErrorToast("Mật khẩu hiện tại không đúng. Vui lòng thử lại.")
-      verifyForm.setError("current_password", {
-        message: "Mật khẩu không đúng",
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
       })
     },
   })
@@ -128,11 +116,7 @@ const ChangePassword = () => {
     mutationFn: (data: UpdatePassword) =>
       UsersService.updatePasswordMe({ requestBody: data }),
     onSuccess: () => {
-<<<<<<< HEAD
       showSuccessToast(t("settings.pwdUpdateSuccess"))
-=======
-      showSuccessToast("Cập nhật mật khẩu thành công")
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
       changeForm.reset()
       // Reset về Step 1 cho lần đổi tiếp theo
       setIsVerified(false)
@@ -163,21 +147,12 @@ const ChangePassword = () => {
       <CardHeader>
         <CardTitle className="text-xl flex items-center gap-2">
           <Key className="h-5 w-5 text-primary" />
-<<<<<<< HEAD
           {t("settings.changePwdTitle")}
         </CardTitle>
         <CardDescription>
           {isVerified
             ? t("settings.verifySuccessMsg")
             : t("settings.verifyPrompt")
-=======
-          Đổi mật khẩu
-        </CardTitle>
-        <CardDescription>
-          {isVerified
-            ? "Xác minh thành công! Bây giờ bạn có thể đặt mật khẩu mới."
-            : "Vui lòng xác minh mật khẩu hiện tại trước khi đổi mật khẩu mới."
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
           }
         </CardDescription>
       </CardHeader>
@@ -196,20 +171,12 @@ const ChangePassword = () => {
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">
                       <Lock className="h-4 w-4 text-muted-foreground" />
-<<<<<<< HEAD
                       {t("settings.currPwd")}
-=======
-                      Mật khẩu hiện tại
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
                         data-testid="current-password-input"
-<<<<<<< HEAD
                         placeholder={t("settings.currPwdPlaceholder")}
-=======
-                        placeholder="Nhập mật khẩu hiện tại để xác minh..."
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                         aria-invalid={fieldState.invalid}
                         className="bg-muted/30 focus-visible:bg-background transition-colors"
                         {...field}
@@ -227,11 +194,7 @@ const ChangePassword = () => {
                   className="px-8"
                 >
                   <ShieldCheck className="h-4 w-4 mr-2" />
-<<<<<<< HEAD
                   {t("settings.verifyPwdBtn")}
-=======
-                  Xác minh mật khẩu
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                 </LoadingButton>
               </div>
             </form>
@@ -242,11 +205,7 @@ const ChangePassword = () => {
             {/* Badge xác minh thành công */}
             <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-4 py-2.5 rounded-xl border border-emerald-500/20">
               <CheckCircle2 className="h-4 w-4 shrink-0" />
-<<<<<<< HEAD
               <span className="font-medium">{t("settings.pwdVerifiedSuccess")}</span>
-=======
-              <span className="font-medium">Mật khẩu đã được xác minh thành công</span>
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
             </div>
 
             <Form {...changeForm}>
@@ -261,11 +220,7 @@ const ChangePassword = () => {
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
                         <ShieldCheck className="h-4 w-4 text-muted-foreground" />
-<<<<<<< HEAD
                         {t("settings.newPwd")}
-=======
-                        Mật khẩu mới
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                       </FormLabel>
                       <FormControl>
                         <PasswordInput
@@ -288,11 +243,7 @@ const ChangePassword = () => {
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
                         <Lock className="h-4 w-4 text-muted-foreground" />
-<<<<<<< HEAD
                         {t("settings.confirmNewPwd")}
-=======
-                        Xác nhận mật khẩu mới
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                       </FormLabel>
                       <FormControl>
                         <PasswordInput
@@ -314,11 +265,7 @@ const ChangePassword = () => {
                     loading={changeMutation.isPending}
                     className="px-8"
                   >
-<<<<<<< HEAD
                     {t("settings.updatePwdBtn")}
-=======
-                    Cập nhật mật khẩu
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                   </LoadingButton>
                   <Button
                     type="button"
@@ -326,11 +273,7 @@ const ChangePassword = () => {
                     onClick={handleBack}
                     disabled={changeMutation.isPending}
                   >
-<<<<<<< HEAD
                     {t("settings.goBack")}
-=======
-                    Quay lại
->>>>>>> a49a2d64878229f1071c2e2e32f0d609a5bf0113
                   </Button>
                 </div>
               </form>
