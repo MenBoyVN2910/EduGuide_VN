@@ -50,9 +50,9 @@ def send_email(
         smtp_options["tls"] = True
     elif settings.SMTP_SSL:
         smtp_options["ssl"] = True
-    if settings.SMTP_USER:
+    if settings.SMTP_USER and settings.SMTP_HOST != "mailcatcher":
         smtp_options["user"] = settings.SMTP_USER
-    if settings.SMTP_PASSWORD:
+    if settings.SMTP_PASSWORD and settings.SMTP_HOST != "mailcatcher":
         smtp_options["password"] = settings.SMTP_PASSWORD
     response = message.send(to=email_to, smtp=smtp_options)
     logger.info(f"Kết quả gửi email: {response}")

@@ -139,6 +139,7 @@ export function NoteViewModal({ note, open, onClose, onSave, onDelete }: NoteVie
                         type="button"
                         variant="ghost"
                         size="sm"
+                        data-testid="delete-note-button"
                         className="h-9 rounded-xl px-4 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                         onClick={() => {
                            onDelete(note.id);
